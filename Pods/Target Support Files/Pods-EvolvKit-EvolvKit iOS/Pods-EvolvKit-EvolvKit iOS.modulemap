@@ -1,0 +1,6 @@
+framework module Pods_EvolvKit_EvolvKit_iOS {
+  umbrella header "Pods-EvolvKit-EvolvKit iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

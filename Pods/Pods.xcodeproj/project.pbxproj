@@ -1,0 +1,1977 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		043115A081A2A0621932949DDA732559 /* UIViewPropertyAnimator+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF302D2B120CA82B9DEF6D929EED3B44 /* UIViewPropertyAnimator+Promise.swift */; };
+		07D21C11FFEA3A1B9D9979E7B1E6F540 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = A797BF648EEDE9A60AD2E26276A95732 /* Promise.swift */; };
+		0C5E11DE24DAA737704B355F5F2F3426 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C4129E215FE597749F9E954BB8B2EE /* ParameterEncoding.swift */; };
+		0D7C687B725CE056F70626678DF4ECAF /* Pods-EvolvKit iOS Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F632A56D5AABA0B6227174BAB6EA8A38 /* Pods-EvolvKit iOS Tests-dummy.m */; };
+		0FC69F76FDE3AC790778D161FBCC5DE2 /* EvolvAllocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AAB940040082702E6E119E8CF43290 /* EvolvAllocationStore.swift */; };
+		132E0F619E4338E5D1B27E4C72076B3F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABBF1B751B1C70F802BD698F03D6439 /* Notifications.swift */; };
+		1406FFD1CEEBC819CCF57AC8FE1799A6 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF33F2E0C3B6E35A6B1C8BDC344E0EC /* PromiseKit.framework */; };
+		17B81EDF033AEE3FAFB70ABF81B1C3E4 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50995DF8BF2BADB6D05F911AC41FF67F /* Configuration.swift */; };
+		1945CD5D63A1C164AEAAA9A33E85571E /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E89FF9F07A432BB7BB1ED63D4F7CA5CB /* Alamofire-dummy.m */; };
+		1986B50C74F1697EA43F68335C93CEB3 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B182C67F63FF6F5FA65556197FFE1E /* MultipartFormData.swift */; };
+		19D3B8E2D9BF2F290B61C0D08815554C /* EvolvKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E43047FBAE0A3981925D9DB722D4F888 /* EvolvKit-dummy.m */; };
+		1AA82F5183F8AEBD306AEEF2E6C796BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		1B66385578EDF60DBD196C660E03FA52 /* UIViewController+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 85CD750C033D2AF17ABD36DE91136872 /* UIViewController+AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CE0FBD4AADA9E757B388FBBA88ADE6 /* DefaultEvolvClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D4EAE442E05437390C2CF43D152E7 /* DefaultEvolvClient.swift */; };
+		2ADADC115478C565061B0E4C6CB2A094 /* EvolvParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5267BE356629B98D06E2A3C3648B8580 /* EvolvParticipant.swift */; };
+		2C61B040BA6A9A7AE66C4D9BA26D5520 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495590E24615E4E1C9D3ADC104AD3BF0 /* SessionDelegate.swift */; };
+		2D2C061C206E4F98E41ED0B7FA8937B5 /* EvolvRawAllocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69ACC06A8345855A5F9DB7AD8E3C753 /* EvolvRawAllocation.swift */; };
+		2E2B948E6F69F7B6640F22EA2A37419A /* fwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 489486F942D1598245986C2AF4CAB69E /* fwd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		305418D4AB2A4DC01B7A6BBEB33468EE /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7F2FF17D6C45614B5D79DD2A7977C4 /* Error.swift */; };
+		3280B39DFFBC4D15AE38B0C727EF8C9E /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0E6D60C9D67FC59C9DBF3DBECB9DF /* NSURLSession+Promise.swift */; };
+		34A247969ACF64CDEE320FF017BA00EB /* Pods-EvolvKit-EvolvKit iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B1F1D13C0B3B513097FA6A4990682BE /* Pods-EvolvKit-EvolvKit iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B4158B5BD4635637D0D3BE9E7A7B2C /* NSTask+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 3219BC79B94D6A8FEF41099DEE4B2EC1 /* NSTask+AnyPromise.m */; };
+		3571F958A3907B3A806E62D50C2550D4 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80692F6FECD53FB6ECEF4DF927DF36D3 /* NetworkReachabilityManager.swift */; };
+		363A7463712DC45F781D2068CDC855D3 /* Pods-EvolvKit-EvolvKit iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 350BE4C4648B89B7B6FE9DD8CE431C09 /* Pods-EvolvKit-EvolvKit iOS-dummy.m */; };
+		3AA41B6BBE93CB8DA63C1E2BAF5EEE7F /* UIViewController+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 732E617A73DDD46E960BF25D8B66AFC7 /* UIViewController+AnyPromise.m */; };
+		40A3DD442F48A3CBB5CBBEDAB035EBB9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		414208E2405A39A005E6C9B4AB1B5D88 /* AnyPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900B8D03CB3953EFB72AB34D01442BA6 /* AnyPromise.swift */; };
+		472D71E7849CFAD8281BD971940F344C /* EvolvRawAllocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F4C34D83B2CE6FD624DED6E60769B5 /* EvolvRawAllocationNode.swift */; };
+		4ACC6B364D791EEBA6109AB75C2258D2 /* Guarantee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919796252A8D0084955BD6952259A10E /* Guarantee.swift */; };
+		4DB86A13DA526CB1636D488AEC52894C /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B264AC512D56405C8BED84359D0A0427 /* Box.swift */; };
+		50013C33D35EBAF31ACF3A8B3A9A3FB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		512313604C46FE210609AF3AAAE9AA27 /* NSTask+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 07939768889E42E72685A9C3CCDE93D6 /* NSTask+AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53791F5E5F07400F92CFDFC89A432305 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8A4EDB78DA6674BDC4462E614D17A /* Validation.swift */; };
+		53D5B727251CD2296368C3CAFD441AF2 /* after.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEC9FE73E55832EE2FC2A469DDDD20B /* after.m */; };
+		53FA4A5823DDD02F93C06348AD96D5F8 /* AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C3601350C724F79DA3E624E7E83C95 /* AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		556459B49B1364FE35FEE26DF6DD43CF /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9B13C682824844C2D74E8803DD30C /* Resolver.swift */; };
+		56E6068B2F2A2D153BE61A7B5505F351 /* NSURLSession+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = F20BA2D89F844D3AD1BABE8B6890100A /* NSURLSession+AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58F4901E8058F970B2BDC90E57D69F00 /* EvolvClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF70B611A3FE8A2350F8E7486513D1B /* EvolvClientFactory.swift */; };
+		590DEA5A5BF32AA5A85D380CC31A560E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		5D8B3B6D4144AA9E90B302EB53806BF1 /* NSURLSession+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C26D82A5B0A36ED8FEFBAAF11D43A6 /* NSURLSession+AnyPromise.m */; };
+		60600D7F0ED6E807861DB0FB61C6D8F1 /* UIView+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 418D6F71F73BF3D6AA2698972C18DAD1 /* UIView+AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		64744C911253C3E01461FAD7C935C8D7 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6F2A95DA532F24207FC366216D66A /* Result.swift */; };
+		6846527DB87AD5ED229B41EBDCAE1DA3 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463367078EF44837CAE2B7E8D9232E7 /* Deprecations.swift */; };
+		68816AED717989964EAEFD88B481D369 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41415CDBB9B38C4D3B1EA32AFA2546F5 /* UIKit.framework */; };
+		69EE416E6F9FEEAFAD5EA79A3A8BC240 /* PromiseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B38B1DFAA8547991209A64F03959E2 /* PromiseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A0B59E5B77C1877A839B5AF7786087F /* race.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CAEF3082039BBA9C50A335111C2CBA8 /* race.m */; };
+		6B5F0A27BA5ECE6CDB047CC8328AA6F8 /* AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0CE32AEB8B711DC977FF81F5C720D7 /* AnyPromise.m */; };
+		6C162DCB246D106923EC3A8E232A6F9B /* EvolvEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C500883F6DEA04EB9507BDA836541D /* EvolvEventEmitter.swift */; };
+		710978E65F8D084E07ACB09764ED2B74 /* Pods-EvolvKit-ExampleObjC-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1323A4AB96B3C9C00C2E4EA914753777 /* Pods-EvolvKit-ExampleObjC-dummy.m */; };
+		7C73258BF13639C92F1162C76340EEF5 /* EvolvKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 28CB9711EC4C9D1C899C1D5C2691402B /* EvolvKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C7E6786B4354E7FCBFC32D89077A257 /* PMKUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = BDD058956DA8F45C2E0F1DDAAEF1B6E0 /* PMKUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7E5436DA0FDE3666C187C3B4C5990E82 /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34421E93CE46771004237513188715 /* LogEvent.swift */; };
+		7FBB4728E13E6BB942EF3ABBC78C6FBF /* hang.m in Sources */ = {isa = PBXBuildFile; fileRef = 681E3BC4280EB27C6B7FEE17F0ACE986 /* hang.m */; };
+		83956E20859CDBBE7BC38ABADE0170FB /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC0B846FCE3330C831185BFD8E3D713 /* AFError.swift */; };
+		84483C112B6060251CF16FDFFF8CEAEE /* Pods-EvolvKit-Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEBFEE993CFFE66BC92BDD8F47653F0 /* Pods-EvolvKit-Example-dummy.m */; };
+		84CF6385C265CD43F296D49ECA7A4B25 /* when.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E7986BE5E80822B7DDD734BE2A3BE5 /* when.m */; };
+		84EF0006BF9E6FB82DA3B171E293A15E /* EvolvExecution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B0E25FC137F5998E13AFE9D33B0470 /* EvolvExecution.swift */; };
+		8554AE4038C559B986B4D7EAAAC744AE /* PromiseKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F020FC4AAD604C4CC6707AD21C3AC15F /* PromiseKit-dummy.m */; };
+		8999D331FB6DEBB72BD70B507E3A9F0A /* NSNotificationCenter+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F18E24CA833908B0A77DA888696201 /* NSNotificationCenter+Promise.swift */; };
+		8D913D7287EA6620B313C9F25422604B /* afterlife.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053E3306E41E397716F677FE6A433661 /* afterlife.swift */; };
+		931BBB8230A25161D5C37528A8F9FECF /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D885F9B3402CF691C93238EFEF0E4B6F /* SessionManager.swift */; };
+		933FDA5970AA525D6CB92BFEBA2BAB4A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC8E50FD32CDC3FD350E5EFCA448A01 /* Timeline.swift */; };
+		946D6F8C9787F81919FDFB5F06169B9F /* join.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A385114490C638BAC35C03EEDAAFA88 /* join.m */; };
+		94CE1B2318FF5EC7E8297407C7262EAD /* NSNotificationCenter+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 2539293ADBB1665475E2BAAAF6A95E5C /* NSNotificationCenter+AnyPromise.m */; };
+		959E1D96D40080684BD7353A69380E50 /* UIView+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B065B1E089F2B1E9F93B59F781FFF /* UIView+AnyPromise.m */; };
+		98A929C8E9012AB167672714FFD2113C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E2DDE8135A2454658F4B672D859798 /* Request.swift */; };
+		9BDB4BB1CC067D60C09B7EA5B6E8B253 /* NSObject+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F083E6745BD3BE74B599DA3F8A68AB00 /* NSObject+Promise.swift */; };
+		9CEA11460D640EBCF09D90C17C93E41C /* after.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A86948912702E756659AAABB2146D /* after.swift */; };
+		9D312B49C76F687BB9BA9F1B77764280 /* Process+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AE9D618133772D0B12422E60F307 /* Process+Promise.swift */; };
+		9D68F24B02564BAD939C53DE4F7BF800 /* NSNotificationCenter+AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = B173546372BCE55EE6697B57EE082E3A /* NSNotificationCenter+AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4D62C784056D55CB3B0510373A58E61 /* Pods-EvolvKit-Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 42C3284DB35B2A0507C56E7C3A9DC8D0 /* Pods-EvolvKit-Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AFC64B1097F7355FF423D6A73E9C7210 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23EC96ACAF820D3BCBCF910117B4AF8 /* TaskDelegate.swift */; };
+		B1E03C97B4612E877AF5A85A2AD5DE56 /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DE8C32A9F9D6E2DBB7E4F39BBE756 /* Thenable.swift */; };
+		B35DC88330B6A871C320D1D70BF8C4BC /* EvolvAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB393B26AC3D40E0C17113C1C3D108B3 /* EvolvAllocator.swift */; };
+		B45DD19FB27E1FB08D56FDC8F030CBE9 /* EvolvLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4E1584380378560B9BBDDAB7F5E3B /* EvolvLogger.swift */; };
+		B486EFF15A123B901328CB300EE63CF9 /* PMKFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 240E6D75000C4E96A18D131EBA4F410C /* PMKFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B50FD1A91C165F611A4053F06200CEAD /* LinkedQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB4A9CB22655F3BB6561C39C3D61C75 /* LinkedQueue.swift */; };
+		B5CC4660067061601DC2536E6D0103C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		B69F8A1F21EA4648C743B56D758F577B /* Catchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CED40409FDABF68DB7D333EA61EE112 /* Catchable.swift */; };
+		B7BFD9F3258356104F695EAFF242B7CF /* EvolvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CEB6FFFFF7FE26DE5DFBCD4057BCA /* EvolvConfig.swift */; };
+		B7C30BD823D20A785BAB9E513BAACDEE /* CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2BE0CB0F8F82BB69AF59DA929143D0 /* CustomStringConvertible.swift */; };
+		B9B6C663C183E10A7B376A737E9E3E2C /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AEBC9FC6FE0C94704B76B5781E3C5 /* LinkedList.swift */; };
+		BB60752A2223B5AEDF915D0D79F27820 /* DefaultEvolvHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DD4A1A76704A8D078AFE0E2CC7B7DD /* DefaultEvolvHttpClient.swift */; };
+		BEE6B677416CA71C981D1D3F60B18C96 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4034A080132C8D2213DED13E23E14746 /* Alamofire.swift */; };
+		BFA863D0DF20131EB8D36B80D4833D0A /* EvolvClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5D0818C3FF329683D8D16667EEE812 /* EvolvClient.swift */; };
+		C314FB6C220FE61D63ACB832430F95B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		CA717E710C8D74FDA4487A35B789A9BC /* dispatch_promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A5A7938EAABD5DAB0189DB2484C5E2 /* dispatch_promise.m */; };
+		CA90F694F2541B25DAC5890DF485E733 /* EvolvHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44BF7CA9C3BC9784736622EDC41645 /* EvolvHttpClient.swift */; };
+		CBC043E8ED3C50417AF2AC8F49EDB933 /* EvolvAllocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68C78098B109726988FDAD127C58419 /* EvolvAllocations.swift */; };
+		CBF55372151468D936766C3685A8FB71 /* EvolvExecutionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA688086D6379FE42C2BAC3DA183C762 /* EvolvExecutionQueue.swift */; };
+		D0A9CFC37EC84D4145F6625747B045AB /* Pods-EvolvKit iOS Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3F42016F87F31933914562B226127E /* Pods-EvolvKit iOS Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1BBAB15A704DEE9E622B26DF03FAFF9 /* firstly.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0745D38C82E888D1447DBDC3B3E587 /* firstly.swift */; };
+		D252BE6F4B314B9D68C9C94E2E9641FC /* hang.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4140754195E40196A418E23D8D48BB9 /* hang.swift */; };
+		D3D8C379C6E4FB487E5ABD6800AD7B7E /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFABFB91F1CCF345D8910AC5B2246EC6 /* DispatchQueue+Alamofire.swift */; };
+		D4F9DE99238B9F36538B71139B34447A /* PromiseKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 946355983740BC2555D920243AEE2490 /* PromiseKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D65C254F5ABF2CB5ECEE50FE8F8E1A80 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF4E31CD78F76E02117519C60C95671 /* Response.swift */; };
+		D68C3EF1D8C37B17B0DC39CB7B4548D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */; };
+		DD735AA34ABE19BC0173FCC352037968 /* when.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F299B9140B658B8A38543476161B298 /* when.swift */; };
+		E3747EC31FCCA97D75A81FC700CF7E24 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE0548F85093A02485BF1704F7CC49B /* ResponseSerialization.swift */; };
+		E927DF4142C90EDCF0C55812FD969867 /* race.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603A172180AA997A9D0492442E1DD5D8 /* race.swift */; };
+		EE1AF9A31358003D48026FFE586A89AF /* UIView+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98A94418BF2FCCDBCCA05CF70AB3184 /* UIView+Promise.swift */; };
+		EEB9EB482190BAADDA5FA8C21DE5E427 /* Pods-EvolvKit-ExampleObjC-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D709819354FA9571B1CA51EC9114B42D /* Pods-EvolvKit-ExampleObjC-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F019DA1A2FFDEDAF1E1E90D6E6C123B2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A1DD9DB52D979DB9B2B294ED7D3E35 /* Alamofire.framework */; };
+		F13F2AA7F2E6D95A181CAB99B900D531 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A7730749C12A2CA4DFB7665884D99C /* ServerTrustPolicy.swift */; };
+		F373B320BAF12A2601205A95DD26B80F /* EvolvAudienceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC719DDF55BBD7BB49A0C413AD4BF65 /* EvolvAudienceQuery.swift */; };
+		F55A3AA6B91E622C743F9FCEBDAA2C09 /* LruCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD550CEC368E9AAD2FB10669E879E4B /* LruCache.swift */; };
+		F7B74645E07C39771156A1FA413B98D4 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0300470A5EA390035DCE7B2FF733CC5B /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC8C9ED11B0972B24502DA64CE69A922 /* DefaultEvolvAllocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2757EC762F24DF605C295B6664C31A1 /* DefaultEvolvAllocationStore.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2264AC1B61ECD3228F2EBCE7A4A7E4D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C579CE66A1E7A9AA33CA5F97F9C22C5;
+			remoteInfo = PromiseKit;
+		};
+		275A57BDEE01F8D3A384FD7404832856 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97708368141123A844F14C48371B3C84;
+			remoteInfo = EvolvKit;
+		};
+		5C40081E283CCDCD01030F2CCCF6377D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		89FFEB8080A80AE7CE571165BF9A006E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C579CE66A1E7A9AA33CA5F97F9C22C5;
+			remoteInfo = PromiseKit;
+		};
+		8DB633B9A985FAE5BBAB4DFEB3FDB685 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		8E5F774661545615A4DFABACFE6480F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C579CE66A1E7A9AA33CA5F97F9C22C5;
+			remoteInfo = PromiseKit;
+		};
+		91866B767875CAE5CC02B427B2BC8933 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C579CE66A1E7A9AA33CA5F97F9C22C5;
+			remoteInfo = PromiseKit;
+		};
+		9FD4B4B6BAF4A97956FED475D5917792 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		B064DB57DA7544BD59AA421BD01F6445 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		CBAD90BB02140FF413B3B39957E90C0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C579CE66A1E7A9AA33CA5F97F9C22C5;
+			remoteInfo = PromiseKit;
+		};
+		D324F583C197E4B9F5BC7CDF02380855 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97708368141123A844F14C48371B3C84;
+			remoteInfo = EvolvKit;
+		};
+		D77363E7E627FE164142C199A99EA782 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		002B1E88BA14EBF633CD66EBFBA107E9 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PromiseKit.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		010CEB6FFFFF7FE26DE5DFBCD4057BCA /* EvolvConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvConfig.swift; path = Source/EvolvConfig.swift; sourceTree = "<group>"; };
+		026F55660F1290F7746E9CFB05503321 /* Pods-EvolvKit-ExampleObjC-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EvolvKit-ExampleObjC-frameworks.sh"; sourceTree = "<group>"; };
+		0300470A5EA390035DCE7B2FF733CC5B /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		0318AB9FAF81C976E4694F9A68A203D3 /* Pods-EvolvKit-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		053E3306E41E397716F677FE6A433661 /* afterlife.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = afterlife.swift; path = Extensions/Foundation/Sources/afterlife.swift; sourceTree = "<group>"; };
+		07939768889E42E72685A9C3CCDE93D6 /* NSTask+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSTask+AnyPromise.h"; path = "Extensions/Foundation/Sources/NSTask+AnyPromise.h"; sourceTree = "<group>"; };
+		0BB4A9CB22655F3BB6561C39C3D61C75 /* LinkedQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LinkedQueue.swift; sourceTree = "<group>"; };
+		0CAEF3082039BBA9C50A335111C2CBA8 /* race.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = race.m; path = Sources/race.m; sourceTree = "<group>"; };
+		0FC0B846FCE3330C831185BFD8E3D713 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
+		1323A4AB96B3C9C00C2E4EA914753777 /* Pods-EvolvKit-ExampleObjC-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EvolvKit-ExampleObjC-dummy.m"; sourceTree = "<group>"; };
+		155F9EDB9466F2CD13BB865C675839DA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		15DD4A1A76704A8D078AFE0E2CC7B7DD /* DefaultEvolvHttpClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultEvolvHttpClient.swift; path = Source/DefaultEvolvHttpClient.swift; sourceTree = "<group>"; };
+		16B78C48B3ABB36B738B8E6BDE01426E /* Pods-EvolvKit-Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		18E2DDE8135A2454658F4B672D859798 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		18E6F2A95DA532F24207FC366216D66A /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
+		1B3F42016F87F31933914562B226127E /* Pods-EvolvKit iOS Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EvolvKit iOS Tests-umbrella.h"; sourceTree = "<group>"; };
+		1BE0548F85093A02485BF1704F7CC49B /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		1CED40409FDABF68DB7D333EA61EE112 /* Catchable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Catchable.swift; path = Sources/Catchable.swift; sourceTree = "<group>"; };
+		1D2BE0CB0F8F82BB69AF59DA929143D0 /* CustomStringConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomStringConvertible.swift; path = Sources/CustomStringConvertible.swift; sourceTree = "<group>"; };
+		223D4EAE442E05437390C2CF43D152E7 /* DefaultEvolvClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultEvolvClient.swift; path = Source/DefaultEvolvClient.swift; sourceTree = "<group>"; };
+		240E6D75000C4E96A18D131EBA4F410C /* PMKFoundation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PMKFoundation.h; path = Extensions/Foundation/Sources/PMKFoundation.h; sourceTree = "<group>"; };
+		2539293ADBB1665475E2BAAAF6A95E5C /* NSNotificationCenter+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+AnyPromise.m"; path = "Extensions/Foundation/Sources/NSNotificationCenter+AnyPromise.m"; sourceTree = "<group>"; };
+		26C8C2CE386053612E5C59801483646A /* Pods-EvolvKit-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-Example.release.xcconfig"; sourceTree = "<group>"; };
+		28CB9711EC4C9D1C899C1D5C2691402B /* EvolvKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EvolvKit-umbrella.h"; sourceTree = "<group>"; };
+		2B1F1D13C0B3B513097FA6A4990682BE /* Pods-EvolvKit-EvolvKit iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EvolvKit-EvolvKit iOS-umbrella.h"; sourceTree = "<group>"; };
+		2D34421E93CE46771004237513188715 /* LogEvent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LogEvent.swift; path = Sources/LogEvent.swift; sourceTree = "<group>"; };
+		2ECCA678158834577066C6E19A5D0AE6 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		2F299B9140B658B8A38543476161B298 /* when.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = when.swift; path = Sources/when.swift; sourceTree = "<group>"; };
+		320AEBC9FC6FE0C94704B76B5781E3C5 /* LinkedList.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		3219BC79B94D6A8FEF41099DEE4B2EC1 /* NSTask+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSTask+AnyPromise.m"; path = "Extensions/Foundation/Sources/NSTask+AnyPromise.m"; sourceTree = "<group>"; };
+		350BE4C4648B89B7B6FE9DD8CE431C09 /* Pods-EvolvKit-EvolvKit iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EvolvKit-EvolvKit iOS-dummy.m"; sourceTree = "<group>"; };
+		38356BCD4F4D63379A3E275F2D704BD6 /* Pods-EvolvKit-Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-Example-Info.plist"; sourceTree = "<group>"; };
+		39B5974B661BBE9EA96D7DDFB4FEAA24 /* Pods-EvolvKit iOS Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit iOS Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3ABBF1B751B1C70F802BD698F03D6439 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
+		3FB4E1584380378560B9BBDDAB7F5E3B /* EvolvLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvLogger.swift; path = Source/EvolvLogger.swift; sourceTree = "<group>"; };
+		4034A080132C8D2213DED13E23E14746 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		41415CDBB9B38C4D3B1EA32AFA2546F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		418D6F71F73BF3D6AA2698972C18DAD1 /* UIView+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+AnyPromise.h"; path = "Extensions/UIKit/Sources/UIView+AnyPromise.h"; sourceTree = "<group>"; };
+		42C3284DB35B2A0507C56E7C3A9DC8D0 /* Pods-EvolvKit-Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EvolvKit-Example-umbrella.h"; sourceTree = "<group>"; };
+		45B8B1FA42BFE61867AE495FF557D741 /* Pods-EvolvKit-ExampleObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-ExampleObjC.release.xcconfig"; sourceTree = "<group>"; };
+		469907217FE62B60401A6A3EB5F2BF72 /* EvolvKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EvolvKit.debug.xcconfig; sourceTree = "<group>"; };
+		489486F942D1598245986C2AF4CAB69E /* fwd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fwd.h; path = Sources/fwd.h; sourceTree = "<group>"; };
+		495590E24615E4E1C9D3ADC104AD3BF0 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
+		498D7224DC11C4B7E5F9FFDD853D160C /* Pods-EvolvKit iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
+		4A5EA2DBB0F719E0C7A7432E3082F982 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
+		4A7F2FF17D6C45614B5D79DD2A7977C4 /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = "<group>"; };
+		4C0CE32AEB8B711DC977FF81F5C720D7 /* AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AnyPromise.m; path = Sources/AnyPromise.m; sourceTree = "<group>"; };
+		50995DF8BF2BADB6D05F911AC41FF67F /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Sources/Configuration.swift; sourceTree = "<group>"; };
+		51A5A7938EAABD5DAB0189DB2484C5E2 /* dispatch_promise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = dispatch_promise.m; path = Sources/dispatch_promise.m; sourceTree = "<group>"; };
+		5267BE356629B98D06E2A3C3648B8580 /* EvolvParticipant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvParticipant.swift; path = Source/EvolvParticipant.swift; sourceTree = "<group>"; };
+		575541255B73E45AB2B7B0FC661BBDB3 /* Pods-EvolvKit-EvolvKit iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-EvolvKit iOS-Info.plist"; sourceTree = "<group>"; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		603A172180AA997A9D0492442E1DD5D8 /* race.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = race.swift; path = Sources/race.swift; sourceTree = "<group>"; };
+		6395B9704BF5AE4F5F16ADED2E7DAC67 /* Pods-EvolvKit-ExampleObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-ExampleObjC.debug.xcconfig"; sourceTree = "<group>"; };
+		681E3BC4280EB27C6B7FEE17F0ACE986 /* hang.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = hang.m; path = Sources/hang.m; sourceTree = "<group>"; };
+		68A7730749C12A2CA4DFB7665884D99C /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		68BF2F330B4A5A10BBE451A231166748 /* PromiseKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PromiseKit.debug.xcconfig; sourceTree = "<group>"; };
+		69A6383DF5E92FB24D43A8CDCB76BF64 /* EvolvKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = EvolvKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		69E948CAC43B139BAB05C640F1DA406C /* Pods-EvolvKit-EvolvKit iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-EvolvKit iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		69F18E24CA833908B0A77DA888696201 /* NSNotificationCenter+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSNotificationCenter+Promise.swift"; path = "Extensions/Foundation/Sources/NSNotificationCenter+Promise.swift"; sourceTree = "<group>"; };
+		6A385114490C638BAC35C03EEDAAFA88 /* join.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = join.m; path = Sources/join.m; sourceTree = "<group>"; };
+		732E617A73DDD46E960BF25D8B66AFC7 /* UIViewController+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+AnyPromise.m"; path = "Extensions/UIKit/Sources/UIViewController+AnyPromise.m"; sourceTree = "<group>"; };
+		77C26D82A5B0A36ED8FEFBAAF11D43A6 /* NSURLSession+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLSession+AnyPromise.m"; path = "Extensions/Foundation/Sources/NSURLSession+AnyPromise.m"; sourceTree = "<group>"; };
+		78A8A4EDB78DA6674BDC4462E614D17A /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		78FC38FFB0F2722E03E27A25D7386659 /* Pods-EvolvKit-EvolvKit iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EvolvKit-EvolvKit iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		79BB275AEE9BD8B492A991F7723477D4 /* Pods-EvolvKit-ExampleObjC-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-ExampleObjC-acknowledgements.plist"; sourceTree = "<group>"; };
+		79EBDD3A52CA732FEA515B77BEA92DFF /* Pods_EvolvKit_EvolvKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EvolvKit_EvolvKit_iOS.framework; path = "Pods-EvolvKit-EvolvKit iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A44BF7CA9C3BC9784736622EDC41645 /* EvolvHttpClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvHttpClient.swift; path = Source/EvolvHttpClient.swift; sourceTree = "<group>"; };
+		7D518BC5E75556812973A147A2D383D4 /* Pods-EvolvKit iOS Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EvolvKit iOS Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		80692F6FECD53FB6ECEF4DF927DF36D3 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		82B66C8C235FF9CA496511560022962B /* PromiseKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PromiseKit.release.xcconfig; sourceTree = "<group>"; };
+		83FFFAC8A5B17321D56DFCDDD90177BB /* Alamofire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.release.xcconfig; sourceTree = "<group>"; };
+		85CD750C033D2AF17ABD36DE91136872 /* UIViewController+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+AnyPromise.h"; path = "Extensions/UIKit/Sources/UIViewController+AnyPromise.h"; sourceTree = "<group>"; };
+		87C89A6D9FD35525719AB0E0663D4941 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		8A7F629F2C8536EE7B05AFBEAFD8A08F /* Pods-EvolvKit iOS Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit iOS Tests-Info.plist"; sourceTree = "<group>"; };
+		8BE270237B154719A8BC17AD20A63023 /* Pods-EvolvKit iOS Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EvolvKit iOS Tests-frameworks.sh"; sourceTree = "<group>"; };
+		8BEBFEE993CFFE66BC92BDD8F47653F0 /* Pods-EvolvKit-Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EvolvKit-Example-dummy.m"; sourceTree = "<group>"; };
+		8CC8E50FD32CDC3FD350E5EFCA448A01 /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
+		8E518D90A1DDFEDAACAEFC78CDB7ABA9 /* Pods-EvolvKit iOS Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EvolvKit iOS Tests.modulemap"; sourceTree = "<group>"; };
+		8F5D0818C3FF329683D8D16667EEE812 /* EvolvClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvClient.swift; path = Source/EvolvClient.swift; sourceTree = "<group>"; };
+		900B8D03CB3953EFB72AB34D01442BA6 /* AnyPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyPromise.swift; path = Sources/AnyPromise.swift; sourceTree = "<group>"; };
+		90B834F050C2BB924294E7DDBB364CC3 /* Pods-EvolvKit-ExampleObjC.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EvolvKit-ExampleObjC.modulemap"; sourceTree = "<group>"; };
+		913A8D88EF33F92F07A540AB15B481DE /* EvolvKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EvolvKit.release.xcconfig; sourceTree = "<group>"; };
+		919796252A8D0084955BD6952259A10E /* Guarantee.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Guarantee.swift; path = Sources/Guarantee.swift; sourceTree = "<group>"; };
+		91C4129E215FE597749F9E954BB8B2EE /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		946355983740BC2555D920243AEE2490 /* PromiseKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-umbrella.h"; sourceTree = "<group>"; };
+		96F26418F382918B66C25FA0BC4AA5AF /* Pods-EvolvKit iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9FF33F2E0C3B6E35A6B1C8BDC344E0EC /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4093D93DB47F6C6C84B9B25177DEB00 /* PromiseKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PromiseKit-Info.plist"; sourceTree = "<group>"; };
+		A48DE8C32A9F9D6E2DBB7E4F39BBE756 /* Thenable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Thenable.swift; path = Sources/Thenable.swift; sourceTree = "<group>"; };
+		A4AAB940040082702E6E119E8CF43290 /* EvolvAllocationStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvAllocationStore.swift; path = Source/EvolvAllocationStore.swift; sourceTree = "<group>"; };
+		A68C78098B109726988FDAD127C58419 /* EvolvAllocations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvAllocations.swift; path = Source/EvolvAllocations.swift; sourceTree = "<group>"; };
+		A797BF648EEDE9A60AD2E26276A95732 /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Promise.swift; path = Sources/Promise.swift; sourceTree = "<group>"; };
+		AA0745D38C82E888D1447DBDC3B3E587 /* firstly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = firstly.swift; path = Sources/firstly.swift; sourceTree = "<group>"; };
+		AA2398D24F027D0B631432CFF5088826 /* EvolvKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "EvolvKit-Info.plist"; sourceTree = "<group>"; };
+		AAEC9FE73E55832EE2FC2A469DDDD20B /* after.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = after.m; path = Sources/after.m; sourceTree = "<group>"; };
+		ADC9B13C682824844C2D74E8803DD30C /* Resolver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resolver.swift; path = Sources/Resolver.swift; sourceTree = "<group>"; };
+		AE1D5C519AD36ECA6F650C8926017384 /* EvolvKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = EvolvKit.modulemap; sourceTree = "<group>"; };
+		B173546372BCE55EE6697B57EE082E3A /* NSNotificationCenter+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+AnyPromise.h"; path = "Extensions/Foundation/Sources/NSNotificationCenter+AnyPromise.h"; sourceTree = "<group>"; };
+		B23EC96ACAF820D3BCBCF910117B4AF8 /* TaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskDelegate.swift; path = Source/TaskDelegate.swift; sourceTree = "<group>"; };
+		B264AC512D56405C8BED84359D0A0427 /* Box.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Box.swift; path = Sources/Box.swift; sourceTree = "<group>"; };
+		B9F76F396D3CFBB8DC71973534AFA660 /* EvolvKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EvolvKit-prefix.pch"; sourceTree = "<group>"; };
+		BCD550CEC368E9AAD2FB10669E879E4B /* LruCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LruCache.swift; sourceTree = "<group>"; };
+		BDD058956DA8F45C2E0F1DDAAEF1B6E0 /* PMKUIKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PMKUIKit.h; path = Extensions/UIKit/Sources/PMKUIKit.h; sourceTree = "<group>"; };
+		BFB520C5A37109F91C32FA37C80A7AA2 /* Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-Info.plist"; sourceTree = "<group>"; };
+		C07A86948912702E756659AAABB2146D /* after.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = after.swift; path = Sources/after.swift; sourceTree = "<group>"; };
+		C163FE0CAA7FE4A74C25EA1B676D94E1 /* PromiseKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PromiseKit.modulemap; sourceTree = "<group>"; };
+		C1B0E6D60C9D67FC59C9DBF3DBECB9DF /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSURLSession+Promise.swift"; path = "Extensions/Foundation/Sources/NSURLSession+Promise.swift"; sourceTree = "<group>"; };
+		C2757EC762F24DF605C295B6664C31A1 /* DefaultEvolvAllocationStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultEvolvAllocationStore.swift; path = Source/DefaultEvolvAllocationStore.swift; sourceTree = "<group>"; };
+		C4AD820E774F3CA7D15F076ACB58C76B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		C68CB7A7CEC96180001A209B97F4189D /* Pods-EvolvKit-Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EvolvKit-Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C8F4C34D83B2CE6FD624DED6E60769B5 /* EvolvRawAllocationNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvRawAllocationNode.swift; path = Source/EvolvRawAllocationNode.swift; sourceTree = "<group>"; };
+		C9698C1754669C181CFDEC181A779277 /* PromiseKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-prefix.pch"; sourceTree = "<group>"; };
+		CB393B26AC3D40E0C17113C1C3D108B3 /* EvolvAllocator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvAllocator.swift; path = Source/EvolvAllocator.swift; sourceTree = "<group>"; };
+		CF302D2B120CA82B9DEF6D929EED3B44 /* UIViewPropertyAnimator+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewPropertyAnimator+Promise.swift"; path = "Extensions/UIKit/Sources/UIViewPropertyAnimator+Promise.swift"; sourceTree = "<group>"; };
+		CFABFB91F1CCF345D8910AC5B2246EC6 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D385F9A53D0917CBEFCF53306D6C2336 /* Pods-EvolvKit-EvolvKit iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-EvolvKit iOS.release.xcconfig"; sourceTree = "<group>"; };
+		D463367078EF44837CAE2B7E8D9232E7 /* Deprecations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecations.swift; path = Sources/Deprecations.swift; sourceTree = "<group>"; };
+		D709819354FA9571B1CA51EC9114B42D /* Pods-EvolvKit-ExampleObjC-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EvolvKit-ExampleObjC-umbrella.h"; sourceTree = "<group>"; };
+		D885F9B3402CF691C93238EFEF0E4B6F /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
+		DCF4E31CD78F76E02117519C60C95671 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
+		DEA667A2A5D713C12363EB935FF19A58 /* Pods_EvolvKit_iOS_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EvolvKit_iOS_Tests.framework; path = "Pods-EvolvKit iOS Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF452DD8D0F0FF4238E19F8FB9DFABBC /* Pods-EvolvKit-EvolvKit iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EvolvKit-EvolvKit iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E096650519AB5357530C66263CF043CF /* Pods_EvolvKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EvolvKit_Example.framework; path = "Pods-EvolvKit-Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2B38B1DFAA8547991209A64F03959E2 /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
+		E43047FBAE0A3981925D9DB722D4F888 /* EvolvKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EvolvKit-dummy.m"; sourceTree = "<group>"; };
+		E5B0E25FC137F5998E13AFE9D33B0470 /* EvolvExecution.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvExecution.swift; path = Source/EvolvExecution.swift; sourceTree = "<group>"; };
+		E5E7986BE5E80822B7DDD734BE2A3BE5 /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
+		E6C3601350C724F79DA3E624E7E83C95 /* AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnyPromise.h; path = Sources/AnyPromise.h; sourceTree = "<group>"; };
+		E89FF9F07A432BB7BB1ED63D4F7CA5CB /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		EA688086D6379FE42C2BAC3DA183C762 /* EvolvExecutionQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvExecutionQueue.swift; path = Source/EvolvExecutionQueue.swift; sourceTree = "<group>"; };
+		EAE6CC9919DB6E6DF5BC75FB20EC0AD8 /* Pods-EvolvKit-EvolvKit iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EvolvKit-EvolvKit iOS.modulemap"; sourceTree = "<group>"; };
+		EBC719DDF55BBD7BB49A0C413AD4BF65 /* EvolvAudienceQuery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvAudienceQuery.swift; path = Source/EvolvAudienceQuery.swift; sourceTree = "<group>"; };
+		EC5B065B1E089F2B1E9F93B59F781FFF /* UIView+AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+AnyPromise.m"; path = "Extensions/UIKit/Sources/UIView+AnyPromise.m"; sourceTree = "<group>"; };
+		ED91AE9D618133772D0B12422E60F307 /* Process+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Process+Promise.swift"; path = "Extensions/Foundation/Sources/Process+Promise.swift"; sourceTree = "<group>"; };
+		F020FC4AAD604C4CC6707AD21C3AC15F /* PromiseKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PromiseKit-dummy.m"; sourceTree = "<group>"; };
+		F083E6745BD3BE74B599DA3F8A68AB00 /* NSObject+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject+Promise.swift"; path = "Extensions/Foundation/Sources/NSObject+Promise.swift"; sourceTree = "<group>"; };
+		F0A1DD9DB52D979DB9B2B294ED7D3E35 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0C500883F6DEA04EB9507BDA836541D /* EvolvEventEmitter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvEventEmitter.swift; path = Source/EvolvEventEmitter.swift; sourceTree = "<group>"; };
+		F20BA2D89F844D3AD1BABE8B6890100A /* NSURLSession+AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLSession+AnyPromise.h"; path = "Extensions/Foundation/Sources/NSURLSession+AnyPromise.h"; sourceTree = "<group>"; };
+		F3BCFFB468C3BF25A72D5C449DD46C25 /* EvolvKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = EvolvKit.framework; path = EvolvKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4140754195E40196A418E23D8D48BB9 /* hang.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = hang.swift; path = Sources/hang.swift; sourceTree = "<group>"; };
+		F58B8E7A86A1C4ADC5718AE6E9C607D1 /* Pods_EvolvKit_ExampleObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EvolvKit_ExampleObjC.framework; path = "Pods-EvolvKit-ExampleObjC.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5B182C67F63FF6F5FA65556197FFE1E /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		F632A56D5AABA0B6227174BAB6EA8A38 /* Pods-EvolvKit iOS Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EvolvKit iOS Tests-dummy.m"; sourceTree = "<group>"; };
+		F69ACC06A8345855A5F9DB7AD8E3C753 /* EvolvRawAllocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvRawAllocation.swift; path = Source/EvolvRawAllocation.swift; sourceTree = "<group>"; };
+		F98A94418BF2FCCDBCCA05CF70AB3184 /* UIView+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Promise.swift"; path = "Extensions/UIKit/Sources/UIView+Promise.swift"; sourceTree = "<group>"; };
+		FB746A7EE658AEB008769E9A1852E6A0 /* Pods-EvolvKit-Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EvolvKit-Example.modulemap"; sourceTree = "<group>"; };
+		FB7A2A825745644F381DB3B29DE35C96 /* Pods-EvolvKit-ExampleObjC-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EvolvKit-ExampleObjC-Info.plist"; sourceTree = "<group>"; };
+		FBF70B611A3FE8A2350F8E7486513D1B /* EvolvClientFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EvolvClientFactory.swift; path = Source/EvolvClientFactory.swift; sourceTree = "<group>"; };
+		FF68450C491B51C79F6B00C54D8A6B3C /* Pods-EvolvKit-ExampleObjC-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EvolvKit-ExampleObjC-acknowledgements.markdown"; sourceTree = "<group>"; };
+		FF68D5D09F7C0DE5D26E5B14F9759D47 /* Pods-EvolvKit-Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EvolvKit-Example-frameworks.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0719212FBBAA9C0971A110E147261492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A3DD442F48A3CBB5CBBEDAB035EBB9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		090C1D63463ACF622287EFF9D5C9392D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50013C33D35EBAF31ACF3A8B3A9A3FB4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73EA49CF50768624E96B8C529B077E02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				590DEA5A5BF32AA5A85D380CC31A560E /* Foundation.framework in Frameworks */,
+				68816AED717989964EAEFD88B481D369 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EFA21862B58A24004F43909A642A94B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D68C3EF1D8C37B17B0DC39CB7B4548D6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABE1AFFD365F4FF42476962E4CC33F12 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F019DA1A2FFDEDAF1E1E90D6E6C123B2 /* Alamofire.framework in Frameworks */,
+				B5CC4660067061601DC2536E6D0103C5 /* Foundation.framework in Frameworks */,
+				1406FFD1CEEBC819CCF57AC8FE1799A6 /* PromiseKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9679BF96926603DA80210742FCB221A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C314FB6C220FE61D63ACB832430F95B0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E09E99B6AF341B2415D5A848F43CF065 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AA82F5183F8AEBD306AEEF2E6C796BF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06539984B64512CEAB3E59305D1E09F3 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				135864888E14946B781FCF1B438B307E /* Pods-EvolvKit iOS Tests */,
+				C665D553A4488B9B8769796DEC9E3811 /* Pods-EvolvKit-EvolvKit iOS */,
+				AD5DEB02C3AAAB61D7E7F7CC7541A30D /* Pods-EvolvKit-Example */,
+				8C66F8BDBFCB86D3E222939D9FFD2131 /* Pods-EvolvKit-ExampleObjC */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		06CD4776014E4968EA74446880009AF0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2ECCA678158834577066C6E19A5D0AE6 /* Alamofire.modulemap */,
+				E89FF9F07A432BB7BB1ED63D4F7CA5CB /* Alamofire-dummy.m */,
+				BFB520C5A37109F91C32FA37C80A7AA2 /* Alamofire-Info.plist */,
+				87C89A6D9FD35525719AB0E0663D4941 /* Alamofire-prefix.pch */,
+				0300470A5EA390035DCE7B2FF733CC5B /* Alamofire-umbrella.h */,
+				4A5EA2DBB0F719E0C7A7432E3082F982 /* Alamofire.debug.xcconfig */,
+				83FFFAC8A5B17321D56DFCDDD90177BB /* Alamofire.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Alamofire";
+			sourceTree = "<group>";
+		};
+		10516280942DDFE343B1456E10B798B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0A1DD9DB52D979DB9B2B294ED7D3E35 /* Alamofire.framework */,
+				9FF33F2E0C3B6E35A6B1C8BDC344E0EC /* PromiseKit.framework */,
+				6481BF924CC1696BACA5C2495746B268 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		135864888E14946B781FCF1B438B307E /* Pods-EvolvKit iOS Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8E518D90A1DDFEDAACAEFC78CDB7ABA9 /* Pods-EvolvKit iOS Tests.modulemap */,
+				7D518BC5E75556812973A147A2D383D4 /* Pods-EvolvKit iOS Tests-acknowledgements.markdown */,
+				39B5974B661BBE9EA96D7DDFB4FEAA24 /* Pods-EvolvKit iOS Tests-acknowledgements.plist */,
+				F632A56D5AABA0B6227174BAB6EA8A38 /* Pods-EvolvKit iOS Tests-dummy.m */,
+				8BE270237B154719A8BC17AD20A63023 /* Pods-EvolvKit iOS Tests-frameworks.sh */,
+				8A7F629F2C8536EE7B05AFBEAFD8A08F /* Pods-EvolvKit iOS Tests-Info.plist */,
+				1B3F42016F87F31933914562B226127E /* Pods-EvolvKit iOS Tests-umbrella.h */,
+				96F26418F382918B66C25FA0BC4AA5AF /* Pods-EvolvKit iOS Tests.debug.xcconfig */,
+				498D7224DC11C4B7E5F9FFDD853D160C /* Pods-EvolvKit iOS Tests.release.xcconfig */,
+			);
+			name = "Pods-EvolvKit iOS Tests";
+			path = "Target Support Files/Pods-EvolvKit iOS Tests";
+			sourceTree = "<group>";
+		};
+		16F8E680264EEE1BE69297A15C6C7790 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				053E3306E41E397716F677FE6A433661 /* afterlife.swift */,
+				B173546372BCE55EE6697B57EE082E3A /* NSNotificationCenter+AnyPromise.h */,
+				2539293ADBB1665475E2BAAAF6A95E5C /* NSNotificationCenter+AnyPromise.m */,
+				69F18E24CA833908B0A77DA888696201 /* NSNotificationCenter+Promise.swift */,
+				F083E6745BD3BE74B599DA3F8A68AB00 /* NSObject+Promise.swift */,
+				07939768889E42E72685A9C3CCDE93D6 /* NSTask+AnyPromise.h */,
+				3219BC79B94D6A8FEF41099DEE4B2EC1 /* NSTask+AnyPromise.m */,
+				F20BA2D89F844D3AD1BABE8B6890100A /* NSURLSession+AnyPromise.h */,
+				77C26D82A5B0A36ED8FEFBAAF11D43A6 /* NSURLSession+AnyPromise.m */,
+				C1B0E6D60C9D67FC59C9DBF3DBECB9DF /* NSURLSession+Promise.swift */,
+				240E6D75000C4E96A18D131EBA4F410C /* PMKFoundation.h */,
+				ED91AE9D618133772D0B12422E60F307 /* Process+Promise.swift */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
+		18F9CF38107B039D03DD118E9B75B593 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F6D54703EBEA8C93AC09CBCA392B267C /* EvolvKit */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		339609B3D38F8ECA3B9FEF15AE781FE0 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				BDD058956DA8F45C2E0F1DDAAEF1B6E0 /* PMKUIKit.h */,
+				418D6F71F73BF3D6AA2698972C18DAD1 /* UIView+AnyPromise.h */,
+				EC5B065B1E089F2B1E9F93B59F781FFF /* UIView+AnyPromise.m */,
+				F98A94418BF2FCCDBCCA05CF70AB3184 /* UIView+Promise.swift */,
+				85CD750C033D2AF17ABD36DE91136872 /* UIViewController+AnyPromise.h */,
+				732E617A73DDD46E960BF25D8B66AFC7 /* UIViewController+AnyPromise.m */,
+				CF302D2B120CA82B9DEF6D929EED3B44 /* UIViewPropertyAnimator+Promise.swift */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		36F15497F7C29C7778D6A6E9F134E3D7 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE1D5C519AD36ECA6F650C8926017384 /* EvolvKit.modulemap */,
+				E43047FBAE0A3981925D9DB722D4F888 /* EvolvKit-dummy.m */,
+				AA2398D24F027D0B631432CFF5088826 /* EvolvKit-Info.plist */,
+				B9F76F396D3CFBB8DC71973534AFA660 /* EvolvKit-prefix.pch */,
+				28CB9711EC4C9D1C899C1D5C2691402B /* EvolvKit-umbrella.h */,
+				469907217FE62B60401A6A3EB5F2BF72 /* EvolvKit.debug.xcconfig */,
+				913A8D88EF33F92F07A540AB15B481DE /* EvolvKit.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Pods/Target Support Files/EvolvKit";
+			sourceTree = "<group>";
+		};
+		52973B4D301D01771EC94E5474D9863F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C163FE0CAA7FE4A74C25EA1B676D94E1 /* PromiseKit.modulemap */,
+				F020FC4AAD604C4CC6707AD21C3AC15F /* PromiseKit-dummy.m */,
+				A4093D93DB47F6C6C84B9B25177DEB00 /* PromiseKit-Info.plist */,
+				C9698C1754669C181CFDEC181A779277 /* PromiseKit-prefix.pch */,
+				946355983740BC2555D920243AEE2490 /* PromiseKit-umbrella.h */,
+				68BF2F330B4A5A10BBE451A231166748 /* PromiseKit.debug.xcconfig */,
+				82B66C8C235FF9CA496511560022962B /* PromiseKit.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PromiseKit";
+			sourceTree = "<group>";
+		};
+		5A0B45D7DEEED709D414E774529A42F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */,
+				F3BCFFB468C3BF25A72D5C449DD46C25 /* EvolvKit.framework */,
+				79EBDD3A52CA732FEA515B77BEA92DFF /* Pods_EvolvKit_EvolvKit_iOS.framework */,
+				E096650519AB5357530C66263CF043CF /* Pods_EvolvKit_Example.framework */,
+				F58B8E7A86A1C4ADC5718AE6E9C607D1 /* Pods_EvolvKit_ExampleObjC.framework */,
+				DEA667A2A5D713C12363EB935FF19A58 /* Pods_EvolvKit_iOS_Tests.framework */,
+				002B1E88BA14EBF633CD66EBFBA107E9 /* PromiseKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6481BF924CC1696BACA5C2495746B268 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D08FC0A8A954774179CEACE401E01DA2 /* Foundation.framework */,
+				41415CDBB9B38C4D3B1EA32AFA2546F5 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		64F3CEFDBE3F94342911EB059008D68C /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				F14AF2273B231D2570300F2E480DE734 /* CorePromise */,
+				16F8E680264EEE1BE69297A15C6C7790 /* Foundation */,
+				52973B4D301D01771EC94E5474D9863F /* Support Files */,
+				339609B3D38F8ECA3B9FEF15AE781FE0 /* UIKit */,
+			);
+			name = PromiseKit;
+			path = PromiseKit;
+			sourceTree = "<group>";
+		};
+		69F1437AA208E8E480D71F449B35478A /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				0FC0B846FCE3330C831185BFD8E3D713 /* AFError.swift */,
+				4034A080132C8D2213DED13E23E14746 /* Alamofire.swift */,
+				CFABFB91F1CCF345D8910AC5B2246EC6 /* DispatchQueue+Alamofire.swift */,
+				F5B182C67F63FF6F5FA65556197FFE1E /* MultipartFormData.swift */,
+				80692F6FECD53FB6ECEF4DF927DF36D3 /* NetworkReachabilityManager.swift */,
+				3ABBF1B751B1C70F802BD698F03D6439 /* Notifications.swift */,
+				91C4129E215FE597749F9E954BB8B2EE /* ParameterEncoding.swift */,
+				18E2DDE8135A2454658F4B672D859798 /* Request.swift */,
+				DCF4E31CD78F76E02117519C60C95671 /* Response.swift */,
+				1BE0548F85093A02485BF1704F7CC49B /* ResponseSerialization.swift */,
+				18E6F2A95DA532F24207FC366216D66A /* Result.swift */,
+				68A7730749C12A2CA4DFB7665884D99C /* ServerTrustPolicy.swift */,
+				495590E24615E4E1C9D3ADC104AD3BF0 /* SessionDelegate.swift */,
+				D885F9B3402CF691C93238EFEF0E4B6F /* SessionManager.swift */,
+				B23EC96ACAF820D3BCBCF910117B4AF8 /* TaskDelegate.swift */,
+				8CC8E50FD32CDC3FD350E5EFCA448A01 /* Timeline.swift */,
+				78A8A4EDB78DA6674BDC4462E614D17A /* Validation.swift */,
+				06CD4776014E4968EA74446880009AF0 /* Support Files */,
+			);
+			name = Alamofire;
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		8C66F8BDBFCB86D3E222939D9FFD2131 /* Pods-EvolvKit-ExampleObjC */ = {
+			isa = PBXGroup;
+			children = (
+				90B834F050C2BB924294E7DDBB364CC3 /* Pods-EvolvKit-ExampleObjC.modulemap */,
+				FF68450C491B51C79F6B00C54D8A6B3C /* Pods-EvolvKit-ExampleObjC-acknowledgements.markdown */,
+				79BB275AEE9BD8B492A991F7723477D4 /* Pods-EvolvKit-ExampleObjC-acknowledgements.plist */,
+				1323A4AB96B3C9C00C2E4EA914753777 /* Pods-EvolvKit-ExampleObjC-dummy.m */,
+				026F55660F1290F7746E9CFB05503321 /* Pods-EvolvKit-ExampleObjC-frameworks.sh */,
+				FB7A2A825745644F381DB3B29DE35C96 /* Pods-EvolvKit-ExampleObjC-Info.plist */,
+				D709819354FA9571B1CA51EC9114B42D /* Pods-EvolvKit-ExampleObjC-umbrella.h */,
+				6395B9704BF5AE4F5F16ADED2E7DAC67 /* Pods-EvolvKit-ExampleObjC.debug.xcconfig */,
+				45B8B1FA42BFE61867AE495FF557D741 /* Pods-EvolvKit-ExampleObjC.release.xcconfig */,
+			);
+			name = "Pods-EvolvKit-ExampleObjC";
+			path = "Target Support Files/Pods-EvolvKit-ExampleObjC";
+			sourceTree = "<group>";
+		};
+		98F2083587FABE6B3BC6D273FA96F468 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				69A6383DF5E92FB24D43A8CDCB76BF64 /* EvolvKit.podspec */,
+				C4AD820E774F3CA7D15F076ACB58C76B /* LICENSE */,
+				155F9EDB9466F2CD13BB865C675839DA /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		AD5DEB02C3AAAB61D7E7F7CC7541A30D /* Pods-EvolvKit-Example */ = {
+			isa = PBXGroup;
+			children = (
+				FB746A7EE658AEB008769E9A1852E6A0 /* Pods-EvolvKit-Example.modulemap */,
+				C68CB7A7CEC96180001A209B97F4189D /* Pods-EvolvKit-Example-acknowledgements.markdown */,
+				16B78C48B3ABB36B738B8E6BDE01426E /* Pods-EvolvKit-Example-acknowledgements.plist */,
+				8BEBFEE993CFFE66BC92BDD8F47653F0 /* Pods-EvolvKit-Example-dummy.m */,
+				FF68D5D09F7C0DE5D26E5B14F9759D47 /* Pods-EvolvKit-Example-frameworks.sh */,
+				38356BCD4F4D63379A3E275F2D704BD6 /* Pods-EvolvKit-Example-Info.plist */,
+				42C3284DB35B2A0507C56E7C3A9DC8D0 /* Pods-EvolvKit-Example-umbrella.h */,
+				0318AB9FAF81C976E4694F9A68A203D3 /* Pods-EvolvKit-Example.debug.xcconfig */,
+				26C8C2CE386053612E5C59801483646A /* Pods-EvolvKit-Example.release.xcconfig */,
+			);
+			name = "Pods-EvolvKit-Example";
+			path = "Target Support Files/Pods-EvolvKit-Example";
+			sourceTree = "<group>";
+		};
+		C665D553A4488B9B8769796DEC9E3811 /* Pods-EvolvKit-EvolvKit iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EAE6CC9919DB6E6DF5BC75FB20EC0AD8 /* Pods-EvolvKit-EvolvKit iOS.modulemap */,
+				78FC38FFB0F2722E03E27A25D7386659 /* Pods-EvolvKit-EvolvKit iOS-acknowledgements.markdown */,
+				69E948CAC43B139BAB05C640F1DA406C /* Pods-EvolvKit-EvolvKit iOS-acknowledgements.plist */,
+				350BE4C4648B89B7B6FE9DD8CE431C09 /* Pods-EvolvKit-EvolvKit iOS-dummy.m */,
+				575541255B73E45AB2B7B0FC661BBDB3 /* Pods-EvolvKit-EvolvKit iOS-Info.plist */,
+				2B1F1D13C0B3B513097FA6A4990682BE /* Pods-EvolvKit-EvolvKit iOS-umbrella.h */,
+				DF452DD8D0F0FF4238E19F8FB9DFABBC /* Pods-EvolvKit-EvolvKit iOS.debug.xcconfig */,
+				D385F9A53D0917CBEFCF53306D6C2336 /* Pods-EvolvKit-EvolvKit iOS.release.xcconfig */,
+			);
+			name = "Pods-EvolvKit-EvolvKit iOS";
+			path = "Target Support Files/Pods-EvolvKit-EvolvKit iOS";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				18F9CF38107B039D03DD118E9B75B593 /* Development Pods */,
+				10516280942DDFE343B1456E10B798B0 /* Frameworks */,
+				DCE2DB90D93D185B5812625CA221FC9D /* Pods */,
+				5A0B45D7DEEED709D414E774529A42F4 /* Products */,
+				06539984B64512CEAB3E59305D1E09F3 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D63803B7457877406868F57AD4F2E620 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				320AEBC9FC6FE0C94704B76B5781E3C5 /* LinkedList.swift */,
+				0BB4A9CB22655F3BB6561C39C3D61C75 /* LinkedQueue.swift */,
+				BCD550CEC368E9AAD2FB10669E879E4B /* LruCache.swift */,
+			);
+			name = Utility;
+			path = Source/Utility;
+			sourceTree = "<group>";
+		};
+		DCE2DB90D93D185B5812625CA221FC9D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				69F1437AA208E8E480D71F449B35478A /* Alamofire */,
+				64F3CEFDBE3F94342911EB059008D68C /* PromiseKit */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F14AF2273B231D2570300F2E480DE734 /* CorePromise */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC9FE73E55832EE2FC2A469DDDD20B /* after.m */,
+				C07A86948912702E756659AAABB2146D /* after.swift */,
+				E6C3601350C724F79DA3E624E7E83C95 /* AnyPromise.h */,
+				4C0CE32AEB8B711DC977FF81F5C720D7 /* AnyPromise.m */,
+				900B8D03CB3953EFB72AB34D01442BA6 /* AnyPromise.swift */,
+				B264AC512D56405C8BED84359D0A0427 /* Box.swift */,
+				1CED40409FDABF68DB7D333EA61EE112 /* Catchable.swift */,
+				50995DF8BF2BADB6D05F911AC41FF67F /* Configuration.swift */,
+				1D2BE0CB0F8F82BB69AF59DA929143D0 /* CustomStringConvertible.swift */,
+				D463367078EF44837CAE2B7E8D9232E7 /* Deprecations.swift */,
+				51A5A7938EAABD5DAB0189DB2484C5E2 /* dispatch_promise.m */,
+				4A7F2FF17D6C45614B5D79DD2A7977C4 /* Error.swift */,
+				AA0745D38C82E888D1447DBDC3B3E587 /* firstly.swift */,
+				489486F942D1598245986C2AF4CAB69E /* fwd.h */,
+				919796252A8D0084955BD6952259A10E /* Guarantee.swift */,
+				681E3BC4280EB27C6B7FEE17F0ACE986 /* hang.m */,
+				F4140754195E40196A418E23D8D48BB9 /* hang.swift */,
+				6A385114490C638BAC35C03EEDAAFA88 /* join.m */,
+				2D34421E93CE46771004237513188715 /* LogEvent.swift */,
+				A797BF648EEDE9A60AD2E26276A95732 /* Promise.swift */,
+				E2B38B1DFAA8547991209A64F03959E2 /* PromiseKit.h */,
+				0CAEF3082039BBA9C50A335111C2CBA8 /* race.m */,
+				603A172180AA997A9D0492442E1DD5D8 /* race.swift */,
+				ADC9B13C682824844C2D74E8803DD30C /* Resolver.swift */,
+				A48DE8C32A9F9D6E2DBB7E4F39BBE756 /* Thenable.swift */,
+				E5E7986BE5E80822B7DDD734BE2A3BE5 /* when.m */,
+				2F299B9140B658B8A38543476161B298 /* when.swift */,
+			);
+			name = CorePromise;
+			sourceTree = "<group>";
+		};
+		F6D54703EBEA8C93AC09CBCA392B267C /* EvolvKit */ = {
+			isa = PBXGroup;
+			children = (
+				C2757EC762F24DF605C295B6664C31A1 /* DefaultEvolvAllocationStore.swift */,
+				223D4EAE442E05437390C2CF43D152E7 /* DefaultEvolvClient.swift */,
+				15DD4A1A76704A8D078AFE0E2CC7B7DD /* DefaultEvolvHttpClient.swift */,
+				A68C78098B109726988FDAD127C58419 /* EvolvAllocations.swift */,
+				A4AAB940040082702E6E119E8CF43290 /* EvolvAllocationStore.swift */,
+				CB393B26AC3D40E0C17113C1C3D108B3 /* EvolvAllocator.swift */,
+				EBC719DDF55BBD7BB49A0C413AD4BF65 /* EvolvAudienceQuery.swift */,
+				8F5D0818C3FF329683D8D16667EEE812 /* EvolvClient.swift */,
+				FBF70B611A3FE8A2350F8E7486513D1B /* EvolvClientFactory.swift */,
+				010CEB6FFFFF7FE26DE5DFBCD4057BCA /* EvolvConfig.swift */,
+				F0C500883F6DEA04EB9507BDA836541D /* EvolvEventEmitter.swift */,
+				E5B0E25FC137F5998E13AFE9D33B0470 /* EvolvExecution.swift */,
+				EA688086D6379FE42C2BAC3DA183C762 /* EvolvExecutionQueue.swift */,
+				7A44BF7CA9C3BC9784736622EDC41645 /* EvolvHttpClient.swift */,
+				3FB4E1584380378560B9BBDDAB7F5E3B /* EvolvLogger.swift */,
+				5267BE356629B98D06E2A3C3648B8580 /* EvolvParticipant.swift */,
+				F69ACC06A8345855A5F9DB7AD8E3C753 /* EvolvRawAllocation.swift */,
+				C8F4C34D83B2CE6FD624DED6E60769B5 /* EvolvRawAllocationNode.swift */,
+				98F2083587FABE6B3BC6D273FA96F468 /* Pod */,
+				36F15497F7C29C7778D6A6E9F134E3D7 /* Support Files */,
+				D63803B7457877406868F57AD4F2E620 /* Utility */,
+			);
+			name = EvolvKit;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2582784E4FA6A1AC5D23FC53AC3F6EE2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7B74645E07C39771156A1FA413B98D4 /* Alamofire-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		560524E9A1D3509F08245EF6A7024AB7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEB9EB482190BAADDA5FA8C21DE5E427 /* Pods-EvolvKit-ExampleObjC-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FE932BFC0E4BAA519F437B323153620 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53FA4A5823DDD02F93C06348AD96D5F8 /* AnyPromise.h in Headers */,
+				2E2B948E6F69F7B6640F22EA2A37419A /* fwd.h in Headers */,
+				9D68F24B02564BAD939C53DE4F7BF800 /* NSNotificationCenter+AnyPromise.h in Headers */,
+				512313604C46FE210609AF3AAAE9AA27 /* NSTask+AnyPromise.h in Headers */,
+				56E6068B2F2A2D153BE61A7B5505F351 /* NSURLSession+AnyPromise.h in Headers */,
+				B486EFF15A123B901328CB300EE63CF9 /* PMKFoundation.h in Headers */,
+				7C7E6786B4354E7FCBFC32D89077A257 /* PMKUIKit.h in Headers */,
+				D4F9DE99238B9F36538B71139B34447A /* PromiseKit-umbrella.h in Headers */,
+				69EE416E6F9FEEAFAD5EA79A3A8BC240 /* PromiseKit.h in Headers */,
+				60600D7F0ED6E807861DB0FB61C6D8F1 /* UIView+AnyPromise.h in Headers */,
+				1B66385578EDF60DBD196C660E03FA52 /* UIViewController+AnyPromise.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BBDC49F199A6965EDED1446F17F6465 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C73258BF13639C92F1162C76340EEF5 /* EvolvKit-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DB8FBC774364F3056211269C5DC75CC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4D62C784056D55CB3B0510373A58E61 /* Pods-EvolvKit-Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9CC548685E900802316B78F1C0CCB3AE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34A247969ACF64CDEE320FF017BA00EB /* Pods-EvolvKit-EvolvKit iOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA7B651606D671355BF4B7272DA8D76D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0A9CFC37EC84D4145F6625747B045AB /* Pods-EvolvKit iOS Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0401936BD018803378721FD28DAE1AF9 /* Pods-EvolvKit-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F29EB80F4B5F2A32074FC913E38E589 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-Example" */;
+			buildPhases = (
+				8DB8FBC774364F3056211269C5DC75CC /* Headers */,
+				353966AB91398E55A34DBB86926249FD /* Sources */,
+				C9679BF96926603DA80210742FCB221A /* Frameworks */,
+				977D54D79C281E390D4A700A5015DBE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2F855061B7E41274AE9EA79B074B7BB4 /* PBXTargetDependency */,
+				FD77E7F0DE1A1F7356ADE114138F30CB /* PBXTargetDependency */,
+				312098FF8E6F97AADC08A2E1B96407D5 /* PBXTargetDependency */,
+			);
+			name = "Pods-EvolvKit-Example";
+			productName = "Pods-EvolvKit-Example";
+			productReference = E096650519AB5357530C66263CF043CF /* Pods_EvolvKit_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3532ACF3C3FDB5C225E4ED4724147850 /* Build configuration list for PBXNativeTarget "PromiseKit" */;
+			buildPhases = (
+				6FE932BFC0E4BAA519F437B323153620 /* Headers */,
+				6706E176EA9F2E1AB822F6354D91E46C /* Sources */,
+				73EA49CF50768624E96B8C529B077E02 /* Frameworks */,
+				AAA53E8F7968263EE80A5DE6795EB70D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PromiseKit;
+			productName = PromiseKit;
+			productReference = 002B1E88BA14EBF633CD66EBFBA107E9 /* PromiseKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		96DF3B53C6D0A67A3BD583BEDF35AC94 /* Pods-EvolvKit-EvolvKit iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 88E1746560674C2A793F7A748D496877 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-EvolvKit iOS" */;
+			buildPhases = (
+				9CC548685E900802316B78F1C0CCB3AE /* Headers */,
+				04FB2E6119DA4FB015B59A92F91DAE04 /* Sources */,
+				E09E99B6AF341B2415D5A848F43CF065 /* Frameworks */,
+				1582AA77D02CD309B25A39DFB37B54CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FAFBB5A1EBDE56D7B05F663AF35E19A /* PBXTargetDependency */,
+				06DEFDC8F5E5452CA23ED851818B4495 /* PBXTargetDependency */,
+			);
+			name = "Pods-EvolvKit-EvolvKit iOS";
+			productName = "Pods-EvolvKit-EvolvKit iOS";
+			productReference = 79EBDD3A52CA732FEA515B77BEA92DFF /* Pods_EvolvKit_EvolvKit_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		97708368141123A844F14C48371B3C84 /* EvolvKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BB029607231B962ADDFE3EF0608B2C2 /* Build configuration list for PBXNativeTarget "EvolvKit" */;
+			buildPhases = (
+				8BBDC49F199A6965EDED1446F17F6465 /* Headers */,
+				458F928745CEFA3CF2ECD85E18ABA4FA /* Sources */,
+				ABE1AFFD365F4FF42476962E4CC33F12 /* Frameworks */,
+				C3E8AE4D1EDD24664E26504C6B09B5E3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B29D15DF07CCB06B0220C690CA824348 /* PBXTargetDependency */,
+				54E3FA2FA85F1634C8E5D5863B89C776 /* PBXTargetDependency */,
+			);
+			name = EvolvKit;
+			productName = EvolvKit;
+			productReference = F3BCFFB468C3BF25A72D5C449DD46C25 /* EvolvKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A49165FED6986E90782116BAD193A968 /* Pods-EvolvKit iOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63ABCAAE05A353204F8540412765FC64 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit iOS Tests" */;
+			buildPhases = (
+				FA7B651606D671355BF4B7272DA8D76D /* Headers */,
+				02A79F88BFE9B82A0508D7FB98B0ED98 /* Sources */,
+				0719212FBBAA9C0971A110E147261492 /* Frameworks */,
+				4687B5F04F6F5BBD04997C1816D31266 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				359E4D06EF1CEF1A78EF35D5D3309BDF /* PBXTargetDependency */,
+				44E7606006A79B9293AB8A9316363D6B /* PBXTargetDependency */,
+			);
+			name = "Pods-EvolvKit iOS Tests";
+			productName = "Pods-EvolvKit iOS Tests";
+			productReference = DEA667A2A5D713C12363EB935FF19A58 /* Pods_EvolvKit_iOS_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CA3F8A3C36472C9525094D6F9C74C53D /* Pods-EvolvKit-ExampleObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB423B8BCD1218DDB1D42556D284278E /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-ExampleObjC" */;
+			buildPhases = (
+				560524E9A1D3509F08245EF6A7024AB7 /* Headers */,
+				63A71772555707333E8E6C4A6F9AB7FC /* Sources */,
+				9EFA21862B58A24004F43909A642A94B /* Frameworks */,
+				00DDE81C23B323173D238957605A7494 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D61B1DBD4F76167EE0E577A5F80DBDB2 /* PBXTargetDependency */,
+				150A31A191C8F0CCC37E2F7D949CB620 /* PBXTargetDependency */,
+				D15DE881EC0E67C3CB28A7E593FAC70E /* PBXTargetDependency */,
+			);
+			name = "Pods-EvolvKit-ExampleObjC";
+			productName = "Pods-EvolvKit-ExampleObjC";
+			productReference = F58B8E7A86A1C4ADC5718AE6E9C607D1 /* Pods_EvolvKit_ExampleObjC.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4A5194ABAF7A4780609E0E581DA6B54 /* Build configuration list for PBXNativeTarget "Alamofire" */;
+			buildPhases = (
+				2582784E4FA6A1AC5D23FC53AC3F6EE2 /* Headers */,
+				2DDFD9AC10F181CD7130BDF5F9E0502B /* Sources */,
+				090C1D63463ACF622287EFF9D5C9392D /* Frameworks */,
+				473D3E892ABB6C798CFF290644259B34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alamofire;
+			productName = Alamofire;
+			productReference = 5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 10.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 5A0B45D7DEEED709D414E774529A42F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */,
+				97708368141123A844F14C48371B3C84 /* EvolvKit */,
+				A49165FED6986E90782116BAD193A968 /* Pods-EvolvKit iOS Tests */,
+				96DF3B53C6D0A67A3BD583BEDF35AC94 /* Pods-EvolvKit-EvolvKit iOS */,
+				0401936BD018803378721FD28DAE1AF9 /* Pods-EvolvKit-Example */,
+				CA3F8A3C36472C9525094D6F9C74C53D /* Pods-EvolvKit-ExampleObjC */,
+				7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00DDE81C23B323173D238957605A7494 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1582AA77D02CD309B25A39DFB37B54CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4687B5F04F6F5BBD04997C1816D31266 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		473D3E892ABB6C798CFF290644259B34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		977D54D79C281E390D4A700A5015DBE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA53E8F7968263EE80A5DE6795EB70D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3E8AE4D1EDD24664E26504C6B09B5E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02A79F88BFE9B82A0508D7FB98B0ED98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D7C687B725CE056F70626678DF4ECAF /* Pods-EvolvKit iOS Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04FB2E6119DA4FB015B59A92F91DAE04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				363A7463712DC45F781D2068CDC855D3 /* Pods-EvolvKit-EvolvKit iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DDFD9AC10F181CD7130BDF5F9E0502B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83956E20859CDBBE7BC38ABADE0170FB /* AFError.swift in Sources */,
+				1945CD5D63A1C164AEAAA9A33E85571E /* Alamofire-dummy.m in Sources */,
+				BEE6B677416CA71C981D1D3F60B18C96 /* Alamofire.swift in Sources */,
+				D3D8C379C6E4FB487E5ABD6800AD7B7E /* DispatchQueue+Alamofire.swift in Sources */,
+				1986B50C74F1697EA43F68335C93CEB3 /* MultipartFormData.swift in Sources */,
+				3571F958A3907B3A806E62D50C2550D4 /* NetworkReachabilityManager.swift in Sources */,
+				132E0F619E4338E5D1B27E4C72076B3F /* Notifications.swift in Sources */,
+				0C5E11DE24DAA737704B355F5F2F3426 /* ParameterEncoding.swift in Sources */,
+				98A929C8E9012AB167672714FFD2113C /* Request.swift in Sources */,
+				D65C254F5ABF2CB5ECEE50FE8F8E1A80 /* Response.swift in Sources */,
+				E3747EC31FCCA97D75A81FC700CF7E24 /* ResponseSerialization.swift in Sources */,
+				64744C911253C3E01461FAD7C935C8D7 /* Result.swift in Sources */,
+				F13F2AA7F2E6D95A181CAB99B900D531 /* ServerTrustPolicy.swift in Sources */,
+				2C61B040BA6A9A7AE66C4D9BA26D5520 /* SessionDelegate.swift in Sources */,
+				931BBB8230A25161D5C37528A8F9FECF /* SessionManager.swift in Sources */,
+				AFC64B1097F7355FF423D6A73E9C7210 /* TaskDelegate.swift in Sources */,
+				933FDA5970AA525D6CB92BFEBA2BAB4A /* Timeline.swift in Sources */,
+				53791F5E5F07400F92CFDFC89A432305 /* Validation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		353966AB91398E55A34DBB86926249FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84483C112B6060251CF16FDFFF8CEAEE /* Pods-EvolvKit-Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		458F928745CEFA3CF2ECD85E18ABA4FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC8C9ED11B0972B24502DA64CE69A922 /* DefaultEvolvAllocationStore.swift in Sources */,
+				21CE0FBD4AADA9E757B388FBBA88ADE6 /* DefaultEvolvClient.swift in Sources */,
+				BB60752A2223B5AEDF915D0D79F27820 /* DefaultEvolvHttpClient.swift in Sources */,
+				CBC043E8ED3C50417AF2AC8F49EDB933 /* EvolvAllocations.swift in Sources */,
+				0FC69F76FDE3AC790778D161FBCC5DE2 /* EvolvAllocationStore.swift in Sources */,
+				B35DC88330B6A871C320D1D70BF8C4BC /* EvolvAllocator.swift in Sources */,
+				F373B320BAF12A2601205A95DD26B80F /* EvolvAudienceQuery.swift in Sources */,
+				BFA863D0DF20131EB8D36B80D4833D0A /* EvolvClient.swift in Sources */,
+				58F4901E8058F970B2BDC90E57D69F00 /* EvolvClientFactory.swift in Sources */,
+				B7BFD9F3258356104F695EAFF242B7CF /* EvolvConfig.swift in Sources */,
+				6C162DCB246D106923EC3A8E232A6F9B /* EvolvEventEmitter.swift in Sources */,
+				84EF0006BF9E6FB82DA3B171E293A15E /* EvolvExecution.swift in Sources */,
+				CBF55372151468D936766C3685A8FB71 /* EvolvExecutionQueue.swift in Sources */,
+				CA90F694F2541B25DAC5890DF485E733 /* EvolvHttpClient.swift in Sources */,
+				19D3B8E2D9BF2F290B61C0D08815554C /* EvolvKit-dummy.m in Sources */,
+				B45DD19FB27E1FB08D56FDC8F030CBE9 /* EvolvLogger.swift in Sources */,
+				2ADADC115478C565061B0E4C6CB2A094 /* EvolvParticipant.swift in Sources */,
+				2D2C061C206E4F98E41ED0B7FA8937B5 /* EvolvRawAllocation.swift in Sources */,
+				472D71E7849CFAD8281BD971940F344C /* EvolvRawAllocationNode.swift in Sources */,
+				B9B6C663C183E10A7B376A737E9E3E2C /* LinkedList.swift in Sources */,
+				B50FD1A91C165F611A4053F06200CEAD /* LinkedQueue.swift in Sources */,
+				F55A3AA6B91E622C743F9FCEBDAA2C09 /* LruCache.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63A71772555707333E8E6C4A6F9AB7FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				710978E65F8D084E07ACB09764ED2B74 /* Pods-EvolvKit-ExampleObjC-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6706E176EA9F2E1AB822F6354D91E46C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53D5B727251CD2296368C3CAFD441AF2 /* after.m in Sources */,
+				9CEA11460D640EBCF09D90C17C93E41C /* after.swift in Sources */,
+				8D913D7287EA6620B313C9F25422604B /* afterlife.swift in Sources */,
+				6B5F0A27BA5ECE6CDB047CC8328AA6F8 /* AnyPromise.m in Sources */,
+				414208E2405A39A005E6C9B4AB1B5D88 /* AnyPromise.swift in Sources */,
+				4DB86A13DA526CB1636D488AEC52894C /* Box.swift in Sources */,
+				B69F8A1F21EA4648C743B56D758F577B /* Catchable.swift in Sources */,
+				17B81EDF033AEE3FAFB70ABF81B1C3E4 /* Configuration.swift in Sources */,
+				B7C30BD823D20A785BAB9E513BAACDEE /* CustomStringConvertible.swift in Sources */,
+				6846527DB87AD5ED229B41EBDCAE1DA3 /* Deprecations.swift in Sources */,
+				CA717E710C8D74FDA4487A35B789A9BC /* dispatch_promise.m in Sources */,
+				305418D4AB2A4DC01B7A6BBEB33468EE /* Error.swift in Sources */,
+				D1BBAB15A704DEE9E622B26DF03FAFF9 /* firstly.swift in Sources */,
+				4ACC6B364D791EEBA6109AB75C2258D2 /* Guarantee.swift in Sources */,
+				7FBB4728E13E6BB942EF3ABBC78C6FBF /* hang.m in Sources */,
+				D252BE6F4B314B9D68C9C94E2E9641FC /* hang.swift in Sources */,
+				946D6F8C9787F81919FDFB5F06169B9F /* join.m in Sources */,
+				7E5436DA0FDE3666C187C3B4C5990E82 /* LogEvent.swift in Sources */,
+				94CE1B2318FF5EC7E8297407C7262EAD /* NSNotificationCenter+AnyPromise.m in Sources */,
+				8999D331FB6DEBB72BD70B507E3A9F0A /* NSNotificationCenter+Promise.swift in Sources */,
+				9BDB4BB1CC067D60C09B7EA5B6E8B253 /* NSObject+Promise.swift in Sources */,
+				34B4158B5BD4635637D0D3BE9E7A7B2C /* NSTask+AnyPromise.m in Sources */,
+				5D8B3B6D4144AA9E90B302EB53806BF1 /* NSURLSession+AnyPromise.m in Sources */,
+				3280B39DFFBC4D15AE38B0C727EF8C9E /* NSURLSession+Promise.swift in Sources */,
+				9D312B49C76F687BB9BA9F1B77764280 /* Process+Promise.swift in Sources */,
+				07D21C11FFEA3A1B9D9979E7B1E6F540 /* Promise.swift in Sources */,
+				8554AE4038C559B986B4D7EAAAC744AE /* PromiseKit-dummy.m in Sources */,
+				6A0B59E5B77C1877A839B5AF7786087F /* race.m in Sources */,
+				E927DF4142C90EDCF0C55812FD969867 /* race.swift in Sources */,
+				556459B49B1364FE35FEE26DF6DD43CF /* Resolver.swift in Sources */,
+				B1E03C97B4612E877AF5A85A2AD5DE56 /* Thenable.swift in Sources */,
+				959E1D96D40080684BD7353A69380E50 /* UIView+AnyPromise.m in Sources */,
+				EE1AF9A31358003D48026FFE586A89AF /* UIView+Promise.swift in Sources */,
+				3AA41B6BBE93CB8DA63C1E2BAF5EEE7F /* UIViewController+AnyPromise.m in Sources */,
+				043115A081A2A0621932949DDA732559 /* UIViewPropertyAnimator+Promise.swift in Sources */,
+				84CF6385C265CD43F296D49ECA7A4B25 /* when.m in Sources */,
+				DD735AA34ABE19BC0173FCC352037968 /* when.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		06DEFDC8F5E5452CA23ED851818B4495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */;
+			targetProxy = 8E5F774661545615A4DFABACFE6480F8 /* PBXContainerItemProxy */;
+		};
+		150A31A191C8F0CCC37E2F7D949CB620 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EvolvKit;
+			target = 97708368141123A844F14C48371B3C84 /* EvolvKit */;
+			targetProxy = D324F583C197E4B9F5BC7CDF02380855 /* PBXContainerItemProxy */;
+		};
+		2F855061B7E41274AE9EA79B074B7BB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = 9FD4B4B6BAF4A97956FED475D5917792 /* PBXContainerItemProxy */;
+		};
+		312098FF8E6F97AADC08A2E1B96407D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */;
+			targetProxy = CBAD90BB02140FF413B3B39957E90C0A /* PBXContainerItemProxy */;
+		};
+		359E4D06EF1CEF1A78EF35D5D3309BDF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = 8DB633B9A985FAE5BBAB4DFEB3FDB685 /* PBXContainerItemProxy */;
+		};
+		44E7606006A79B9293AB8A9316363D6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */;
+			targetProxy = 91866B767875CAE5CC02B427B2BC8933 /* PBXContainerItemProxy */;
+		};
+		54E3FA2FA85F1634C8E5D5863B89C776 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */;
+			targetProxy = 89FFEB8080A80AE7CE571165BF9A006E /* PBXContainerItemProxy */;
+		};
+		7FAFBB5A1EBDE56D7B05F663AF35E19A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = 5C40081E283CCDCD01030F2CCCF6377D /* PBXContainerItemProxy */;
+		};
+		B29D15DF07CCB06B0220C690CA824348 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = D77363E7E627FE164142C199A99EA782 /* PBXContainerItemProxy */;
+		};
+		D15DE881EC0E67C3CB28A7E593FAC70E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 7C579CE66A1E7A9AA33CA5F97F9C22C5 /* PromiseKit */;
+			targetProxy = 2264AC1B61ECD3228F2EBCE7A4A7E4D5 /* PBXContainerItemProxy */;
+		};
+		D61B1DBD4F76167EE0E577A5F80DBDB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = B064DB57DA7544BD59AA421BD01F6445 /* PBXContainerItemProxy */;
+		};
+		FD77E7F0DE1A1F7356ADE114138F30CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EvolvKit;
+			target = 97708368141123A844F14C48371B3C84 /* EvolvKit */;
+			targetProxy = 275A57BDEE01F8D3A384FD7404832856 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0E499FCB59CC220D6664FEEF7D097EB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D385F9A53D0917CBEFCF53306D6C2336 /* Pods-EvolvKit-EvolvKit iOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-EvolvKit iOS/Pods-EvolvKit-EvolvKit iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-EvolvKit iOS/Pods-EvolvKit-EvolvKit iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1656030C4747A88C986FCA42A501F1F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF452DD8D0F0FF4238E19F8FB9DFABBC /* Pods-EvolvKit-EvolvKit iOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-EvolvKit iOS/Pods-EvolvKit-EvolvKit iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-EvolvKit iOS/Pods-EvolvKit-EvolvKit iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		20648F0008EDEB322CE4C268ABB3D152 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 498D7224DC11C4B7E5F9FFDD853D160C /* Pods-EvolvKit iOS Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit iOS Tests/Pods-EvolvKit iOS Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit iOS Tests/Pods-EvolvKit iOS Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		368AEBEE8C61D793558B52B0D3CF2435 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6395B9704BF5AE4F5F16ADED2E7DAC67 /* Pods-EvolvKit-ExampleObjC.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-ExampleObjC/Pods-EvolvKit-ExampleObjC-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-ExampleObjC/Pods-EvolvKit-ExampleObjC.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		388D43F76BC62B733A2232AA86558488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 469907217FE62B60401A6A3EB5F2BF72 /* EvolvKit.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EvolvKit/EvolvKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EvolvKit/EvolvKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/EvolvKit/EvolvKit.modulemap";
+				PRODUCT_MODULE_NAME = EvolvKit;
+				PRODUCT_NAME = EvolvKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3D12F7A534859FD3BBDCA58359F02718 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26C8C2CE386053612E5C59801483646A /* Pods-EvolvKit-Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-Example/Pods-EvolvKit-Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-Example/Pods-EvolvKit-Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		44BD25C6D1AD36AF213F2477232F2291 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83FFFAC8A5B17321D56DFCDDD90177BB /* Alamofire.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		590D1EF8D6A50268DBDE4196AC5D455E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A5EA2DBB0F719E0C7A7432E3082F982 /* Alamofire.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7785738972029ED9047C55377CE5D6FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0318AB9FAF81C976E4694F9A68A203D3 /* Pods-EvolvKit-Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-Example/Pods-EvolvKit-Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-Example/Pods-EvolvKit-Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7AC87FD71FCF89DC275D14522A5752B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96F26418F382918B66C25FA0BC4AA5AF /* Pods-EvolvKit iOS Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit iOS Tests/Pods-EvolvKit iOS Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit iOS Tests/Pods-EvolvKit iOS Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7E11F860A84F470EFA483F00C9ABFDB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 913A8D88EF33F92F07A540AB15B481DE /* EvolvKit.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/EvolvKit/EvolvKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EvolvKit/EvolvKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/EvolvKit/EvolvKit.modulemap";
+				PRODUCT_MODULE_NAME = EvolvKit;
+				PRODUCT_NAME = EvolvKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8D33E8783CFDAE89BE45D5C1F0839C4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82B66C8C235FF9CA496511560022962B /* PromiseKit.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/PromiseKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				PRODUCT_MODULE_NAME = PromiseKit;
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		CAE51BCE71F59CAAA09C4C175DDEA5BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45B8B1FA42BFE61867AE495FF557D741 /* Pods-EvolvKit-ExampleObjC.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EvolvKit-ExampleObjC/Pods-EvolvKit-ExampleObjC-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EvolvKit-ExampleObjC/Pods-EvolvKit-ExampleObjC.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D4A9B590BA784470D7C95A2E8EFA06C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68BF2F330B4A5A10BBE451A231166748 /* PromiseKit.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/PromiseKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				PRODUCT_MODULE_NAME = PromiseKit;
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3532ACF3C3FDB5C225E4ED4724147850 /* Build configuration list for PBXNativeTarget "PromiseKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4A9B590BA784470D7C95A2E8EFA06C8 /* Debug */,
+				8D33E8783CFDAE89BE45D5C1F0839C4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25AD9454612BF454A1E3DC4CD4FA8C6D /* Debug */,
+				CA547D2C7E9A8A153DC2B27FBE00B112 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63ABCAAE05A353204F8540412765FC64 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit iOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AC87FD71FCF89DC275D14522A5752B5 /* Debug */,
+				20648F0008EDEB322CE4C268ABB3D152 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		88E1746560674C2A793F7A748D496877 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-EvolvKit iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1656030C4747A88C986FCA42A501F1F8 /* Debug */,
+				0E499FCB59CC220D6664FEEF7D097EB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8BB029607231B962ADDFE3EF0608B2C2 /* Build configuration list for PBXNativeTarget "EvolvKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				388D43F76BC62B733A2232AA86558488 /* Debug */,
+				7E11F860A84F470EFA483F00C9ABFDB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F29EB80F4B5F2A32074FC913E38E589 /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7785738972029ED9047C55377CE5D6FA /* Debug */,
+				3D12F7A534859FD3BBDCA58359F02718 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB423B8BCD1218DDB1D42556D284278E /* Build configuration list for PBXNativeTarget "Pods-EvolvKit-ExampleObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				368AEBEE8C61D793558B52B0D3CF2435 /* Debug */,
+				CAE51BCE71F59CAAA09C4C175DDEA5BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4A5194ABAF7A4780609E0E581DA6B54 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				590D1EF8D6A50268DBDE4196AC5D455E /* Debug */,
+				44BD25C6D1AD36AF213F2477232F2291 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

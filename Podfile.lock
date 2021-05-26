@@ -1,0 +1,37 @@
+PODS:
+  - Alamofire (4.8.2)
+  - EvolvKit (1.2.4):
+    - Alamofire (~> 4.8.0)
+    - PromiseKit (~> 6.0)
+  - PromiseKit (6.10.0):
+    - PromiseKit/CorePromise (= 6.10.0)
+    - PromiseKit/Foundation (= 6.10.0)
+    - PromiseKit/UIKit (= 6.10.0)
+  - PromiseKit/CorePromise (6.10.0)
+  - PromiseKit/Foundation (6.10.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.10.0):
+    - PromiseKit/CorePromise
+
+DEPENDENCIES:
+  - Alamofire (~> 4.8.0)
+  - EvolvKit (from `./`)
+  - PromiseKit (~> 6.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - PromiseKit
+
+EXTERNAL SOURCES:
+  EvolvKit:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  EvolvKit: 8a61d6873bfff5da85ecce324c8920abcfce875c
+  PromiseKit: 1fdaeb6c0a94a5114fcb814ff3d772b86886ad4e
+
+PODFILE CHECKSUM: 3b25bd15ba3517202890a1234a76d51096a2c8c8
+
+COCOAPODS: 1.10.1
