@@ -1,0 +1,21 @@
+[
+    {
+        "uid": "C51EEAFC-724D-47F7-B99A-F3494357F164",
+        "sid": "3323432565",
+        "eid": "ff01d1516c",
+        "cid": "5fa0fd38aae6:ff01d1516c",
+        "genome": {
+            "home": {
+                "cta_text": "Click Here"
+            },
+            "next": {
+                "layout": "Default Layout"
+            }
+        },
+        "audience_query": {},
+        "ordinal": 0,
+        "group_id": "c1893eb4-21cb-42b3-a124-26a08f9449ea",
+        "excluded": false
+    }
+]
+

@@ -21,7 +21,9 @@ import Foundation
 
 /// The EvolvContext provides functionality to manage data relating to the client state, or context in which the variants will be applied.
 /// This data is used for determining which variables are active, and for general analytics.
-public protocol EvolvContextImpl {
+public protocol EvolvContext {
+    
+    init(uid: String, remoteContext: [String: AnyObject], localContext: [String: AnyObject])
     
     /// Checks if the specified key is currently defined in the context.
     /// - Parameter key: The key to check.
@@ -31,7 +33,7 @@ public protocol EvolvContextImpl {
     /// - Parameter key: The key associated with the value to retrieve.
     func get(key: String)
     
-    /// Adds value to specified array in context. If array doesnt exist its created and added to.
+    /// Adds value to specified array in context. If array doesn't exist its created and added to.
     /// - Parameter key: The array to add to.
     /// - Parameter value: Value to add to the array.
     /// - Parameter local: If true, the value will only be added to the localContext.

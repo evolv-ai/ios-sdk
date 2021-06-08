@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Configuration
-struct Configuration: Codable {
+public struct Configuration: Codable {
     let published: Double
     let client: Client
     let experiments: [Experiment]
@@ -33,65 +33,26 @@ struct Configuration: Codable {
 }
 
 // MARK: - Client
-struct Client: Codable {
+// TODO: is it really needed for mobile version
+public struct Client: Codable {
     let browser, device, location, platform: String
 }
 
 // MARK: - Experiment
-struct Experiment: Codable {
-    let web: Web
+public struct Experiment: Codable {
     let predicate: ExperimentPredicate
-    let buttonColor, ctaText: ButtonColor?
     let id: String
     let paused: Bool
-    let home, next: ButtonColor?
 
     enum CodingKeys: String, CodingKey {
-        case web
         case predicate = "_predicate"
-        case buttonColor = "button_color"
-        case ctaText = "cta_text"
         case id
         case paused = "_paused"
-        case home, next
     }
-}
-
-// MARK: - ButtonColor
-class ButtonColor: Codable {
-    let isEntryPoint: Bool
-    let predicate: ButtonColorPredicate?
-    let values: Bool?
-    let initializers: Bool
-    let ctaText, layout: ButtonColor?
-
-    enum CodingKeys: String, CodingKey {
-        case isEntryPoint = "_is_entry_point"
-        case predicate = "_predicate"
-        case values = "_values"
-        case initializers = "_initializers"
-        case ctaText = "cta_text"
-        case layout
-    }
-
-    init(isEntryPoint: Bool, predicate: ButtonColorPredicate?, values: Bool?, initializers: Bool, ctaText: ButtonColor?, layout: ButtonColor?) {
-        self.isEntryPoint = isEntryPoint
-        self.predicate = predicate
-        self.values = values
-        self.initializers = initializers
-        self.ctaText = ctaText
-        self.layout = layout
-    }
-}
-
-// MARK: - ButtonColorPredicate
-struct ButtonColorPredicate: Codable {
-    let combinator: String
-    let rules: [Rule]
 }
 
 // MARK: - Rule
-struct Rule: Codable {
+public struct Rule: Codable {
     let field, ruleOperator, value: String
 
     enum CodingKeys: String, CodingKey {
@@ -102,21 +63,10 @@ struct Rule: Codable {
 }
 
 // MARK: - ExperimentPredicate
-struct ExperimentPredicate: Codable {
+public struct ExperimentPredicate: Codable {
     let id: Int?
     let combinator: String?
     let rules: [Rule]?
 }
-
-// MARK: - Web
-struct Web: Codable {
-}
-
-
-// Mockup Model
-struct Issue: Codable {
-    let id: Int
-}
-
 
 

@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  Message.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,23 +16,17 @@
 //  limitations under the License.
 //
 
-
 import Foundation
-import Combine
 
-public class EvolvStore: ObservableObject {
-    
-    func expKeyStatesHas(keyStates: Any, stateName: String, key: String, prefix: Bool = false) {
-        
-    }
-    
-    func setConfigLoadedKeys() {
-        
-    }
-    
-    func getValue(for key: String, with genome: Any) {
-        
-    }
-    
-    
+extension EvolvLogger {
+  public struct LogMessage {
+    public let date: Date
+    public let level: EvolvLogger.Level
+    public let msg: String
+    public let function: StaticString
+    public let file: StaticString
+    public let line: UInt
+    public let context: Any?
+    public let system: String
+  }
 }

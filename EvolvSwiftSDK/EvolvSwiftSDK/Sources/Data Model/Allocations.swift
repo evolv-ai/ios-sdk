@@ -1,5 +1,5 @@
 //
-//  Config.swift
+//  Allocations.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -19,8 +19,30 @@
 
 import Foundation
 
-enum Config {
-    static let httpScheme: String = "https"
-    static let domain: String = "participants.evolv.ai"
-    static let apiVersion: String = "v1"
+// MARK: - Allocation
+public struct Allocations: Codable {
+    let uid, eid, cid: String
+    let genome: Genome
+    let audienceQuery: AudienceQuery
+    let ordinal: Int
+    let groupID: String
+    let excluded: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case uid, eid, cid, genome
+        case audienceQuery = "audience_query"
+        case ordinal
+        case groupID = "group_id"
+        case excluded
+    }
+}
+
+// MARK: - AudienceQuery
+public struct AudienceQuery: Codable {
+    
+}
+
+// MARK: - Genome
+public struct Genome: Codable {
+    
 }

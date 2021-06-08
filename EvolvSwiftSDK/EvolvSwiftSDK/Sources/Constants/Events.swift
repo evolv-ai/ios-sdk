@@ -19,7 +19,7 @@
 
 import Foundation
 
-enum Events {
+public enum Events {
     static let initialized = "initialized"
     static let confirmed = "confirmed"
     static let contaminated = "contaminated"
@@ -55,7 +55,7 @@ enum Events {
     enum Request {
         static let failed = "request.failed"
     }
-   
+    
     enum EffectiveGenome {
         static let updated = "effective.genome.updated"
     }

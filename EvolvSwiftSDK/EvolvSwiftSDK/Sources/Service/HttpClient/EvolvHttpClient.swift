@@ -1,5 +1,5 @@
 //
-//  Agent.swift
+//  EvolvHttpClient.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,13 +16,10 @@
 //  limitations under the License.
 //
 
-
 import Foundation
 import Combine
 
-import Combine
-
-struct Agent {
+struct EvolvHttpClient {
     struct Response<T> {
         let value: T
         let response: URLResponse

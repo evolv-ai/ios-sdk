@@ -23,7 +23,7 @@ public protocol EvolvClient {
     /// If the client was configured with bufferEvents: true then calling this will allow data to be sent back to Evolv
     func allowEvents()
     
-    //    Depricated
+    //    Deprecated
     /// Clears the active keys to reset the key states.
     /// - Parameter prefix: The prefix of the keys clear.
     func clearActiveKeys(for prefix: String)
@@ -68,14 +68,13 @@ public protocol EvolvClient {
     
     /// Get the configuration for a specified key.
     /// - Parameter key: The key to retrieve the configuration for.
-    func getCongig(for key: String)
+    func getConfig(for key: String)
     
     /// Initializes the client with required context information.
     /// - Parameter uid: A globally unique identifier for the current participant.
-    /// - Parameter sid: A globally unique session identifier for the current participant.
     /// - Parameter remoteContext: A map of data used for evaluating context predicates and analytics.
     /// - Parameter localContext: A map of data used only for evaluating context predicates.
-    func initialize(uid: String, sid: String, remoteContext: AnyObject, localContext: AnyObject)
+    func initialize(uid: String, remoteContext: [String: AnyObject], localContext: [String: AnyObject])
     
     /// Check if a specified key is currently active.
     /// - Parameter key: The key to check.
@@ -100,7 +99,7 @@ public protocol EvolvClient {
     /// - Parameter prefixes: A list of prefixes to keys to load.
     /// - Parameter configOnly: If true, only the config would be loaded. (default: false)
     /// - Parameter immediate: Forces the requests to the server. (default: false)
-    func preload(for prefixes: Array<String>, with configOnly: Bool, immediate: Bool)
+    func preload(for prefixes: [String: String], with configOnly: Bool, immediate: Bool)
     
     /// Reevaluates the current context.
     func reevaluateContext()

@@ -19,7 +19,7 @@
 
 import Foundation
 
-enum HTTPError: Error {
+public enum HTTPError: Error {
     case nonHTTPResponse
     case requestFailed(Int)
     case serverError(Int)
@@ -40,13 +40,5 @@ enum HTTPError: Error {
             return true
         }
     }
-    
-//    var description: String {
-//        switch self {
-//        case .nonHTTPResponse: return "Non HTTP URL Respose received"
-//        case .requestFailed(let status): return "Received HTTP \(status)"
-//        case .networkingError(let error): return "Networking error: \(error)"
-//        }
-//    }
 }
 

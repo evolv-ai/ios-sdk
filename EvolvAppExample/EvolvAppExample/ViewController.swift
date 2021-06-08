@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import EvolvSwiftSDK
 
 class ViewController: UIViewController {
     
@@ -14,9 +15,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
         
-        cancellable = fetchData()
+        let url = HttpConfig.allocationsURL()
+        cancellable = EvolvAPI.fetchData(for: url)
             .catch {(error: HTTPError) -> Just<String?> in
                 print("\(error.localizedDescription)")
                 return Just(nil)
@@ -25,7 +27,7 @@ class ViewController: UIViewController {
                 if let body = $0 {
                     print(body)
                 }
-            }      
+            }
     }
 }
 
