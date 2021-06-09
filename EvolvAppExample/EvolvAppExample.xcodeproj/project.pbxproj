@@ -1,0 +1,626 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D9C611B26700E7E0011EC8A /* EvolvSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */; };
+		8D9C611C26700E7E0011EC8A /* EvolvSwiftSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8DC547452664D7E2009E2B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC547442664D7E2009E2B19 /* AppDelegate.swift */; };
+		8DC547472664D7E2009E2B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC547462664D7E2009E2B19 /* SceneDelegate.swift */; };
+		8DC547492664D7E2009E2B19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC547482664D7E2009E2B19 /* ViewController.swift */; };
+		8DC5474C2664D7E2009E2B19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC5474A2664D7E2009E2B19 /* Main.storyboard */; };
+		8DC5474E2664D7E5009E2B19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DC5474D2664D7E5009E2B19 /* Assets.xcassets */; };
+		8DC547512664D7E5009E2B19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC5474F2664D7E5009E2B19 /* LaunchScreen.storyboard */; };
+		8DC5475C2664D7E6009E2B19 /* EvolvAppExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5475B2664D7E6009E2B19 /* EvolvAppExampleTests.swift */; };
+		8DC547672664D7E6009E2B19 /* EvolvAppExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC547662664D7E6009E2B19 /* EvolvAppExampleUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8DC547582664D7E6009E2B19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DC547392664D7E2009E2B19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC547402664D7E2009E2B19;
+			remoteInfo = EvolvAppExample;
+		};
+		8DC547632664D7E6009E2B19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DC547392664D7E2009E2B19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC547402664D7E2009E2B19;
+			remoteInfo = EvolvAppExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8D9C611D26700E7E0011EC8A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8D9C611C26700E7E0011EC8A /* EvolvSwiftSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EvolvSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC547412664D7E2009E2B19 /* EvolvAppExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvolvAppExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC547442664D7E2009E2B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8DC547462664D7E2009E2B19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8DC547482664D7E2009E2B19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8DC5474B2664D7E2009E2B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8DC5474D2664D7E5009E2B19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8DC547502664D7E5009E2B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8DC547522664D7E5009E2B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC547572664D7E6009E2B19 /* EvolvAppExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EvolvAppExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC5475B2664D7E6009E2B19 /* EvolvAppExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvAppExampleTests.swift; sourceTree = "<group>"; };
+		8DC5475D2664D7E6009E2B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC547622664D7E6009E2B19 /* EvolvAppExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EvolvAppExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC547662664D7E6009E2B19 /* EvolvAppExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvAppExampleUITests.swift; sourceTree = "<group>"; };
+		8DC547682664D7E6009E2B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC5473E2664D7E2009E2B19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D9C611B26700E7E0011EC8A /* EvolvSwiftSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC547542664D7E6009E2B19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC5475F2664D7E6009E2B19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8D9C611926700E7E0011EC8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8DC547382664D7E2009E2B19 = {
+			isa = PBXGroup;
+			children = (
+				8DC547432664D7E2009E2B19 /* EvolvAppExample */,
+				8DC5475A2664D7E6009E2B19 /* EvolvAppExampleTests */,
+				8DC547652664D7E6009E2B19 /* EvolvAppExampleUITests */,
+				8DC547422664D7E2009E2B19 /* Products */,
+				8D9C611926700E7E0011EC8A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8DC547422664D7E2009E2B19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC547412664D7E2009E2B19 /* EvolvAppExample.app */,
+				8DC547572664D7E6009E2B19 /* EvolvAppExampleTests.xctest */,
+				8DC547622664D7E6009E2B19 /* EvolvAppExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8DC547432664D7E2009E2B19 /* EvolvAppExample */ = {
+			isa = PBXGroup;
+			children = (
+				8DC547442664D7E2009E2B19 /* AppDelegate.swift */,
+				8DC547462664D7E2009E2B19 /* SceneDelegate.swift */,
+				8DC547482664D7E2009E2B19 /* ViewController.swift */,
+				8DC5474A2664D7E2009E2B19 /* Main.storyboard */,
+				8DC5474D2664D7E5009E2B19 /* Assets.xcassets */,
+				8DC5474F2664D7E5009E2B19 /* LaunchScreen.storyboard */,
+				8DC547522664D7E5009E2B19 /* Info.plist */,
+			);
+			path = EvolvAppExample;
+			sourceTree = "<group>";
+		};
+		8DC5475A2664D7E6009E2B19 /* EvolvAppExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				8DC5475B2664D7E6009E2B19 /* EvolvAppExampleTests.swift */,
+				8DC5475D2664D7E6009E2B19 /* Info.plist */,
+			);
+			path = EvolvAppExampleTests;
+			sourceTree = "<group>";
+		};
+		8DC547652664D7E6009E2B19 /* EvolvAppExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8DC547662664D7E6009E2B19 /* EvolvAppExampleUITests.swift */,
+				8DC547682664D7E6009E2B19 /* Info.plist */,
+			);
+			path = EvolvAppExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DC547402664D7E2009E2B19 /* EvolvAppExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DC5476B2664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExample" */;
+			buildPhases = (
+				8DC5473D2664D7E2009E2B19 /* Sources */,
+				8DC5473E2664D7E2009E2B19 /* Frameworks */,
+				8DC5473F2664D7E2009E2B19 /* Resources */,
+				8D9C611D26700E7E0011EC8A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EvolvAppExample;
+			productName = EvolvAppExample;
+			productReference = 8DC547412664D7E2009E2B19 /* EvolvAppExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DC547562664D7E6009E2B19 /* EvolvAppExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DC5476E2664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExampleTests" */;
+			buildPhases = (
+				8DC547532664D7E6009E2B19 /* Sources */,
+				8DC547542664D7E6009E2B19 /* Frameworks */,
+				8DC547552664D7E6009E2B19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DC547592664D7E6009E2B19 /* PBXTargetDependency */,
+			);
+			name = EvolvAppExampleTests;
+			productName = EvolvAppExampleTests;
+			productReference = 8DC547572664D7E6009E2B19 /* EvolvAppExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8DC547612664D7E6009E2B19 /* EvolvAppExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DC547712664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExampleUITests" */;
+			buildPhases = (
+				8DC5475E2664D7E6009E2B19 /* Sources */,
+				8DC5475F2664D7E6009E2B19 /* Frameworks */,
+				8DC547602664D7E6009E2B19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DC547642664D7E6009E2B19 /* PBXTargetDependency */,
+			);
+			name = EvolvAppExampleUITests;
+			productName = EvolvAppExampleUITests;
+			productReference = 8DC547622664D7E6009E2B19 /* EvolvAppExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8DC547392664D7E2009E2B19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					8DC547402664D7E2009E2B19 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					8DC547562664D7E6009E2B19 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 8DC547402664D7E2009E2B19;
+					};
+					8DC547612664D7E6009E2B19 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 8DC547402664D7E2009E2B19;
+					};
+				};
+			};
+			buildConfigurationList = 8DC5473C2664D7E2009E2B19 /* Build configuration list for PBXProject "EvolvAppExample" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8DC547382664D7E2009E2B19;
+			productRefGroup = 8DC547422664D7E2009E2B19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC547402664D7E2009E2B19 /* EvolvAppExample */,
+				8DC547562664D7E6009E2B19 /* EvolvAppExampleTests */,
+				8DC547612664D7E6009E2B19 /* EvolvAppExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC5473F2664D7E2009E2B19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC547512664D7E5009E2B19 /* LaunchScreen.storyboard in Resources */,
+				8DC5474E2664D7E5009E2B19 /* Assets.xcassets in Resources */,
+				8DC5474C2664D7E2009E2B19 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC547552664D7E6009E2B19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC547602664D7E6009E2B19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC5473D2664D7E2009E2B19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC547492664D7E2009E2B19 /* ViewController.swift in Sources */,
+				8DC547452664D7E2009E2B19 /* AppDelegate.swift in Sources */,
+				8DC547472664D7E2009E2B19 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC547532664D7E6009E2B19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC5475C2664D7E6009E2B19 /* EvolvAppExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC5475E2664D7E6009E2B19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC547672664D7E6009E2B19 /* EvolvAppExampleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8DC547592664D7E6009E2B19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC547402664D7E2009E2B19 /* EvolvAppExample */;
+			targetProxy = 8DC547582664D7E6009E2B19 /* PBXContainerItemProxy */;
+		};
+		8DC547642664D7E6009E2B19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC547402664D7E2009E2B19 /* EvolvAppExample */;
+			targetProxy = 8DC547632664D7E6009E2B19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8DC5474A2664D7E2009E2B19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DC5474B2664D7E2009E2B19 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8DC5474F2664D7E5009E2B19 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DC547502664D7E5009E2B19 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8DC547692664D7E6009E2B19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8DC5476A2664D7E6009E2B19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8DC5476C2664D7E6009E2B19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8DC5476D2664D7E6009E2B19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8DC5476F2664D7E6009E2B19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EvolvAppExample.app/EvolvAppExample";
+			};
+			name = Debug;
+		};
+		8DC547702664D7E6009E2B19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EvolvAppExample.app/EvolvAppExample";
+			};
+			name = Release;
+		};
+		8DC547722664D7E6009E2B19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EvolvAppExample;
+			};
+			name = Debug;
+		};
+		8DC547732664D7E6009E2B19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5W9K96U25G;
+				INFOPLIST_FILE = EvolvAppExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.dvoineu.EvolvAppExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EvolvAppExample;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8DC5473C2664D7E2009E2B19 /* Build configuration list for PBXProject "EvolvAppExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DC547692664D7E6009E2B19 /* Debug */,
+				8DC5476A2664D7E6009E2B19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DC5476B2664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DC5476C2664D7E6009E2B19 /* Debug */,
+				8DC5476D2664D7E6009E2B19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DC5476E2664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DC5476F2664D7E6009E2B19 /* Debug */,
+				8DC547702664D7E6009E2B19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DC547712664D7E6009E2B19 /* Build configuration list for PBXNativeTarget "EvolvAppExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DC547722664D7E6009E2B19 /* Debug */,
+				8DC547732664D7E6009E2B19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8DC547392664D7E2009E2B19 /* Project object */;
+}
