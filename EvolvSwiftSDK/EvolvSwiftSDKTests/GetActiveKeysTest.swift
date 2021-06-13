@@ -1,5 +1,5 @@
 //
-//  ConfigurationDataTest.swift
+//  GetActiveKeys.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -20,11 +20,11 @@
 import XCTest
 @testable import EvolvSwiftSDK
 
-class ConfigurationDataTest: XCTestCase {
-
-    func testCanParseConfigurationJSONFile() throws {
-       
-        guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration", ofType: "json") else {
+class GetActiveKeysTest: XCTestCase {
+    
+    func testGetActiveKeys(allocation: Allocations, configuration: Configuration) throws {
+        
+        guard let pathString = Bundle(for: type(of: self)).path(forResource: "allocations", ofType: "json") else {
             fatalError("json not found") }
         
         guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {
@@ -32,8 +32,21 @@ class ConfigurationDataTest: XCTestCase {
         }
         
         let jsonData = json.data(using: .utf8)!
-        let configurationData: Configuration = try! JSONDecoder().decode(Configuration.self, from: jsonData)
+        let allocationsData: [Allocations] = try! JSONDecoder().decode([Allocations].self, from: jsonData)
         
-        XCTAssertEqual(true, configurationData.experiments[0].home?.isEntryPoint)
+        guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration", ofType: "json") else {
+            fatalError("json not found") }
+        
+        guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {
+            fatalError("Unable to convert json to String")
+        }
+        
+//        let jsonData = json.data(using: .utf8)!
+//        let configurationData: Configuration = try! JSONDecoder().decode(Configuration.self, from: jsonData)
+        
+        
+    
     }
+    
+    
 }
