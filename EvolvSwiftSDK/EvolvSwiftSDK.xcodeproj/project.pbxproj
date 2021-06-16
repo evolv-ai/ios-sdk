@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D5799902678E8A3009CFA98 /* EvolvConfigImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57998F2678E8A3009CFA98 /* EvolvConfigImpl.swift */; };
+		8D5799942678F117009CFA98 /* EvolvResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799932678F117009CFA98 /* EvolvResult.swift */; };
+		8D5799982678F5DC009CFA98 /* EvolvContextImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799972678F5DC009CFA98 /* EvolvContextImpl.swift */; };
+		8D57999A2679F75F009CFA98 /* EvolvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799992679F75F009CFA98 /* EvolvConfig.swift */; };
+		8D57999C2679FB42009CFA98 /* EvolvJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57999B2679FB42009CFA98 /* EvolvJSON.swift */; };
 		8D9C6086266F7E230011EC8A /* EvolvSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */; };
 		8D9C608D266F7E230011EC8A /* EvolvSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D9C60D8266F803D0011EC8A /* AllocationDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60D7266F803D0011EC8A /* AllocationDataTest.swift */; };
@@ -15,7 +20,7 @@
 		8D9C60DF266F80E50011EC8A /* ConfigurationDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60DC266F80E50011EC8A /* ConfigurationDataTest.swift */; };
 		8D9C60FD266F88630011EC8A /* EvolvContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60E4266F88630011EC8A /* EvolvContext.swift */; };
 		8D9C60FE266F88640011EC8A /* EvolvClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60E5266F88630011EC8A /* EvolvClient.swift */; };
-		8D9C60FF266F88640011EC8A /* EvolvStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60E6266F88630011EC8A /* EvolvStore.swift */; };
+		8D9C60FF266F88640011EC8A /* EvolvStoreImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60E6266F88630011EC8A /* EvolvStoreImpl.swift */; };
 		8D9C6101266F88640011EC8A /* EvolvAllocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60E8266F88630011EC8A /* EvolvAllocationStore.swift */; };
 		8D9C6102266F88640011EC8A /* HttpConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60EA266F88630011EC8A /* HttpConfig.swift */; };
 		8D9C6103266F88640011EC8A /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60EB266F88630011EC8A /* Events.swift */; };
@@ -50,6 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D57998F2678E8A3009CFA98 /* EvolvConfigImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvConfigImpl.swift; sourceTree = "<group>"; };
+		8D5799932678F117009CFA98 /* EvolvResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvResult.swift; sourceTree = "<group>"; };
+		8D5799972678F5DC009CFA98 /* EvolvContextImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvContextImpl.swift; sourceTree = "<group>"; };
+		8D5799992679F75F009CFA98 /* EvolvConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvConfig.swift; sourceTree = "<group>"; };
+		8D57999B2679FB42009CFA98 /* EvolvJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvJSON.swift; sourceTree = "<group>"; };
 		8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EvolvSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvolvSwiftSDK.h; sourceTree = "<group>"; };
 		8D9C6080266F7E230011EC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,7 +71,7 @@
 		8D9C60DC266F80E50011EC8A /* ConfigurationDataTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationDataTest.swift; sourceTree = "<group>"; };
 		8D9C60E4266F88630011EC8A /* EvolvContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolvContext.swift; sourceTree = "<group>"; };
 		8D9C60E5266F88630011EC8A /* EvolvClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolvClient.swift; sourceTree = "<group>"; };
-		8D9C60E6266F88630011EC8A /* EvolvStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolvStore.swift; sourceTree = "<group>"; };
+		8D9C60E6266F88630011EC8A /* EvolvStoreImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolvStoreImpl.swift; sourceTree = "<group>"; };
 		8D9C60E8266F88630011EC8A /* EvolvAllocationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolvAllocationStore.swift; sourceTree = "<group>"; };
 		8D9C60EA266F88630011EC8A /* HttpConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpConfig.swift; sourceTree = "<group>"; };
 		8D9C60EB266F88630011EC8A /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
@@ -156,10 +166,12 @@
 		8D9C60E3266F88630011EC8A /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				8D9C60E6266F88630011EC8A /* EvolvStore.swift */,
+				8D9C60E6266F88630011EC8A /* EvolvStoreImpl.swift */,
 				8DE7B37D26710D17003E76A7 /* EvolvPredicate.swift */,
 				8DE7B37F26710E82003E76A7 /* EvolvClientImpl.swift */,
 				8DE7B39026739589003E76A7 /* EvolvError.swift */,
+				8D57998F2678E8A3009CFA98 /* EvolvConfigImpl.swift */,
+				8D5799972678F5DC009CFA98 /* EvolvContextImpl.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -175,6 +187,8 @@
 		8D9C60EC266F88630011EC8A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8D5799932678F117009CFA98 /* EvolvResult.swift */,
+				8D57999B2679FB42009CFA98 /* EvolvJSON.swift */,
 				8D9C60ED266F88630011EC8A /* Logger */,
 				8DE7B38E26739423003E76A7 /* TypeCheckingConversion.swift */,
 			);
@@ -252,6 +266,7 @@
 				8D9C60E4266F88630011EC8A /* EvolvContext.swift */,
 				8D9C60E5266F88630011EC8A /* EvolvClient.swift */,
 				8D9C60E8266F88630011EC8A /* EvolvAllocationStore.swift */,
+				8D5799992679F75F009CFA98 /* EvolvConfig.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -410,6 +425,7 @@
 			files = (
 				8D9C6108266F88640011EC8A /* Formatter.swift in Sources */,
 				8DE7B39126739589003E76A7 /* EvolvError.swift in Sources */,
+				8D5799902678E8A3009CFA98 /* EvolvConfigImpl.swift in Sources */,
 				8D9C60FD266F88630011EC8A /* EvolvContext.swift in Sources */,
 				8D9C610B266F88640011EC8A /* Configuration.swift in Sources */,
 				8DE7B38F26739423003E76A7 /* TypeCheckingConversion.swift in Sources */,
@@ -419,13 +435,17 @@
 				8D9C6101266F88640011EC8A /* EvolvAllocationStore.swift in Sources */,
 				8D9C6103266F88640011EC8A /* Events.swift in Sources */,
 				8D9C6105266F88640011EC8A /* EvolvLogger.swift in Sources */,
+				8D57999C2679FB42009CFA98 /* EvolvJSON.swift in Sources */,
 				8DE7B38026710E82003E76A7 /* EvolvClientImpl.swift in Sources */,
 				8D9C6116266FAB8D0011EC8A /* Event.swift in Sources */,
+				8D57999A2679F75F009CFA98 /* EvolvConfig.swift in Sources */,
 				8DE7B37E26710D17003E76A7 /* EvolvPredicate.swift in Sources */,
 				8D9C6104266F88640011EC8A /* LogOutput.swift in Sources */,
-				8D9C60FF266F88640011EC8A /* EvolvStore.swift in Sources */,
+				8D9C60FF266F88640011EC8A /* EvolvStoreImpl.swift in Sources */,
 				8D9C610A266F88640011EC8A /* Allocations.swift in Sources */,
 				8D9C610C266F88640011EC8A /* EvolvAPI.swift in Sources */,
+				8D5799982678F5DC009CFA98 /* EvolvContextImpl.swift in Sources */,
+				8D5799942678F117009CFA98 /* EvolvResult.swift in Sources */,
 				8D9C61182670090D0011EC8A /* Data.swift in Sources */,
 				8D9C6107266F88640011EC8A /* LogMessage.swift in Sources */,
 				8D9C60FE266F88640011EC8A /* EvolvClient.swift in Sources */,
