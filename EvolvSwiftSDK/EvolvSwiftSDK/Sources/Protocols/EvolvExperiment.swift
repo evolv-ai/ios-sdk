@@ -1,5 +1,5 @@
 //
-//  GetActiveKeys.swift
+//  EvolvExperiment.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,13 +16,8 @@
 //  limitations under the License.
 //
 
+import Foundation
 
-import XCTest
-@testable import EvolvSwiftSDK
-
-class GetActiveKeysTest: XCTestCase {
+public protocol EvolvExperiment {
     
-    func testGetActiveKeys() throws {
-    
-    }
 }

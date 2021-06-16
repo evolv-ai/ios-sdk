@@ -19,11 +19,6 @@
 
 import Foundation
 
-struct EvolvPredicate {
-    
-    public func evaluate(context: Codable, predicate: Codable) {
-        
-        let result: Codable?
-    }
+public protocol EvolvPredicate {
     
 }

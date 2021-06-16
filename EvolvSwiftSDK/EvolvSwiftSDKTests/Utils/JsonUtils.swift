@@ -27,14 +27,6 @@ class JsonUtils {
         return modelExp == model
     }
     
-//    static func getAttributeValueFromNative(_ value: Any?) throws -> AttributeValue {
-//        // JSONEncoder does not support fragmented JSON format (string alone), so wrap in an array
-//        let json: [Any?] = [value]
-//        let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
-//        let modelArray = try JSONDecoder().decode([AttributeValue].self, from: jsonData)
-//        return modelArray[0]
-//    }
-    
     static func jsonDataFromNative(_ raw: Any) -> Data {
         return try! JSONSerialization.data(withJSONObject: raw, options: [])
     }

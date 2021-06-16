@@ -1,5 +1,5 @@
 //
-//  GetActiveKeys.swift
+//  EvolvPredicate.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -17,12 +17,13 @@
 //
 
 
-import XCTest
-@testable import EvolvSwiftSDK
+import Foundation
 
-class GetActiveKeysTest: XCTestCase {
+struct EvolvPredicateImpl {
     
-    func testGetActiveKeys() throws {
-    
+    public func evaluate(context: Codable, predicate: Codable) {
+        
+        let result: Codable?
     }
+    
 }

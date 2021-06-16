@@ -22,9 +22,9 @@ class AllocationsDataTest: XCTestCase {
         let jsonData = json.data(using: .utf8)!
         let allocationsData: [Allocations] = try! JSONDecoder().decode([Allocations].self, from: jsonData)
         
-        XCTAssertEqual("C51EEAFC-724D-47F7-B99A-F3494357F164", allocationsData[0].uid)
-        XCTAssertEqual("ff01d1516c", allocationsData[0].eid)
-        XCTAssertEqual("5fa0fd38aae6:ff01d1516c", allocationsData[0].cid)
+        XCTAssertEqual("C51EEAFC-724D-47F7-B99A-F3494357F164", allocationsData[0].userId)
+        XCTAssertEqual("ff01d1516c", allocationsData[0].experimentId)
+        XCTAssertEqual("5fa0fd38aae6:ff01d1516c", allocationsData[0].candidateId)
     }
 }
 

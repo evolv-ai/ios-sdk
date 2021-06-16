@@ -20,16 +20,19 @@
 import Foundation
 
 // MARK: - Allocation
-public struct Allocations: Codable {
-    let uid, eid, cid: String
-    let genome: Genome
-    let audienceQuery: AudienceQuery
+public struct Allocations: Decodable {
+    let userId, experimentId, candidateId: String
+    let genome: GenomeObject
+    let audienceQuery: AudienceQuery?
     let ordinal: Int
     let groupID: String
     let excluded: Bool
     
     enum CodingKeys: String, CodingKey {
-        case uid, eid, cid, genome
+        case userId = "uid"
+        case experimentId = "eid"
+        case candidateId = "cid"
+        case genome
         case audienceQuery = "audience_query"
         case ordinal
         case groupID = "group_id"
@@ -42,7 +45,16 @@ public struct AudienceQuery: Codable {
     
 }
 
-// MARK: - Genome
-public struct Genome: Codable {
-    
+extension Allocations {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        userId = try container.decode(String.self, forKey: .userId)
+        experimentId = try container.decode(String.self, forKey: .experimentId)
+        candidateId = try container.decode(String.self, forKey: .candidateId)
+        genome = try container.decode(GenomeObject.self, forKey: .genome)
+        audienceQuery = try container.decode(AudienceQuery.self, forKey: .audienceQuery)
+        ordinal = try container.decode(Int.self, forKey: .ordinal)
+        groupID = try container.decode(String.self, forKey: .groupID)
+        excluded = try container.decode(Bool.self, forKey: .excluded)
+    }
 }
