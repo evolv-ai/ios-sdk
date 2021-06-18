@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  JsonUtils.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,10 +16,23 @@
 //  limitations under the License.
 //
 
-
 import Foundation
+import XCTest
 
-/// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
+class JsonUtils {
+
+    static func isEqualWithEncodeThenDecode<T: Codable & Equatable>(_ model: T) -> Bool {
+        let jsonData = try! JSONEncoder().encode(model)
+        let modelExp = try! JSONDecoder().decode(T.self, from: jsonData)
+        return modelExp == model
+    }
     
+    static func jsonDataFromNative(_ raw: Any) -> Data {
+        return try! JSONSerialization.data(withJSONObject: raw, options: [])
+    }
+    
+    static func jsonStringFromNative(_ raw: Any) -> String {
+        return String(data: jsonDataFromNative(raw), encoding: .utf8)!
+    }
+
 }

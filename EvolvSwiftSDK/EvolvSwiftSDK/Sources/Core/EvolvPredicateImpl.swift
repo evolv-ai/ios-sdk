@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  EvolvPredicate.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -19,7 +19,11 @@
 
 import Foundation
 
-/// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
+struct EvolvPredicateImpl {
+    
+    public func evaluate(context: Codable, predicate: Codable) {
+        
+        let result: Codable?
+    }
     
 }

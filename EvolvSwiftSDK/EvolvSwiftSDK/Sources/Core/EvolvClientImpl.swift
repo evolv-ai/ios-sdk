@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  EvolvClientImpl.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -19,7 +19,7 @@
 
 import Foundation
 
-/// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
+public class EvolvClientImpl {
+    
     
 }

@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  GetActiveKeys.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -17,9 +17,12 @@
 //
 
 
-import Foundation
+import XCTest
+@testable import EvolvSwiftSDK
 
-/// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
+class GetActiveKeysTest: XCTestCase {
     
+    func testGetActiveKeys() throws {
+    
+    }
 }

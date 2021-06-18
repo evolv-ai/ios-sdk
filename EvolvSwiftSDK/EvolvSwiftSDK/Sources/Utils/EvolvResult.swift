@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvResult.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -18,19 +18,8 @@
 
 
 import Foundation
-import Combine
 
-public class EvolvStore: ObservableObject {
-    
-    func expKeyStatesHas(keyStates: Any, stateName: String, key: String, prefix: Bool = false) {
-        
-    }
-    
-    func setConfigLoadedKeys() {
-        
-    }
-    
-    func getValue(for key: String, with genome: Any) {
-        
-    }
+public enum EvolvResult<Value> {
+    case success(Value)
+    case failure(EvolvError)
 }

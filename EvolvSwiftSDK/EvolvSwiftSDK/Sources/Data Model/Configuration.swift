@@ -40,11 +40,13 @@ public struct Client: Codable {
 
 // MARK: - Experiment
 public struct Experiment: Codable {
+    let web: Web
     let predicate: ExperimentPredicate
     let id: String
     let paused: Bool
 
     enum CodingKeys: String, CodingKey {
+        case web
         case predicate = "_predicate"
         case id
         case paused = "_paused"
@@ -61,6 +63,12 @@ public struct Rule: Codable {
         case value
     }
 }
+
+// MARK: - Web
+public struct Web: Codable {
+
+}
+
 
 // MARK: - ExperimentPredicate
 public struct ExperimentPredicate: Codable {

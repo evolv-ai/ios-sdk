@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  EvolvStore.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -18,8 +18,19 @@
 
 
 import Foundation
+import Combine
 
-/// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
+public class EvolvStoreImpl: EvolvStore, ObservableObject {
     
+    func expKeyStatesHas(keyStates: Any, stateName: String, key: String, prefix: Bool = false) {
+        
+    }
+    
+    func setConfigLoadedKeys() {
+        
+    }
+    
+    func getValue(for key: String, with genome: Any) {
+        
+    }
 }
