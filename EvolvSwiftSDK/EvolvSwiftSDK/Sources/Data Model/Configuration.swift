@@ -55,14 +55,91 @@ public struct Experiment: Codable {
 
 // MARK: - Rule
 public struct Rule: Codable {
-    let field, ruleOperator, value: String
+    let field: String
+    let ruleOperator: RuleOperator
+    let value: String
 
     enum CodingKeys: String, CodingKey {
         case field
         case ruleOperator = "operator"
         case value
     }
+    
+    enum RuleOperator: String, Codable {
+            case equal = "equal"
+            case notEqual = "not_equal"
+            case contains = "contains"
+            case notContains = "not_contains"
+            case exists
+            case regexMatch = "regex_match"
+            case notRegexMatch = "not_regex_match"
+        }
 }
+
+
+public struct CompoundRule: Decodable {
+    enum Combinator: String, Decodable {
+        case and
+        case or
+    }
+
+    let id: String
+    let combinator: Combinator
+    let rules: [EvolvQuery]
+}
+
+public enum EvolvQuery: Decodable {
+
+    case rule(Rule)
+    case compoundRule(CompoundRule)
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let rule = try? container.decode(Rule.self) {
+            self = .rule(rule)
+        } else if let compoundRule = try? container.decode(CompoundRule.self) {
+            self = .compoundRule(compoundRule)
+        } else {
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Mismatched Types")
+        }
+    }
+
+    static func evaluate(_ expression: EvolvQuery, context: [String: String]) -> Bool {
+        switch expression {
+        case .rule(let rule):
+            switch (rule.ruleOperator, rule.value) {
+            case (.exists, let value as String):
+                return context.keys.contains(where: { $0 == value })
+            case (.equal, let values as [String]) where values.count > 1:
+                return context.keys.contains(where: { $0 == values[0] }) && context[values[0]] == values[1]
+            case (.notEqual, let values as [String]) where values.count > 1:
+                return context.keys.contains(where: { $0 == values[0] }) && context[values[0]] != values[1]
+            case (.contains, let values as [String]) where values.count > 1:
+                return context.contains(where: { $0.key == values[0] && $0.value.contains(values[1]) })
+            case (.notContains, let values as [String]) where values.count > 1:
+                return context.contains(where: { $0.key == values[0] && $0.value.contains(values[1]) == false })
+            default:
+                return true
+            }
+        case .compoundRule(let compoundRule):
+            guard compoundRule.rules.isEmpty == false else {
+                return true
+            }
+
+            let results = compoundRule.rules.map({ evaluate($0, context: context) })
+
+            switch compoundRule.combinator {
+            case .and:
+                return !results.contains(false)
+            case .or:
+                return results.contains(true)
+            }
+        }
+    }
+
+}
+
 
 // MARK: - Web
 public struct Web: Codable {

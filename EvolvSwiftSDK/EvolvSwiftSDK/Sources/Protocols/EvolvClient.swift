@@ -58,7 +58,7 @@ extension EvolvClient {
     
     /// Check all active keys that start with the specified prefix.
     /// - Parameter prefix: The prefix of the keys to check.
-    func getActiveKeys(for prefix: String) -> Bool {
+    func getActiveKeys(for prefix: String) -> Bool { 
         return true
     }
     

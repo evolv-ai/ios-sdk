@@ -24,7 +24,7 @@ public struct HttpConfig {
     static let domain: String = "participants.evolv.ai"
     static let apiVersion: String = "v1"
     static let participantID: String = "C51EEAFC-724D-47F7-B99A-F3494357F164"
-    static let environmentID: String = "8b50696b6c"
+    static let environmentId: String = "8b50696b6c"
     static let configurationEndpoint: String = "configurations.json"
     static let allocationsEndpoint: String = "allocations"
     static let eventsEndpoint: String = "events"
@@ -34,7 +34,7 @@ public struct HttpConfig {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
         components.host = HttpConfig.domain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentID)/\(HttpConfig.participantID)/\(HttpConfig.allocationsEndpoint)"
+        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.allocationsEndpoint)"
         let url = components.url!
         return url
     }
@@ -43,7 +43,7 @@ public struct HttpConfig {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
         components.host = HttpConfig.domain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentID)/\(HttpConfig.participantID)/\(HttpConfig.configurationEndpoint)"
+        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.configurationEndpoint)"
         let url = components.url!
         return url
     }
@@ -52,7 +52,7 @@ public struct HttpConfig {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
         components.host = HttpConfig.domain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentID)/\(HttpConfig.eventsEndpoint)"
+        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.eventsEndpoint)"
         let url = components.url!
         return url
     }
@@ -61,7 +61,7 @@ public struct HttpConfig {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
         components.host = HttpConfig.domain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentID)/\(HttpConfig.dataEndpoint)"
+        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.dataEndpoint)"
         let url = components.url!
         return url
     }

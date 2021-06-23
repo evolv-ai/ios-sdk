@@ -26,7 +26,7 @@ struct EvolvConfigImpl: EvolvConfig {
         public static let httpScheme: String = HttpConfig.httpScheme
         public static let domain: String = HttpConfig.domain
         public static let version: String = HttpConfig.apiVersion
-        public static let environmentId: String = HttpConfig.environmentID
+        public static let environmentId: String = HttpConfig.environmentId
     }
 
     let httpScheme: String

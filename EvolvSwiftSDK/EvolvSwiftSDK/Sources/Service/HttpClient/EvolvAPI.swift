@@ -58,7 +58,7 @@ extension EvolvAPI {
         return run(URLRequest(url: HttpConfig.configurationURL()))
     }
     
-    static func allocations() -> AnyPublisher<[Allocations], Error> {
+    static func allocations() -> AnyPublisher<[Allocation], Error> {
         return run(URLRequest(url: HttpConfig.allocationsURL()))
     }
     
