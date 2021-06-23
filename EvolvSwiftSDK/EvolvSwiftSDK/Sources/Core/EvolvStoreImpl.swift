@@ -22,6 +22,8 @@ import Combine
 
 public class EvolvStoreImpl: EvolvStore, ObservableObject {
     
+    
+    
 }
 
 extension EvolvStoreImpl {
@@ -81,14 +83,33 @@ extension EvolvStoreImpl {
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
         var eids: [String] = []
-        
+//        TODO: implement function
         
         return []
     }
     
-    public func evaluatePredicates(version: Int, context: EvolvContext, config: EvolvConfig){
+    public func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
         
+        let result = [String: Any]()
+        if (config.experiments.count == 0) {
+            return result
+        }
+        
+        // TODO: - Add functionality (lines 172-210)
+        return result
     }
+    
+    public func getActiveAndEntryExperimentKeyStates(results: Array<String>, keyStatesLoaded: [String: Any]) {
+        // TODO: - Add functionality (lines 216-240)
+    }
+    
+    public func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
+        // TODO: - Add functionality 242-287
+    }
+    
+    
+    
+    
     
     
 }
