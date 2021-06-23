@@ -45,7 +45,7 @@ public protocol EvolvClient {
     /// - Parameter uid: A globally unique identifier for the current participant.
     /// - Parameter remoteContext: A map of data used for evaluating context predicates and analytics.
     /// - Parameter localContext: A map of data used only for evaluating context predicates.
-    func initialize(uid: String, remoteContext: [String: AnyObject], localContext: [String: AnyObject])
+    func initialize(uid: String, remoteContext: [String: Any], localContext: [String: Any]?)
     
     
     

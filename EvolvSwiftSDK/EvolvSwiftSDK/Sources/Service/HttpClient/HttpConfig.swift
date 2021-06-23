@@ -21,8 +21,12 @@ import Foundation
 
 public struct HttpConfig {
     static let httpScheme: String = "https"
-    static let domain: String = "participants.evolv.ai"
-    static let apiVersion: String = "v1"
+    public static let devDomain: String = "participants.evolv.ai"
+    public static let stagingDomain: String = "participants-stg.evolv.ai"
+    static let apiVersion: String = {
+        return "V\(version)"
+    }()
+    static let version: Int = 1
     static let participantID: String = "C51EEAFC-724D-47F7-B99A-F3494357F164"
     static let environmentId: String = "8b50696b6c"
     static let configurationEndpoint: String = "configurations.json"
@@ -30,37 +34,57 @@ public struct HttpConfig {
     static let eventsEndpoint: String = "events"
     static let dataEndpoint: String = "data"
     
-    public static func allocationsURL() -> URL {
+    /// Creates URL for allocations endpoint.
+    ///
+    /// - Parameters:
+    ///   - domain: production domain used by default
+    /// - Returns: allocations URL
+    public static func allocationsURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.domain
+        components.host = domain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.allocationsEndpoint)"
         let url = components.url!
         return url
     }
     
-    public static func configurationURL() -> URL {
+    /// Creates URL for configuration endpoint.
+    ///
+    /// - Parameters:
+    ///   - domain: production domain used by default
+    /// - Returns: configuration URL
+    public static func configurationURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.domain
+        components.host = HttpConfig.devDomain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.configurationEndpoint)"
         let url = components.url!
         return url
     }
     
-    public static func eventsURL() -> URL {
+    /// Creates URL for events endpoint.
+    ///
+    /// - Parameters:
+    ///   - domain: production domain used by default
+    /// - Returns: events URL
+    public static func eventsURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.domain
+        components.host = HttpConfig.devDomain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.eventsEndpoint)"
         let url = components.url!
         return url
     }
     
-    public static func dataURL() -> URL {
+    /// Creates URL for data endpoint.
+    ///
+    /// - Parameters:
+    ///   - domain: production domain used by default
+    /// - Returns: data URL
+    public static func dataURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.domain
+        components.host = HttpConfig.devDomain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.dataEndpoint)"
         let url = components.url!
         return url

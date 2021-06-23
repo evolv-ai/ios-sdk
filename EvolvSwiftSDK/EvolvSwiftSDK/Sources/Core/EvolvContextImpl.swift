@@ -22,26 +22,28 @@ import Foundation
 public class EvolvContextImpl: EvolvContext {
     
     private var uid: String
+    private var sid: String?
+    private var remoteContext: [String : Any] = [:]
+    private var localContext: [String : Any]?
+    private var initialized = false
     
-    private var remoteContext: [String : AnyObject] = [:]
-    private var localContext: [String : AnyObject] = [:]
-    private var initialized = true
+    
     private var evolvConfig: EvolvConfig?
-    private var evolvStore = EvolvStoreImpl()
+    private var evolvStore: EvolvStore?
     
-    public required init(uid: String, remoteContext: [String : AnyObject], localContext: [String : AnyObject]) {
+    public required init(uid: String, remoteContext: [String : Any], localContext: [String : Any]?) {
         
         self.uid = uid
         self.localContext = localContext
         self.remoteContext = remoteContext
     }
     
-    public func resolve() -> [String: AnyObject] {
-        var effectiveContext: [String: AnyObject] = [:]
+    public func resolve() -> [String: Any] {
+        var effectiveContext: [String: Any] = [:]
         return effectiveContext
     }
     
-    public func set(key: String, value: [String: AnyObject], local: Bool) {
+    public func set(key: String, value: [String: Any], local: Bool) {
         print("\(key) for \(value)")
     }
     

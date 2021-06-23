@@ -1,0 +1,80 @@
+{
+    "web": {
+        "t0eteojw8": {
+            "y98saqjfa": {
+                "id": "d6p1t1ea3",
+                "type": "compound",
+                "_metadata": {},
+                "timing": "dom-content-loaded",
+                "timingSelectors": []
+            },
+            "cwzrel9l7": {
+                "id": "xcygf1m49",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            },
+            "ggce1a3ke": {
+                "id": "cso5hddox",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            },
+            "n5m5sfeeu": {
+                "id": "8hcqf1xi4",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            },
+            "f9abzyeuc": {
+                "id": "zdm7xnxs7",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            }
+        },
+        "pjb2bljun": {
+            "wsuyp1qor": {
+                "id": "ny1wh9sw0",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            }
+        },
+        "h3sag2f2i": {
+            "uut3nkr4w": {
+                "id": "9eqd4zigy",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            },
+            "u87mogtte": {
+                "id": "4qidfqj41",
+                "type": "compound",
+                "_metadata": {},
+                "script": "",
+                "styles": "",
+                "timing": "immediate",
+                "timingSelectors": []
+            }
+        }
+    }
+}

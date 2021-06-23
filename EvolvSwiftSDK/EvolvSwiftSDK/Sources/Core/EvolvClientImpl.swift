@@ -19,7 +19,47 @@
 
 import Foundation
 
-public class EvolvClientImpl {
+public struct EvolvClientImpl: EvolvClient {
+    
+    private var initialized = false
+    
+    
+    
+    public func confirm() {
+        return
+    }
+    
+    public func contaminate() {
+        return
+    }
+    
+    public func get(value forKey: String) {
+        return
+    }
+    
+    public func initialize(uid: String, remoteContext: [String : Any], localContext: [String : Any]?) {
+        return
+    }
+    
+    public func reevaluateContext() {
+        return
+    }
+    
+}
+
+
+public struct Options {
+    let version: Int = 1
+    let environment: Any
+    let autoConfirm: Bool
+    let endpoint: URL
+    let analytics: String
+    let store: EvolvStore
+    let context: EvolvContext
+    let beacon: EvolvBeacon
+    let bufferEvents: [String: Any]
     
     
 }
+
+

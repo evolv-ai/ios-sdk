@@ -1,0 +1,11 @@
+{
+    "id": 156,
+    "combinator": "and",
+    "rules": [
+        {
+            "field": "signedin",
+            "operator": "equal",
+            "value": "yes"
+        }
+    ]
+}
