@@ -34,6 +34,10 @@ class ConfigurationDataTest: XCTestCase {
         let jsonData = json.data(using: .utf8)!
         let configurationData: Configuration = try! JSONDecoder().decode(Configuration.self, from: jsonData)
         
-//        XCTAssertEqual(true, configurationData.experiments[0].home?.isEntryPoint)
+        XCTAssertEqual("desktop", configurationData.client.device)
+        XCTAssertEqual("BY", configurationData.client.location)
+        XCTAssertEqual(156, configurationData.experiments[1].predicate.id)
+        XCTAssertEqual("ff01d1516c", configurationData.experiments[0].id)
+        XCTAssertEqual(false, configurationData.experiments[0].paused)
     }
 }

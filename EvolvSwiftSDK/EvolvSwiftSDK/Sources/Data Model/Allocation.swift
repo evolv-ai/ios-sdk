@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Allocation
-public struct Allocations: Decodable {
+public struct Allocation: Decodable {
     let userId, experimentId, candidateId: String
     let genome: GenomeObject
     let audienceQuery: AudienceQuery?
@@ -45,7 +45,7 @@ public struct AudienceQuery: Codable {
     
 }
 
-extension Allocations {
+extension Allocation {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         userId = try container.decode(String.self, forKey: .userId)

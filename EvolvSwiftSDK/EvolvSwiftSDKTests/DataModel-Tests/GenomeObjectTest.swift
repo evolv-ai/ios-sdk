@@ -177,6 +177,10 @@ extension GenomeObjectTest {
         
     }
     
+    func testDecodeFailWithSimilarKeys() {
+        
+    }
+    
     
     
 }

@@ -23,7 +23,7 @@ import Foundation
 /// This data is used for determining which variables are active, and for general analytics.
 public protocol EvolvContext {
     
-    init(uid: String, remoteContext: [String: AnyObject], localContext: [String: AnyObject])
+    init(uid: String, remoteContext: [String: Any], localContext: [String: Any]?)
     
 //    /// Checks if the specified key is currently defined in the context.
 //    /// - Parameter key: The key to check.
@@ -46,14 +46,14 @@ public protocol EvolvContext {
 //    func remove(key: String)
     
     /// Computes the effective context from the local and remote contexts.
-    func resolve() -> [String: AnyObject]
+    func resolve() -> [String: Any]
     
     /// Sets a value in the current context.
     /// Note: This will cause the effective genome to be recomputed.
     /// - Parameter key: The key to associate the value to.
     /// - Parameter value: The value to associate with the key.
     /// - Parameter local: If true, the value will only be added to the localContext.
-    func set(key: String, value: [String: AnyObject], local: Bool)
+    func set(key: String, value: [String: Any], local: Bool)
     
 //    /// Merge the specified object into the current context.
 //    /// Note: This will cause the effective genome to be recomputed.

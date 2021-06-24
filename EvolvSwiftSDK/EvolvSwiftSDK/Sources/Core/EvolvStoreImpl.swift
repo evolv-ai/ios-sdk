@@ -22,15 +22,94 @@ import Combine
 
 public class EvolvStoreImpl: EvolvStore, ObservableObject {
     
+    
+    
+}
+
+extension EvolvStoreImpl {
+    
     func expKeyStatesHas(keyStates: Any, stateName: String, key: String, prefix: Bool = false) {
         
     }
     
-    func setConfigLoadedKeys() {
+    func setConfigLoadedKeys(keyStates: Any, exp: Any) {
         
     }
     
-    func getValue(for key: String, with genome: Any) {
+    func moveKeys(keys: Any, from: Any, to: Any) {
         
     }
+    
+    func wrapListener(listener: Any) {
+        
+    }
+    
+    func getValue(for key: String, with genome: GenomeObject) {
+        
+    }
+    
+    func getConfigValue(for key: String, genome: GenomeObject, config: EvolvConfig) {
+      
+    }
+    
+    func getValueActive(activeKeys: [String], key: String) -> Bool {
+        return activeKeys.contains(key)
+    }
+    
+    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> ([String], [String]) {
+        
+        var result: Array<String> = []
+        var previous: Array<String> = []
+        
+        func hasPrefix(key: String) -> Bool {
+            return prefix.isEmpty || !prefix.contains(key)
+        }
+        
+        for key in activeKeys {
+            if hasPrefix(key: key) {
+                result.append(key)
+                previous.append(key)
+            }
+        }
+        
+        for key in previousKeys {
+            if hasPrefix(key: key) {
+                previous.append(key)
+            }
+        }
+        
+        return ( result, previous )
+    }
+    
+    func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
+        var eids: [String] = []
+//        TODO: implement function
+        
+        return []
+    }
+    
+    public func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
+        
+        let result = [String: Any]()
+        if (config.experiments.count == 0) {
+            return result
+        }
+        
+        // TODO: - Add functionality (lines 172-210)
+        return result
+    }
+    
+    public func getActiveAndEntryExperimentKeyStates(results: Array<String>, keyStatesLoaded: [String: Any]) {
+        // TODO: - Add functionality (lines 216-240)
+    }
+    
+    public func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
+        // TODO: - Add functionality 242-287
+    }
+    
+    
+    
+    
+    
+    
 }

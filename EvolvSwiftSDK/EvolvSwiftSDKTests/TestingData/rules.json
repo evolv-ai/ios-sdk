@@ -1,0 +1,22 @@
+[
+    {
+        "field": "Age",
+        "operator": "equal",
+        "value": "26"
+    },
+    {
+        "combinator": "or",
+        "rules": [
+            {
+                "field": "Sex",
+                "operator": "equal",
+                "value": "female"
+            },
+            {
+                "field": "Student",
+                "operator": "contains",
+                "value": "High_school"
+            }
+        ]
+    }
+]

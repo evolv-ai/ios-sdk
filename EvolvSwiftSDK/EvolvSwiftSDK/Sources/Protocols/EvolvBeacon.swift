@@ -1,5 +1,5 @@
 //
-//  Experiment.swift
+//  EvolvBeacon.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -18,3 +18,7 @@
 
 
 import Foundation
+
+public protocol EvolvBeacon {
+    
+}
