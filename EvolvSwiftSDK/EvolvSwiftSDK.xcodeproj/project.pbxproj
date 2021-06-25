@@ -321,8 +321,8 @@
 		8DE7B38826737D22003E76A7 /* TestingData */ = {
 			isa = PBXGroup;
 			children = (
-				8D9C60DB266F80E50011EC8A /* configuration.json */,
 				8D9C60DA266F80E50011EC8A /* allocations.json */,
+				8D9C60DB266F80E50011EC8A /* configuration.json */,
 				8D6D558C268371C700760BEB /* genome.json */,
 				8D6D558E2683726C00760BEB /* rules.json */,
 				8D6D5592268372D900760BEB /* predicate.json */,
