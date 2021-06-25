@@ -56,10 +56,9 @@ extension EvolvStoreImpl {
         return activeKeys.contains(key)
     }
     
-    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> ([String], [String]) {
+    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> [String] {
         
         var result: Array<String> = []
-        var previous: Array<String> = []
         
         func hasPrefix(key: String) -> Bool {
             return prefix.isEmpty || !prefix.contains(key)
@@ -68,17 +67,9 @@ extension EvolvStoreImpl {
         for key in activeKeys {
             if hasPrefix(key: key) {
                 result.append(key)
-                previous.append(key)
             }
         }
-        
-        for key in previousKeys {
-            if hasPrefix(key: key) {
-                previous.append(key)
-            }
-        }
-        
-        return ( result, previous )
+        return result
     }
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {

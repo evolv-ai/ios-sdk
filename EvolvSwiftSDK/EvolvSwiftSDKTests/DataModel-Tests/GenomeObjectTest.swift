@@ -181,6 +181,10 @@ extension GenomeObjectTest {
         
     }
     
+    func testDecodeAudienceQueryWithJSONValid() {
+        
+    }
+    
     
     
 }

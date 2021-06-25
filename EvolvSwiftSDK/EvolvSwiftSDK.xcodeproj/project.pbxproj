@@ -16,10 +16,10 @@
 		8D5799A0267A34D4009CFA98 /* GenomeObjectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57999F267A34D4009CFA98 /* GenomeObjectTest.swift */; };
 		8D5799A4267A46D3009CFA98 /* EvolvExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799A3267A46D3009CFA98 /* EvolvExperiment.swift */; };
 		8D5799A6267A470F009CFA98 /* EvolvPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799A5267A470F009CFA98 /* EvolvPredicate.swift */; };
-		8D6D558B2683719A00760BEB /* audience_query.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D558A2683719A00760BEB /* audience_query.json */; };
 		8D6D558D268371C700760BEB /* genome.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D558C268371C700760BEB /* genome.json */; };
 		8D6D558F2683726C00760BEB /* rules.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D558E2683726C00760BEB /* rules.json */; };
 		8D6D5593268372D900760BEB /* predicate.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D5592268372D900760BEB /* predicate.json */; };
+		8D9A1BD62685AD6800B302E6 /* AudienceQueryDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BD52685AD6800B302E6 /* AudienceQueryDataTest.swift */; };
 		8D9C6086266F7E230011EC8A /* EvolvSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */; };
 		8D9C608D266F7E230011EC8A /* EvolvSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D9C60D8266F803D0011EC8A /* AllocationDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60D7266F803D0011EC8A /* AllocationDataTest.swift */; };
@@ -73,10 +73,10 @@
 		8D57999F267A34D4009CFA98 /* GenomeObjectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenomeObjectTest.swift; sourceTree = "<group>"; };
 		8D5799A3267A46D3009CFA98 /* EvolvExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvExperiment.swift; sourceTree = "<group>"; };
 		8D5799A5267A470F009CFA98 /* EvolvPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvPredicate.swift; sourceTree = "<group>"; };
-		8D6D558A2683719A00760BEB /* audience_query.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = audience_query.json; sourceTree = "<group>"; };
 		8D6D558C268371C700760BEB /* genome.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = genome.json; sourceTree = "<group>"; };
 		8D6D558E2683726C00760BEB /* rules.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
 		8D6D5592268372D900760BEB /* predicate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = predicate.json; sourceTree = "<group>"; };
+		8D9A1BD52685AD6800B302E6 /* AudienceQueryDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceQueryDataTest.swift; sourceTree = "<group>"; };
 		8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EvolvSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvolvSwiftSDK.h; sourceTree = "<group>"; };
 		8D9C6080266F7E230011EC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -299,6 +299,7 @@
 				8D9C60DC266F80E50011EC8A /* ConfigurationDataTest.swift */,
 				8D9C60D7266F803D0011EC8A /* AllocationDataTest.swift */,
 				8D57999F267A34D4009CFA98 /* GenomeObjectTest.swift */,
+				8D9A1BD52685AD6800B302E6 /* AudienceQueryDataTest.swift */,
 			);
 			path = "DataModel-Tests";
 			sourceTree = "<group>";
@@ -322,7 +323,6 @@
 			children = (
 				8D9C60DB266F80E50011EC8A /* configuration.json */,
 				8D9C60DA266F80E50011EC8A /* allocations.json */,
-				8D6D558A2683719A00760BEB /* audience_query.json */,
 				8D6D558C268371C700760BEB /* genome.json */,
 				8D6D558E2683726C00760BEB /* rules.json */,
 				8D6D5592268372D900760BEB /* predicate.json */,
@@ -442,7 +442,6 @@
 				8D9C60DD266F80E50011EC8A /* allocations.json in Resources */,
 				8D6D558F2683726C00760BEB /* rules.json in Resources */,
 				8D6D558D268371C700760BEB /* genome.json in Resources */,
-				8D6D558B2683719A00760BEB /* audience_query.json in Resources */,
 				8D6D5593268372D900760BEB /* predicate.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,6 +492,7 @@
 				8D9C60D8266F803D0011EC8A /* AllocationDataTest.swift in Sources */,
 				8DE7B38226710EE1003E76A7 /* GetActiveKeysTest.swift in Sources */,
 				8D5799A6267A470F009CFA98 /* EvolvPredicate.swift in Sources */,
+				8D9A1BD62685AD6800B302E6 /* AudienceQueryDataTest.swift in Sources */,
 				8DE7B38D26739282003E76A7 /* JsonUtils.swift in Sources */,
 				8D9C60DF266F80E50011EC8A /* ConfigurationDataTest.swift in Sources */,
 				8D5799A0267A34D4009CFA98 /* GenomeObjectTest.swift in Sources */,
