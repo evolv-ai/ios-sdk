@@ -24,7 +24,7 @@ class ConfigurationDataTest: XCTestCase {
 
     func testCanParseConfigurationJSONFile() throws {
        
-        guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration", ofType: "json") else {
+        guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration.json", ofType: nil) else {
             fatalError("json not found") }
         
         guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {

@@ -33,7 +33,6 @@ struct EvolvConfigImpl: EvolvConfig {
     let domain: String
     let version: String
     let environmentId: String
-    let store: EvolvStore
     let httpClient: EvolvHttpClient
     
     

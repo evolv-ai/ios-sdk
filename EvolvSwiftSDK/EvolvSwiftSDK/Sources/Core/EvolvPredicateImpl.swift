@@ -21,9 +21,54 @@ import Foundation
 
 struct EvolvPredicateImpl {
     
-    public func evaluate(context: Codable, predicate: Codable) {
+    
+    
+    struct FilterOperations {
+        static func contains (a: String, b: String) -> Bool {
+            return a.contains(b)
+        }
         
-        let result: Codable?
+        static func defined (a: String?) -> Bool {
+            return a != nil
+        }
+        
+        static func equal<T: Equatable> (a: T, b: T) -> Bool {
+            return a == b
+        }
+        
+        static func exists (a: String) -> Bool {
+            return true
+        }
+        
+        
+    }
+//    let filterOperations: [String: ()->()]?
+    
+    public func evaluatePredicate() {
+        
     }
     
+    
+    
+    public func evaluate(context: Codable, predicate: Codable) -> EvaluationResult {
+        
+        var result: Set<String>?
+        return EvaluationResult()
+    }
+    
+    
 }
+
+enum EvaluationResult2 {
+    
+    static let passed = "passed"
+    static let failed = "failed"
+    static let rejected = "rejected"
+    static let touched = "touched"
+    
+}
+
+struct EvaluationResult {
+    
+}
+

@@ -28,8 +28,8 @@ public class EvolvContextImpl: EvolvContext {
     private var initialized = false
     
     
-    private var evolvConfig: EvolvConfig?
-    private var evolvStore: EvolvStore?
+    private var evolvConfig: EvolvConfigImpl?
+    private var evolvStore: EvolvStoreImpl?
     
     public required init(uid: String, remoteContext: [String : Any], localContext: [String : Any]?) {
         
@@ -50,3 +50,5 @@ public class EvolvContextImpl: EvolvContext {
     
     
 }
+
+
