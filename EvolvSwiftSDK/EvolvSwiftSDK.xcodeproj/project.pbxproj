@@ -29,6 +29,8 @@
 		8D9A1BEF268DD77100B302E6 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BEE268DD77100B302E6 /* Request.swift */; };
 		8D9A1BF1268E1EBE00B302E6 /* WaitForIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BF0268E1EBE00B302E6 /* WaitForIt.swift */; };
 		8D9A1BF3268E204C00B302E6 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BF2268E204C00B302E6 /* OrderedDictionary.swift */; };
+		8D9A1BF5268E3BCF00B302E6 /* AtomicProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BF4268E3BCF00B302E6 /* AtomicProperty.swift */; };
+		8D9A1BF826926C6A00B302E6 /* EvolvStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9A1BF726926C6A00B302E6 /* EvolvStoreTest.swift */; };
 		8D9C6086266F7E230011EC8A /* EvolvSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */; };
 		8D9C608D266F7E230011EC8A /* EvolvSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D9C60D8266F803D0011EC8A /* AllocationDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C60D7266F803D0011EC8A /* AllocationDataTest.swift */; };
@@ -93,6 +95,8 @@
 		8D9A1BEE268DD77100B302E6 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		8D9A1BF0268E1EBE00B302E6 /* WaitForIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitForIt.swift; sourceTree = "<group>"; };
 		8D9A1BF2268E204C00B302E6 /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
+		8D9A1BF4268E3BCF00B302E6 /* AtomicProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicProperty.swift; sourceTree = "<group>"; };
+		8D9A1BF726926C6A00B302E6 /* EvolvStoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvStoreTest.swift; sourceTree = "<group>"; };
 		8D9C607C266F7E230011EC8A /* EvolvSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EvolvSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9C607F266F7E230011EC8A /* EvolvSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvolvSwiftSDK.h; sourceTree = "<group>"; };
 		8D9C6080266F7E230011EC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				8D9C60ED266F88630011EC8A /* Logger */,
 				8DE7B38E26739423003E76A7 /* TypeCheckingConversion.swift */,
 				8D9A1BF2268E204C00B302E6 /* OrderedDictionary.swift */,
+				8D9A1BF4268E3BCF00B302E6 /* AtomicProperty.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 		8DE7B38726737B98003E76A7 /* Common-Tests */ = {
 			isa = PBXGroup;
 			children = (
+				8D9A1BF726926C6A00B302E6 /* EvolvStoreTest.swift */,
 			);
 			path = "Common-Tests";
 			sourceTree = "<group>";
@@ -475,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D9C6108266F88640011EC8A /* Formatter.swift in Sources */,
+				8D9A1BF5268E3BCF00B302E6 /* AtomicProperty.swift in Sources */,
 				8D9A1BEB268DD71400B302E6 /* Event.swift in Sources */,
 				8DE7B39126739589003E76A7 /* EvolvError.swift in Sources */,
 				8D5799902678E8A3009CFA98 /* EvolvConfigImpl.swift in Sources */,
@@ -521,6 +528,7 @@
 				8DE7B38226710EE1003E76A7 /* GetActiveKeysTest.swift in Sources */,
 				8D5799A6267A470F009CFA98 /* EvolvPredicate.swift in Sources */,
 				8D9A1BD62685AD6800B302E6 /* AudienceQueryDataTest.swift in Sources */,
+				8D9A1BF826926C6A00B302E6 /* EvolvStoreTest.swift in Sources */,
 				8DE7B38D26739282003E76A7 /* JsonUtils.swift in Sources */,
 				8D9C60DF266F80E50011EC8A /* ConfigurationDataTest.swift in Sources */,
 				8D5799A0267A34D4009CFA98 /* GenomeObjectTest.swift in Sources */,

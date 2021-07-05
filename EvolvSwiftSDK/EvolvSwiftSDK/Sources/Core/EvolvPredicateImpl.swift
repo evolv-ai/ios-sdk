@@ -44,31 +44,17 @@ struct EvolvPredicateImpl {
     }
 //    let filterOperations: [String: ()->()]?
     
-    public func evaluatePredicate() {
+    public func evaluatePredicate (context: EvolvContext, config: EvolvConfig) {
         
     }
-    
-    
-    
-    public func evaluate(context: Codable, predicate: Codable) -> EvaluationResult {
-        
-        var result: Set<String>?
-        return EvaluationResult()
-    }
-    
-    
 }
 
-enum EvaluationResult2 {
+enum EvaluationResult {
     
     static let passed = "passed"
     static let failed = "failed"
     static let rejected = "rejected"
-    static let touched = "touched"
     
 }
 
-struct EvaluationResult {
-    
-}
 
