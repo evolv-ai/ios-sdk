@@ -37,7 +37,7 @@ struct EvolvPredicateImpl {
         }
         
         static func exists (a: String) -> Bool {
-            return true
+            return a != nil
         }
         
         
