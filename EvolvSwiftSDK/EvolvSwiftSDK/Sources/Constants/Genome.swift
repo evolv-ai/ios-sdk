@@ -1,5 +1,5 @@
 //
-//  Event.swift
+//  Genome.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -19,7 +19,14 @@
 
 import Foundation
 
-public struct Event: Codable, Equatable {
-    
+enum Genome {
+    static let updated = "genome.updated"
+    enum Request {
+        static let sent = "genome.request.sent"
+        static let received = "genome.request.received"
+    }
 }
 
+enum EffectiveGenome {
+    static let updated = "effective.genome.updated"
+}

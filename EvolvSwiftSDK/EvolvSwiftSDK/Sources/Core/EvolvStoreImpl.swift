@@ -20,15 +20,46 @@
 import Foundation
 import Combine
 
-public class EvolvStoreImpl: EvolvStore, ObservableObject {
+public struct EvolvStoreImpl: EvolvStore {
+    
+    private let evolvConfig: EvolvConfig?
+    private var initialized: Bool = false
+    private var evolvContext: EvolvContext
+    private var allocations: [Allocation]
+    private var keyStates: KeyStates
+    private var version: Int
+    private var configKeyStates = KeyStates();
+    private var genomeKeyStates = KeyStates();
+    
+    private var evolvPredicate: EvolvPredicateImpl
+    private var reevaluatingContext: Bool = false
     
     
+
+    struct KeyStates {
+        var needed = Set<String>()
+        var requested = Set<String>()
+        var experiments = Array<String>()
+    }
+    
+    private mutating func update(configRequest: Bool, requestedKeys: [String], value: Any) {
+        
+        keyStates = configRequest ? configKeyStates : genomeKeyStates
+        
+        reevaluateContext()
+    }
+    
+    private mutating func reevaluateContext() {
+        
+    }
     
 }
 
+
+
 extension EvolvStoreImpl {
     
-    func expKeyStatesHas(keyStates: Any, stateName: String, key: String, prefix: Bool = false) {
+    func expKeyStatesHas(keyStates: KeyStates, stateName: String, key: String, prefix: Bool = false) {
         
     }
     
@@ -56,10 +87,9 @@ extension EvolvStoreImpl {
         return activeKeys.contains(key)
     }
     
-    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> ([String], [String]) {
+    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> [String] {
         
         var result: Array<String> = []
-        var previous: Array<String> = []
         
         func hasPrefix(key: String) -> Bool {
             return prefix.isEmpty || !prefix.contains(key)
@@ -68,17 +98,9 @@ extension EvolvStoreImpl {
         for key in activeKeys {
             if hasPrefix(key: key) {
                 result.append(key)
-                previous.append(key)
             }
         }
-        
-        for key in previousKeys {
-            if hasPrefix(key: key) {
-                previous.append(key)
-            }
-        }
-        
-        return ( result, previous )
+        return result
     }
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {

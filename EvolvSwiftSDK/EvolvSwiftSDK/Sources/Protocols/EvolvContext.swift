@@ -23,7 +23,7 @@ import Foundation
 /// This data is used for determining which variables are active, and for general analytics.
 public protocol EvolvContext {
     
-    init(uid: String, remoteContext: [String: Any], localContext: [String: Any]?)
+    init(uid: String, remoteContext: [String: Any], localContext: [String: Any])
     
 //    /// Checks if the specified key is currently defined in the context.
 //    /// - Parameter key: The key to check.
@@ -53,7 +53,7 @@ public protocol EvolvContext {
     /// - Parameter key: The key to associate the value to.
     /// - Parameter value: The value to associate with the key.
     /// - Parameter local: If true, the value will only be added to the localContext.
-    func set(key: String, value: [String: Any], local: Bool)
+    func set(key: String, value: String, local: Bool) -> [String: Any]
     
 //    /// Merge the specified object into the current context.
 //    /// Note: This will cause the effective genome to be recomputed.
