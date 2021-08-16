@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view
         
-        let url = HttpConfig.allocationsURL()
+        let url = HttpConfig.configurationURL(domain: HttpConfig.stagingDomain)
         cancellable = EvolvAPI.fetchData(for: url)
             .catch {(error: HTTPError) -> Just<String?> in
                 print("\(error.localizedDescription)")

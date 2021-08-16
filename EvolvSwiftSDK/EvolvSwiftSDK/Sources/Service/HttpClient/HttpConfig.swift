@@ -24,12 +24,12 @@ public struct HttpConfig {
     public static let devDomain: String = "participants.evolv.ai"
     public static let stagingDomain: String = "participants-stg.evolv.ai"
     static let apiVersion: String = {
-        return "V\(version)"
+        return "v\(version)"
     }()
     static let version: Int = 1
-    static let participantID: String = "C51EEAFC-724D-47F7-B99A-F3494357F164"
-    static let environmentId: String = "8b50696b6c"
-    static let configurationEndpoint: String = "configurations.json"
+    static let participantID: String = "80658403_1629111253538"
+    static let environmentId: String = "4a64e0b2ab"
+    static let configurationEndpoint: String = "configuration.json"
     static let allocationsEndpoint: String = "allocations"
     static let eventsEndpoint: String = "events"
     static let dataEndpoint: String = "data"
@@ -56,7 +56,7 @@ public struct HttpConfig {
     public static func configurationURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
+        components.host = domain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.configurationEndpoint)"
         let url = components.url!
         return url
@@ -70,7 +70,7 @@ public struct HttpConfig {
     public static func eventsURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
+        components.host = domain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.eventsEndpoint)"
         let url = components.url!
         return url
@@ -84,11 +84,9 @@ public struct HttpConfig {
     public static func dataURL(domain: String = devDomain) -> URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
+        components.host = domain
         components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.dataEndpoint)"
         let url = components.url!
         return url
     }
-    
-    
 }
