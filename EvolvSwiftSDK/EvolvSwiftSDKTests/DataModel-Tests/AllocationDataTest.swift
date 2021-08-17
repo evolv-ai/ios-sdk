@@ -23,8 +23,8 @@ class AllocationsDataTest: XCTestCase {
         let allocationsData: [Allocation] = try! JSONDecoder().decode([Allocation].self, from: jsonData)
         
         XCTAssertEqual("C51EEAFC-724D-47F7-B99A-F3494357F164", allocationsData[0].userId)
-        XCTAssertEqual("ff01d1516c", allocationsData[0].experimentId)
-        XCTAssertEqual("5fa0fd38aae6:ff01d1516c", allocationsData[0].candidateId)
+        XCTAssertEqual("47d857cd5e", allocationsData[0].experimentId)
+        XCTAssertEqual("5fa0fd38aae6:47d857cd5e", allocationsData[0].candidateId)
     }
 }
 
