@@ -19,6 +19,6 @@
 
 import Foundation
 
-public struct Data: Codable, Equatable {
-    
-}
+//public struct Data: Codable, Equatable {
+//    
+//}

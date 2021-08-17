@@ -16,9 +16,14 @@
 //  limitations under the License.
 //
 
-import Foundation
+import Combine
 
 public protocol EvolvClient {
+    
+    /// Initialises EvolvClient with desired EvolvClientOptions
+    /// - Parameter options: provide desired options for the Evolv Client.
+    /// - Parameter completionHandler: If the error parameter is nil, the initialisation was successfull, and the object is ready to work with Evolv API.
+    init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void))
     
     /// Sends a confirmed event to Evolv.
     ///
@@ -35,19 +40,9 @@ public protocol EvolvClient {
     /// that the allocation timed out or failed.
     func contaminate()
     
-    
-    
     /// Get the value of a specified key.
     /// - Parameter forKey: The identifier of the event.
     func get(value forKey: String)
-    
-    /// Initializes the client with required context information.
-    /// - Parameter uid: A globally unique identifier for the current participant.
-    /// - Parameter remoteContext: A map of data used for evaluating context predicates and analytics.
-    /// - Parameter localContext: A map of data used only for evaluating context predicates.
-    func initialize(uid: String, remoteContext: [String: Any], localContext: [String: Any]?)
-    
-    
     
     /// Reevaluates the current context.
     func reevaluateContext()
