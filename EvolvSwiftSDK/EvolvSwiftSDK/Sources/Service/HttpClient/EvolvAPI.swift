@@ -20,19 +20,19 @@
 import Foundation
 import Combine
 
-public struct EvolvAPI {
-    static let httpClient = EvolvHttpClient()
+struct EvolvAPI {
+    let httpClient = EvolvHttpClient()
+    let httpConfig: HttpConfig
+    let session = URLSession.shared
     
-    static let session = URLSession.shared
-
-    // MARK: - Testing URL Responses with different status codes
-    //    let url = URL(string: "https://httpbin.org/status/422")!
-
-    // MARK: - Testing allocations Response
-//    static let url = HttpConfig.allocationsURL()
-
-    public static func fetchData(for url: URL) -> AnyPublisher<String?, HTTPError> {
-        
+    init(options: EvolvClientOptions) {
+        self.httpConfig = HttpConfig(options: options)
+    }
+    
+    /// Fetches data from a URL
+    /// - Parameter url: URL from where to fetch data.
+    /// - Returns: publisher for the data task.
+    public func fetchData(for url: URL) -> AnyPublisher<Data?, HTTPError> {
         return session.dataTaskPublisher(for: url)
             .mapError{ HTTPError.networkingError($0) }
             .print()
@@ -48,21 +48,20 @@ public struct EvolvAPI {
                 return $0.data
             }
             .mapError { $0 as! HTTPError }
-            .map { String(data: $0, encoding: .utf8)}
             .eraseToAnyPublisher()
     }
 }
 
 extension EvolvAPI {
-    static func configuration() -> AnyPublisher<Configuration, Error> {
-        return run(URLRequest(url: HttpConfig.configurationURL()))
+    func configuration() -> AnyPublisher<Configuration, Error> {
+        return run(URLRequest(url: httpConfig.configurationURL))
     }
     
-    static func allocations() -> AnyPublisher<[Allocation], Error> {
-        return run(URLRequest(url: HttpConfig.allocationsURL()))
+    func allocations() -> AnyPublisher<[Allocation], Error> {
+        return run(URLRequest(url: httpConfig.allocationsURL))
     }
     
-    static func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
+    func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
         return httpClient.run(request)
             .map(\.value)
             .eraseToAnyPublisher()

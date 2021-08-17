@@ -19,44 +19,32 @@
 
 import Foundation
 
-public class EvolvContextImpl: EvolvContext {
-    
-    private var uid: String
-    private var sid: String?
+public struct EvolvContextImpl: EvolvContext {
     private var remoteContext: [String : Any] = [:]
     private var localContext: [String : Any] = [:]
-    private var initialized = false
     
+    public var configuration: Configuration?
     
-    private var evolvConfig: EvolvConfigImpl?
-    private var evolvStore: EvolvStoreImpl?
-    
-    public required init(uid: String, remoteContext: [String : Any], localContext: [String : Any]) {
-        
-        self.uid = uid
+    public init(remoteContext: [String : Any], localContext: [String : Any]) {
         self.localContext = localContext
         self.remoteContext = remoteContext
     }
     
     public func resolve() -> [String: Any] {
-        var effectiveContext: [String: Any] = [:]
-        return effectiveContext
+        return [:]
     }
     
-    public func set(key: String, value: String, local: Bool = false) -> [String : Any] {
-        
-        var context = local ? localContext : remoteContext
-        context.updateValue(value, forKey: key)
-        return context
+    public mutating func set(key: String, value: Any, local: Bool = false) -> [String : Any] {
+        if local {
+            localContext[key] = value
+            return localContext
+        } else {
+            remoteContext[key] = value
+            return remoteContext
+        }
     }
     
-    func mergeContext(localContext: [String: Any], remoteContext: [String: Any]) -> [String: Any] {
-        
+    func mergeContext(localContext: [String : Any], remoteContext: [String : Any]) -> [String : Any] {
         return remoteContext.merging(localContext) { (current, _) in current }
     }
-    
-    
-    
 }
-
-

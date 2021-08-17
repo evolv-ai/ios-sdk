@@ -20,16 +20,10 @@
 import Foundation
 
 public struct HttpConfig {
+    public let options: EvolvClientOptions
+    
     static let httpScheme: String = "https"
-    public static let devDomain: String = "participants.evolv.ai"
-    public static let stagingDomain: String = "participants-stg.evolv.ai"
-    static let apiVersion: String = {
-        return "V\(version)"
-    }()
-    static let version: Int = 1
-    static let participantID: String = "C51EEAFC-724D-47F7-B99A-F3494357F164"
-    static let environmentId: String = "8b50696b6c"
-    static let configurationEndpoint: String = "configurations.json"
+    static let configurationEndpoint: String = "configuration.json"
     static let allocationsEndpoint: String = "allocations"
     static let eventsEndpoint: String = "events"
     static let dataEndpoint: String = "data"
@@ -37,13 +31,12 @@ public struct HttpConfig {
     /// Creates URL for allocations endpoint.
     ///
     /// - Parameters:
-    ///   - domain: production domain used by default
     /// - Returns: allocations URL
-    public static func allocationsURL(domain: String = devDomain) -> URL {
+    var allocationsURL: URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = domain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.allocationsEndpoint)"
+        components.host = options.evolvDomain
+        components.path = "/v\(options.apiVersion)/\(options.environmentId)/\(options.participantID)/\(HttpConfig.allocationsEndpoint)"
         let url = components.url!
         return url
     }
@@ -51,13 +44,12 @@ public struct HttpConfig {
     /// Creates URL for configuration endpoint.
     ///
     /// - Parameters:
-    ///   - domain: production domain used by default
     /// - Returns: configuration URL
-    public static func configurationURL(domain: String = devDomain) -> URL {
+    public var configurationURL: URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.participantID)/\(HttpConfig.configurationEndpoint)"
+        components.host = options.evolvDomain
+        components.path = "/v\(options.apiVersion)/\(options.environmentId)/\(options.participantID)/\(HttpConfig.configurationEndpoint)"
         let url = components.url!
         return url
     }
@@ -65,13 +57,12 @@ public struct HttpConfig {
     /// Creates URL for events endpoint.
     ///
     /// - Parameters:
-    ///   - domain: production domain used by default
     /// - Returns: events URL
-    public static func eventsURL(domain: String = devDomain) -> URL {
+    public var eventsURL: URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.eventsEndpoint)"
+        components.host = options.evolvDomain
+        components.path = "/v\(options.apiVersion)/\(options.environmentId)/\(HttpConfig.eventsEndpoint)"
         let url = components.url!
         return url
     }
@@ -79,16 +70,13 @@ public struct HttpConfig {
     /// Creates URL for data endpoint.
     ///
     /// - Parameters:
-    ///   - domain: production domain used by default
     /// - Returns: data URL
-    public static func dataURL(domain: String = devDomain) -> URL {
+    public var dataURL: URL {
         var components = URLComponents()
         components.scheme = HttpConfig.httpScheme
-        components.host = HttpConfig.devDomain
-        components.path = "/\(HttpConfig.apiVersion)/\(HttpConfig.environmentId)/\(HttpConfig.dataEndpoint)"
+        components.host = options.evolvDomain
+        components.path = "/v\(options.apiVersion)/\(options.environmentId)/\(HttpConfig.dataEndpoint)"
         let url = components.url!
         return url
     }
-    
-    
 }

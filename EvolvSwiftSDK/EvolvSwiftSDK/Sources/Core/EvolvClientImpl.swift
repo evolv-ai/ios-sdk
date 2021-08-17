@@ -16,14 +16,20 @@
 //  limitations under the License.
 //
 
+import Combine
 
-import Foundation
-
-public struct EvolvClientImpl: EvolvClient {
+public final class EvolvClientImpl: EvolvClient {
+    var evolvContext: EvolvContext = EvolvContextImpl(remoteContext: [:], localContext: [:])
     
-    private var initialized = false
+    private let options: EvolvClientOptions
+    private lazy var evolvAPI = EvolvAPI(options: options)
+    private lazy var cancellables = Set<AnyCancellable>()
     
-    
+    required public init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void)) {
+        self.options = options
+        
+        initialize(completionHandler: completionHandler)
+    }
     
     public func confirm() {
         return
@@ -37,8 +43,19 @@ public struct EvolvClientImpl: EvolvClient {
         return
     }
     
-    public func initialize(uid: String, remoteContext: [String : Any], localContext: [String : Any]?) {
-        return
+    private func initialize(completionHandler: @escaping ((Error?) -> Void)) {
+        evolvAPI.configuration()
+            .sink(receiveCompletion: { publisherCompletion in
+                switch publisherCompletion {
+                case .finished:
+                    completionHandler(nil)
+                case .failure(let error):
+                    completionHandler(error)
+                }
+            }, receiveValue: { [weak self] configuration in
+                self?.evolvContext.configuration = configuration
+            })
+            .store(in: &cancellables)
     }
     
     public func reevaluateContext() {
@@ -47,19 +64,29 @@ public struct EvolvClientImpl: EvolvClient {
     
 }
 
-
-public struct Options {
-    let version: Int = 1
-    let environment: Any
-    let autoConfirm: Bool
-    let endpoint: URL
-    let analytics: String
-    let store: EvolvStore
-    let context: EvolvContext
-    let beacon: EvolvBeacon
-    let bufferEvents: [String: Any]
+public struct EvolvClientOptions {
+    public let apiVersion: Int
+    public let evolvDomain: String
+    public let participantID: String
+    public let environmentId: String
+    public let autoConfirm: Bool
+    public let analytics: String
+    public let beacon: EvolvBeacon?
+    public let bufferEvents: [String : Any]
+    public let remoteContext: [String : Any]
+    public let localContext: [String : Any]
     
+    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: String = "", beacon: EvolvBeacon? = nil, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:]) {
+        self.apiVersion = apiVersion
+        self.evolvDomain = evolvDomain
+        self.participantID = participantID
+        self.environmentId = environmentId
+        self.autoConfirm = autoConfirm
+        self.analytics = analytics
+        self.beacon = beacon
+        self.bufferEvents = bufferEvents
+        self.remoteContext = remoteContext
+        self.localContext = localContext
+    }
     
 }
-
-

@@ -41,7 +41,7 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key" : "test_value"]
         let localContext: [String: Any] = [:]
         
-        let context = EvolvContextImpl(uid: "test_uid", remoteContext: remoteContext, localContext: localContext)
+        var context = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
         
         let evolvContext = context.set(key: "new_key", value: "new_value")
         
@@ -54,7 +54,7 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextImpl(uid: "test_uid", remoteContext: remoteContext, localContext: localContext)
+        let context = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
         
         XCTAssertEqual(remoteContext.isEmpty, false)
         XCTAssertEqual(localContext.isEmpty, false)
@@ -64,7 +64,7 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextImpl(uid: "test_uid", remoteContext: remoteContext, localContext: localContext)
+        let context = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
         
         let evolvContext = context.mergeContext(localContext: localContext, remoteContext: remoteContext)
         

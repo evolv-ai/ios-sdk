@@ -15,18 +15,13 @@
 ////  See the License for the specific language governing permissions and
 ////  limitations under the License.
 ////
-//
-//
-//import Foundation
-//
-///// General configurations for the SDK.
+
 struct EvolvConfigImpl: EvolvConfig {
-    
     public enum Default {
         public static let httpScheme: String = HttpConfig.httpScheme
-        public static let domain: String = HttpConfig.devDomain
-        public static let version: String = HttpConfig.apiVersion
-        public static let environmentId: String = HttpConfig.environmentId
+//        public static let domain: String = HttpConfig.devDomain
+//        public static let version: String = HttpConfig.apiVersion
+//        public static let environmentId: String = HttpConfig.environmentId
     }
 
     let httpScheme: String
@@ -34,7 +29,4 @@ struct EvolvConfigImpl: EvolvConfig {
     let version: String
     let environmentId: String
     let httpClient: EvolvHttpClient
-    
-    
-    
 }
