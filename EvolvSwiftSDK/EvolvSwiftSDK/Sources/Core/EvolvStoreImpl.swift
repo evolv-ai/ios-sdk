@@ -20,36 +20,59 @@
 import Foundation
 import Combine
 
-public struct EvolvStoreImpl: EvolvStore {
-    
-    private let evolvConfig: EvolvConfig?
-    private var initialized: Bool = false
+public class EvolvStoreImpl: EvolvStore {
+    private var evolvConfiguration: EvolvConfig!
     private var evolvContext: EvolvContext
-    private var allocations: [Allocation]
+    private var allocations = [Allocation]()
     private var keyStates: KeyStates
-    private var version: Int
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();
+    private var evolvPredicate = EvolvPredicateImpl()
+    private let evolvAPI: EvolvAPI
     
-    private var evolvPredicate: EvolvPredicateImpl
     private var reevaluatingContext: Bool = false
     
+    private lazy var cancellables = Set<AnyCancellable>()
     
-
+    init(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init(), completionHandler: @escaping ((Error?) -> Void)) {
+        self.evolvContext = evolvContext
+        self.keyStates = keyStates
+        self.evolvAPI = evolvAPI
+        
+        initialize(completionHandler: completionHandler)
+    }
+    
+    private func initialize(completionHandler: @escaping ((Error?) -> Void)) {
+        Publishers.Zip(evolvAPI.configuration(),
+                       evolvAPI.allocations())
+        .sink(receiveCompletion: { publishersCompletion in
+            switch publishersCompletion {
+            case .finished:
+                completionHandler(nil)
+            case .failure(let error):
+                completionHandler(error)
+            }
+        }, receiveValue: { [weak self] (configuration, allocations) in
+            self?.evolvConfiguration = configuration
+            self?.allocations = allocations
+        })
+        .store(in: &cancellables)
+    }
+    
     struct KeyStates {
         var needed = Set<String>()
         var requested = Set<String>()
         var experiments = Array<String>()
     }
     
-    private mutating func update(configRequest: Bool, requestedKeys: [String], value: Any) {
+    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
         
         keyStates = configRequest ? configKeyStates : genomeKeyStates
         
         reevaluateContext()
     }
     
-    private mutating func reevaluateContext() {
+    private func reevaluateContext() {
         
     }
     

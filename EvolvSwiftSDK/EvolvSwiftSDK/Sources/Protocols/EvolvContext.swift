@@ -60,6 +60,4 @@ public protocol EvolvContext {
 //    /// - Parameter update: The values to update the context with.
 //    /// - Parameter value: If true, the values will only be added to the localContext.
 //    func update(update: AnyObject, local: Bool)
-    
-    var configuration: Configuration? { get set }
 }

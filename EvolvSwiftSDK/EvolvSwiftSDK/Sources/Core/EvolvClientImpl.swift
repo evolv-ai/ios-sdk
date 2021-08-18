@@ -19,16 +19,19 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    var evolvContext: EvolvContext = EvolvContextImpl(remoteContext: [:], localContext: [:])
-    
+    private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
-    private lazy var evolvAPI = EvolvAPI(options: options)
+    private let evolvAPI: EvolvAPI
+    private let evolvStore: EvolvStoreImpl
+    
     private lazy var cancellables = Set<AnyCancellable>()
     
     required public init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void)) {
         self.options = options
+        self.evolvAPI = EvolvAPI(options: options)
+        self.evolvContext = EvolvContextImpl(remoteContext: options.remoteContext, localContext: options.localContext)
         
-        initialize(completionHandler: completionHandler)
+        self.evolvStore = EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, completionHandler: completionHandler)
     }
     
     public func confirm() {
@@ -41,21 +44,6 @@ public final class EvolvClientImpl: EvolvClient {
     
     public func get(value forKey: String) {
         return
-    }
-    
-    private func initialize(completionHandler: @escaping ((Error?) -> Void)) {
-        evolvAPI.configuration()
-            .sink(receiveCompletion: { publisherCompletion in
-                switch publisherCompletion {
-                case .finished:
-                    completionHandler(nil)
-                case .failure(let error):
-                    completionHandler(error)
-                }
-            }, receiveValue: { [weak self] configuration in
-                self?.evolvContext.configuration = configuration
-            })
-            .store(in: &cancellables)
     }
     
     public func reevaluateContext() {
