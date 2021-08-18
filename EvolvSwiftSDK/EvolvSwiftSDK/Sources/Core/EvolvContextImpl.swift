@@ -23,8 +23,6 @@ public struct EvolvContextImpl: EvolvContext {
     private var remoteContext: [String : Any] = [:]
     private var localContext: [String : Any] = [:]
     
-    public var configuration: Configuration?
-    
     public init(remoteContext: [String : Any], localContext: [String : Any]) {
         self.localContext = localContext
         self.remoteContext = remoteContext

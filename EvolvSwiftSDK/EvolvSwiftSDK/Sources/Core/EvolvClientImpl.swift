@@ -19,16 +19,38 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    var evolvContext: EvolvContext = EvolvContextImpl(remoteContext: [:], localContext: [:])
-    
+    private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
-    private lazy var evolvAPI = EvolvAPI(options: options)
+    private let evolvAPI: EvolvAPI
+    private var evolvStore: EvolvStoreImpl!
+    
     private lazy var cancellables = Set<AnyCancellable>()
     
-    required public init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void)) {
+    public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
+        EvolvClientImpl(options: options)
+            .initialize()
+            .map { $0 as EvolvClient }
+            .eraseToAnyPublisher()
+    }
+    
+    private init(options: EvolvClientOptions) {
         self.options = options
-        
-        initialize(completionHandler: completionHandler)
+        self.evolvAPI = EvolvAPI(options: options)
+        self.evolvContext = EvolvContextImpl(remoteContext: options.remoteContext, localContext: options.localContext)
+    }
+    
+    private func initialize() -> Future<EvolvClientImpl, Error> {
+        Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            EvolvStoreImpl.initialize(evolvContext: self.evolvContext, evolvAPI: self.evolvAPI)
+                .sink(receiveCompletion: { publisherCompletion in
+                    promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
+                }, receiveValue: { evolvStore in
+                    self.evolvStore = evolvStore
+                })
+                .store(in: &self.cancellables)
+        }
     }
     
     public func confirm() {
@@ -43,25 +65,9 @@ public final class EvolvClientImpl: EvolvClient {
         return
     }
     
-    private func initialize(completionHandler: @escaping ((Error?) -> Void)) {
-        evolvAPI.configuration()
-            .sink(receiveCompletion: { publisherCompletion in
-                switch publisherCompletion {
-                case .finished:
-                    completionHandler(nil)
-                case .failure(let error):
-                    completionHandler(error)
-                }
-            }, receiveValue: { [weak self] configuration in
-                self?.evolvContext.configuration = configuration
-            })
-            .store(in: &cancellables)
-    }
-    
     public func reevaluateContext() {
         return
     }
-    
 }
 
 public struct EvolvClientOptions {

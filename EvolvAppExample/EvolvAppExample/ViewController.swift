@@ -11,6 +11,7 @@ import EvolvSwiftSDK
 
 class ViewController: UIViewController {
     var evolvClient: EvolvClient?
+    var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +22,17 @@ class ViewController: UIViewController {
         
         // Initialise and populate EvolvClient with desired options.
         // Store this object to work with it later.
-        // After the completionHandler is fired and the error is nil,
-        // the EvolvClient is ready to be worked with.
-        evolvClient = EvolvClientImpl(options: options, completionHandler: { error in
-            print("Is Evolv client initialisation successfull? \(error == nil)")
-        })
+        EvolvClientImpl.initialize(options: options)
+            .sink(receiveCompletion: { publisherResult in
+                switch publisherResult {
+                case .finished:
+                    print("Evolv client initialization is finished successfully.")
+                case .failure(let error):
+                    print("Evolv client initialization is finished with error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { evolvClient in
+                self.evolvClient = evolvClient
+            })
+            .store(in: &cancellables)
     }
 }

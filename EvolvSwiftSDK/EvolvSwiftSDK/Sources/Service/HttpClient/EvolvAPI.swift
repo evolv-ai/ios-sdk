@@ -34,7 +34,7 @@ struct EvolvAPI {
     /// - Returns: publisher for the data task.
     public func fetchData(for url: URL) -> AnyPublisher<Data?, HTTPError> {
         return session.dataTaskPublisher(for: url)
-            .mapError{ HTTPError.networkingError($0) }
+            .mapError { HTTPError.networkingError($0) }
             .print()
             .tryMap {
                 guard let httpResponse = $0.response as? HTTPURLResponse else {
