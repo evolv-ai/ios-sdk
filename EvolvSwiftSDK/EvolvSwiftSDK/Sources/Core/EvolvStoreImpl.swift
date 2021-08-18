@@ -34,29 +34,32 @@ public class EvolvStoreImpl: EvolvStore {
     
     private lazy var cancellables = Set<AnyCancellable>()
     
-    init(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init(), completionHandler: @escaping ((Error?) -> Void)) {
+    static func initialize(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStoreImpl, Error> {
+        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
+            .initialize()
+            .eraseToAnyPublisher()
+    }
+    
+    private init(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
         self.evolvContext = evolvContext
         self.keyStates = keyStates
         self.evolvAPI = evolvAPI
-        
-        initialize(completionHandler: completionHandler)
     }
     
-    private func initialize(completionHandler: @escaping ((Error?) -> Void)) {
-        Publishers.Zip(evolvAPI.configuration(),
-                       evolvAPI.allocations())
-        .sink(receiveCompletion: { publishersCompletion in
-            switch publishersCompletion {
-            case .finished:
-                completionHandler(nil)
-            case .failure(let error):
-                completionHandler(error)
-            }
-        }, receiveValue: { [weak self] (configuration, allocations) in
-            self?.evolvConfiguration = configuration
-            self?.allocations = allocations
-        })
-        .store(in: &cancellables)
+    private func initialize() -> Future<EvolvStoreImpl, Error> {
+        Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            Publishers.Zip(self.evolvAPI.configuration(),
+                           self.evolvAPI.allocations())
+                .sink(receiveCompletion: { publishersCompletion in
+                    promise(publishersCompletion.resultRepresentation(withSuccessCase: self))
+                }, receiveValue: { [weak self] (configuration, allocations) in
+                    self?.evolvConfiguration = configuration
+                    self?.allocations = allocations
+                })
+                .store(in: &self.cancellables)
+        }
     }
     
     struct KeyStates {

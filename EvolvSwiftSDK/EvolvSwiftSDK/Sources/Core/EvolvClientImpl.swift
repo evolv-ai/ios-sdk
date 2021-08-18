@@ -22,16 +22,35 @@ public final class EvolvClientImpl: EvolvClient {
     private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
-    private let evolvStore: EvolvStoreImpl
+    private var evolvStore: EvolvStoreImpl!
     
     private lazy var cancellables = Set<AnyCancellable>()
     
-    required public init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void)) {
+    public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
+        EvolvClientImpl(options: options)
+            .initialize()
+            .map { $0 as EvolvClient }
+            .eraseToAnyPublisher()
+    }
+    
+    private init(options: EvolvClientOptions) {
         self.options = options
         self.evolvAPI = EvolvAPI(options: options)
         self.evolvContext = EvolvContextImpl(remoteContext: options.remoteContext, localContext: options.localContext)
-        
-        self.evolvStore = EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, completionHandler: completionHandler)
+    }
+    
+    private func initialize() -> Future<EvolvClientImpl, Error> {
+        Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            EvolvStoreImpl.initialize(evolvContext: self.evolvContext, evolvAPI: self.evolvAPI)
+                .sink(receiveCompletion: { publisherCompletion in
+                    promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
+                }, receiveValue: { evolvStore in
+                    self.evolvStore = evolvStore
+                })
+                .store(in: &self.cancellables)
+        }
     }
     
     public func confirm() {
@@ -49,7 +68,6 @@ public final class EvolvClientImpl: EvolvClient {
     public func reevaluateContext() {
         return
     }
-    
 }
 
 public struct EvolvClientOptions {

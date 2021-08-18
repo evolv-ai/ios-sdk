@@ -21,9 +21,9 @@ import Combine
 public protocol EvolvClient {
     
     /// Initialises EvolvClient with desired EvolvClientOptions
-    /// - Parameter options: provide desired options for the Evolv Client.
-    /// - Parameter completionHandler: If the error parameter is nil, the initialisation was successfull, and the object is ready to work with Evolv API.
-    init(options: EvolvClientOptions, completionHandler: @escaping ((Error?) -> Void))
+    /// - Parameter options: Provide desired options for the EvolvClient.
+    /// - Returns: Publisher for the EvolvClient object.
+    static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error>
     
     /// Sends a confirmed event to Evolv.
     ///

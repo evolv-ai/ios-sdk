@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5924905426CD20060018CFF9 /* Combine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5924905326CD20060018CFF9 /* Combine+Extensions.swift */; };
 		8D5799902678E8A3009CFA98 /* EvolvConfigImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57998F2678E8A3009CFA98 /* EvolvConfigImpl.swift */; };
 		8D5799942678F117009CFA98 /* EvolvResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799932678F117009CFA98 /* EvolvResult.swift */; };
 		8D5799982678F5DC009CFA98 /* EvolvContextImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5799972678F5DC009CFA98 /* EvolvContextImpl.swift */; };
@@ -73,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5924905326CD20060018CFF9 /* Combine+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Extensions.swift"; sourceTree = "<group>"; };
 		8D57998F2678E8A3009CFA98 /* EvolvConfigImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvConfigImpl.swift; sourceTree = "<group>"; };
 		8D5799932678F117009CFA98 /* EvolvResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvResult.swift; sourceTree = "<group>"; };
 		8D5799972678F5DC009CFA98 /* EvolvContextImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvContextImpl.swift; sourceTree = "<group>"; };
@@ -150,6 +152,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5924905226CD1FF60018CFF9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5924905326CD20060018CFF9 /* Combine+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8D9C6072266F7E230011EC8A = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				8D9C6114266FAB420011EC8A /* Protocols */,
-				8D9C6111266F8CC10011EC8A /* Extensions */,
+				5924905226CD1FF60018CFF9 /* Extensions */,
 				8D9C6110266F8C450011EC8A /* Data Model */,
 				8D9C60E3266F88630011EC8A /* Core */,
 				8D9C60E9266F88630011EC8A /* Constants */,
@@ -296,13 +306,6 @@
 				8D9C61172670090D0011EC8A /* Data.swift */,
 			);
 			path = "Data Model";
-			sourceTree = "<group>";
-		};
-		8D9C6111266F8CC10011EC8A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8D9C6114266FAB420011EC8A /* Protocols */ = {
@@ -502,6 +505,7 @@
 				8DE7B37E26710D17003E76A7 /* EvolvPredicateImpl.swift in Sources */,
 				8D9C6104266F88640011EC8A /* LogOutput.swift in Sources */,
 				8D9C60FF266F88640011EC8A /* EvolvStoreImpl.swift in Sources */,
+				5924905426CD20060018CFF9 /* Combine+Extensions.swift in Sources */,
 				8DD4F36626832CAF002134B7 /* EvolvBeacon.swift in Sources */,
 				8D9C610A266F88640011EC8A /* Allocation.swift in Sources */,
 				8D9C610C266F88640011EC8A /* EvolvAPI.swift in Sources */,
