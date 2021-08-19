@@ -21,3 +21,10 @@ extension Subscribers.Completion {
         return result
     }
 }
+
+extension Just {
+    func eraseToAnyPublisherWithError() -> AnyPublisher<Output, Error> {
+        self.tryMap { $0 }
+            .eraseToAnyPublisher()
+    }
+}

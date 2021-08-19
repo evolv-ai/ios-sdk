@@ -20,6 +20,7 @@
 import Foundation
 
 /// A type that can store and retrieve participant's allocations.
-public protocol EvolvStore {
-    
+protocol EvolvStore {
+    var evolvAllocations: [Allocation] { get }
+    var evolvConfiguration: Configuration { get }
 }
