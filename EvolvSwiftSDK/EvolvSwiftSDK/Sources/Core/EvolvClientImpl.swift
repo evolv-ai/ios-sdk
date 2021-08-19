@@ -21,7 +21,7 @@ import Combine
 public final class EvolvClientImpl: EvolvClient {
     private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
-    private let evolvAPI: EvolvHTTPAPI
+    private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
     
     private lazy var cancellables = Set<AnyCancellable>()
