@@ -28,3 +28,14 @@ extension Just {
             .eraseToAnyPublisher()
     }
 }
+
+extension Subscribers.Completion {
+    var isFinished: Bool {
+        switch self {
+        case .finished:
+            return true
+        case .failure(_):
+            return false
+        }
+    }
+}
