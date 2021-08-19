@@ -21,19 +21,26 @@ import XCTest
 @testable import EvolvSwiftSDK
 
 class ConfigurationDataTest: XCTestCase {
-
-    func testCanParseConfigurationJSONFile() throws {
-       
-        guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration.json", ofType: nil) else {
-            fatalError("json not found") }
-        
-        guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {
-            fatalError("Unable to convert json to String")
-        }
+    var configurationData: Configuration!
+    
+    override func setUpWithError() throws {
+         guard let pathString = Bundle(for: type(of: self)).path(forResource: "configuration.json", ofType: nil) else {
+             fatalError("json not found") }
+         
+         guard let json = try? String(contentsOfFile: pathString, encoding: .utf8) else {
+             fatalError("Unable to convert json to String")
+         }
         
         let jsonData = json.data(using: .utf8)!
-        let configurationData: Configuration = try! JSONDecoder().decode(Configuration.self, from: jsonData)
         
+        configurationData = try JSONDecoder().decode(Configuration.self, from: jsonData)
+    }
+    
+    override func tearDownWithError() throws {
+        configurationData = nil
+    }
+
+    func testCanParseConfigurationJSONFile() throws {
         XCTAssertEqual("desktop", configurationData.client.device)
         XCTAssertEqual("BY", configurationData.client.location)
         XCTAssertEqual(156, configurationData.experiments[1].predicate.id)
