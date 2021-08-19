@@ -1,5 +1,5 @@
 //
-//  EvolvAllocationStore.swift
+//  EvolvStore.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
