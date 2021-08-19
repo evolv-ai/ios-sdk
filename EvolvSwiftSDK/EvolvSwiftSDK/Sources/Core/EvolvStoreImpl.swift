@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvStoreImpl.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -21,9 +21,12 @@ import Foundation
 import Combine
 
 public class EvolvStoreImpl: EvolvStore {
-    private var evolvConfiguration: EvolvConfig!
+    var evolvConfiguration: Configuration { _evolvConfiguration }
+    
+    private(set) var evolvAllocations = [Allocation]()
+    
+    private var _evolvConfiguration: Configuration!
     private var evolvContext: EvolvContext
-    private var allocations = [Allocation]()
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();
@@ -34,9 +37,10 @@ public class EvolvStoreImpl: EvolvStore {
     
     private lazy var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStoreImpl, Error> {
+    static func initialize(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
         EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
             .initialize()
+            .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
@@ -55,8 +59,8 @@ public class EvolvStoreImpl: EvolvStore {
                 .sink(receiveCompletion: { publishersCompletion in
                     promise(publishersCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { [weak self] (configuration, allocations) in
-                    self?.evolvConfiguration = configuration
-                    self?.allocations = allocations
+                    self?._evolvConfiguration = configuration
+                    self?.evolvAllocations = allocations
                 })
                 .store(in: &self.cancellables)
         }

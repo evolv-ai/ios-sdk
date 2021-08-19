@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Configuration
-public struct Configuration: Codable, EvolvConfig {
+public struct Configuration: Codable, EvolvConfig, Equatable {
     let published: Double
     let client: Client
     let experiments: [Experiment]
@@ -34,12 +34,12 @@ public struct Configuration: Codable, EvolvConfig {
 
 // MARK: - Client
 // TODO: is it really needed for mobile version
-public struct Client: Codable {
+public struct Client: Codable, Equatable {
     let browser, device, location, platform: String
 }
 
 // MARK: - Experiment
-public struct Experiment: Codable {
+public struct Experiment: Codable, Equatable {
     let predicate: ExperimentPredicate
     let id: String
     let paused: Bool
@@ -52,7 +52,7 @@ public struct Experiment: Codable {
 }
 
 // MARK: - Rule
-public struct Rule: Codable {
+public struct Rule: Codable, Equatable {
     let field: String
     let ruleOperator: RuleOperator
     let value: String
@@ -63,7 +63,7 @@ public struct Rule: Codable {
         case value
     }
     
-    enum RuleOperator: String, Codable {
+    enum RuleOperator: String, Codable, Equatable {
             case equal = "equal"
             case notEqual = "not_equal"
             case contains = "contains"
@@ -139,7 +139,7 @@ public enum EvolvQuery: Decodable {
 }
 
 // MARK: - ExperimentPredicate
-public struct ExperimentPredicate: Codable {
+public struct ExperimentPredicate: Codable, Equatable {
     let id: Int?
     let combinator: String?
     let rules: [Rule]?

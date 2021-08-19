@@ -22,7 +22,7 @@ public final class EvolvClientImpl: EvolvClient {
     private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
-    private var evolvStore: EvolvStoreImpl!
+    private var evolvStore: EvolvStore!
     
     private lazy var cancellables = Set<AnyCancellable>()
     
@@ -35,7 +35,7 @@ public final class EvolvClientImpl: EvolvClient {
     
     private init(options: EvolvClientOptions) {
         self.options = options
-        self.evolvAPI = EvolvAPI(options: options)
+        self.evolvAPI = EvolvHTTPAPI(options: options)
         self.evolvContext = EvolvContextImpl(remoteContext: options.remoteContext, localContext: options.localContext)
     }
     

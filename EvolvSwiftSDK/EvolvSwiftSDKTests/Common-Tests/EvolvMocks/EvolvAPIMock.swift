@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvAPIMock.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,11 +16,20 @@
 //  limitations under the License.
 //
 
+import Combine
+@testable import EvolvSwiftSDK
 
-import Foundation
-
-/// A type that can store and retrieve participant's allocations.
-protocol EvolvStore {
-    var evolvAllocations: [Allocation] { get }
-    var evolvConfiguration: Configuration { get }
+struct EvolvAPIMock: EvolvAPI {
+    let evolvConfiguration: Configuration
+    let evolvAllocations: [Allocation]
+    
+    func configuration() -> AnyPublisher<Configuration, Error> {
+        Just(evolvConfiguration)
+            .eraseToAnyPublisherWithError()
+    }
+    
+    func allocations() -> AnyPublisher<[Allocation], Error> {
+        Just(evolvAllocations)
+            .eraseToAnyPublisherWithError()
+    }
 }
