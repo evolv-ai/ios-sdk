@@ -70,6 +70,7 @@ class EvolvStoreNewTests: XCTestCase {
         EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
             .sink(receiveCompletion: { publisherCompletion in
                 XCTAssertNotNil(evolvStore)
+                XCTAssertTrue(publisherCompletion.isFinished)
                 
                 if case .finished = publisherCompletion {
                     XCTAssertEqual(self.evolvConfiguration, evolvStore.evolvConfiguration)
@@ -91,7 +92,7 @@ class EvolvStoreNewTests: XCTestCase {
                 XCTAssertTrue(publisherCompletion.isFinished)
                 
                 if case .finished = publisherCompletion {
-                    XCTAssertEqual(self.evolvConfiguration, evolvStore.evolvConfiguration)
+                    XCTAssertEqual(self.evolvAllocations, evolvStore.evolvAllocations)
                 }
             }, receiveValue: { store in
                 evolvStore = store
