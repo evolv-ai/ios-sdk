@@ -76,19 +76,28 @@ public struct ExperimentCollection: Equatable {
         self.id = id
         self.paused = paused
         
-        let experimentsRawArray = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
-            .map { $1 }
-        
-        if let experimentsData = try? JSONSerialization.data(withJSONObject: experimentsRawArray, options: []),
-           let experiments = try? JSONDecoder().decode([Experiment].self, from: experimentsData) {
-            self.experiments = experiments
-        } else {
-            self.experiments = []
+        let experiments: [Experiment] = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
+            .map { ($0.key, $0.value) }
+            .compactMap { (name, value) in
+            let result: Experiment?
+            
+            if let experimentData = try? JSONSerialization.data(withJSONObject: value, options: []),
+               var experiment = try? JSONDecoder().decode(Experiment.self, from: experimentData) {
+                experiment.name = name
+                result = experiment
+            } else {
+                result = nil
+            }
+            
+            return result
         }
+        
+        self.experiments = experiments
     }
 }
 
 public struct Experiment: Codable, Equatable {
+    var name: String = ""
     let isEntryPoint: Bool
     let predicate: ExperimentPredicate?
     let values: Bool
