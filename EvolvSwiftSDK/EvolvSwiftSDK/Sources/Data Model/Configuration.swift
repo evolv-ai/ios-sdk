@@ -229,4 +229,17 @@ public struct ExperimentPredicate: Codable, Equatable {
         case and = "and"
         case or = "or"
     }
+    
+    func isActive(in context: [String : Any]) -> Bool {
+        switch combinator {
+        case .and:
+            return rules?.allSatisfy { rule in
+                rule.evaluateRule(value: context[rule.field] as? String ?? "")
+            } == true
+        case .or:
+            return rules?.contains { rule in
+                rule.evaluateRule(value: context[rule.field] as? String ?? "")
+            } == true
+        }
+    }
 }

@@ -83,36 +83,23 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     private func isActive(key: String) -> Bool {
-        guard let experiment = evolvConfiguration.experiments.first(where: { $0.id == key }) else { return false }
+        guard let experimentCollection = evolvConfiguration.experiments.first,
+              let experiment = experimentCollection.experiments.first(where: { $0.name == key })
+        else { return false }
         
-        return isActive(experiment: experiment)
+        return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
     }
     
     private func evaluatePredicates(context: EvolvContext, configuration: Configuration) {
         
     }
     
-    private func isActive(experiment: ExperimentCollection) -> Bool {
-        guard let predicate = experiment.predicate else { return false }
-        
-        let result: Bool
-        
-        switch predicate.combinator {
-        case .and:
-            result = predicate.rules?.allSatisfy { rule in
-                rule.evaluateRule(value: evolvContext.mergedContext[rule.field] as? String ?? "")
-            } == true
-        case .or:
-            result = predicate.rules?.contains { rule in
-                rule.evaluateRule(value: evolvContext.mergedContext[rule.field] as? String ?? "")
-            } == true
-        }
-        
-        return result
+    private func isActive(experimentCollection: ExperimentCollection) -> Bool {
+        experimentCollection.predicate?.isActive(in: evolvContext.mergedContext) ?? true
     }
     
-    private func isActive(experiment: Experiment) {
-        
+    private func isActive(experiment: Experiment) -> Bool {
+        experiment.predicate?.isActive(in: evolvContext.mergedContext) ?? true
     }
     
     private func evaluateFilter(userValue: String, against rule: Rule) {
