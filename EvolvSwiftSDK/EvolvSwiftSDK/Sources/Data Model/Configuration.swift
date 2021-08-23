@@ -50,7 +50,7 @@ public struct Client: Codable, Equatable {
 
 // MARK: - Experiment
 public struct ExperimentCollection: Equatable {
-    let predicate: ExperimentPredicate
+    let predicate: ExperimentPredicate?
     let id: String
     let paused: Bool
     let experiments: [Experiment]
@@ -68,15 +68,12 @@ public struct ExperimentCollection: Equatable {
               let paused = keyValues[CodingKeys.paused.rawValue] as? Bool
         else { return nil }
         
-        guard let predicateData = try? JSONSerialization.data(withJSONObject: predicateKV, options: []),
-              let predicate = try? JSONDecoder().decode(ExperimentPredicate.self, from: predicateData)
-        else { return nil }
-        
-        self.predicate = predicate
         self.id = id
         self.paused = paused
         
-        let experiments: [Experiment] = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
+        self.predicate = try? JSONDecoder().decode(ExperimentPredicate.self, fromJSONObject: predicateKV)
+        
+        self.experiments = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
             .map { ($0.key, $0.value) }
             .compactMap { (name, value) in
             let result: Experiment?
@@ -91,7 +88,12 @@ public struct ExperimentCollection: Equatable {
             
             return result
         }
-        
+    }
+    
+    init(predicate: ExperimentPredicate, id: String, paused: Bool, experiments: [Experiment]) {
+        self.predicate = predicate
+        self.id = id
+        self.paused = paused
         self.experiments = experiments
     }
 }

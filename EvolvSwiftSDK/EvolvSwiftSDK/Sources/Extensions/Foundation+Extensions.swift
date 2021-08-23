@@ -34,3 +34,11 @@ extension Dictionary {
         return dict
     }
 }
+
+extension JSONDecoder {
+    func decode<T: Decodable>(_ type: T.Type, fromJSONObject obj: Any, options: JSONSerialization.WritingOptions = []) throws -> T {
+        let data = try JSONSerialization.data(withJSONObject: obj, options: options)
+        
+        return try self.decode(type, from: data)
+    }
+}
