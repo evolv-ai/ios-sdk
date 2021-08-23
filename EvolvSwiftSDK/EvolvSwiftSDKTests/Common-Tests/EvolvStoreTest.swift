@@ -81,9 +81,9 @@ class EvolvStoreTest: XCTestCase {
         
         let rules: [Rule] = [Rule(field: "Age", ruleOperator: Rule.RuleOperator(rawValue: "equal")!, value: "26")]
         
-        let experimentPredicate: ExperimentPredicate? = ExperimentPredicate(id: 174, combinator: "and", rules: rules)
+        let experimentPredicate: ExperimentPredicate? = ExperimentPredicate(id: 174, combinator: .and, rules: rules)
         
-        let experiment: Experiment = Experiment(predicate: experimentPredicate!, id: "47d857cd5e", paused: false)
+        let experiment: ExperimentCollection = ExperimentCollection(predicate: experimentPredicate!, id: "47d857cd5e", paused: false)
         
 //        let keyStates: [String: Any] = ["experiments":
 //                                            [Array(["123":

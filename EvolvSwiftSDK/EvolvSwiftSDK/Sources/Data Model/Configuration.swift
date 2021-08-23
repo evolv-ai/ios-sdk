@@ -20,15 +20,25 @@
 import Foundation
 
 // MARK: - Configuration
-public struct Configuration: Codable, EvolvConfig, Equatable {
+public struct Configuration: Decodable, EvolvConfig, Equatable {
     let published: Double
     let client: Client
-    let experiments: [Experiment]
-
+    let experiments: [ExperimentCollection]
+    private let _genomeExperiments: [GenomeObject]
+    
     enum CodingKeys: String, CodingKey {
         case published = "_published"
         case client = "_client"
-        case experiments = "_experiments"
+        case _genomeExperiments = "_experiments"
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        published = try container.decode(Double.self, forKey: .published)
+        client = try container.decode(Client.self, forKey: .client)
+        _genomeExperiments = try container.decode([GenomeObject].self, forKey: ._genomeExperiments)
+        experiments = _genomeExperiments.compactMap { ExperimentCollection(keyValues: $0.value as? [String : Any] ?? [:]) }
     }
 }
 
@@ -39,15 +49,56 @@ public struct Client: Codable, Equatable {
 }
 
 // MARK: - Experiment
-public struct Experiment: Codable, Equatable {
+public struct ExperimentCollection: Equatable {
     let predicate: ExperimentPredicate
     let id: String
     let paused: Bool
-
+    let experiments: [Experiment]
+    
     enum CodingKeys: String, CodingKey {
         case predicate = "_predicate"
         case id
         case paused = "_paused"
+        case web = "web"
+    }
+    
+    init?(keyValues: [String : Any]) {
+        guard let predicateKV = keyValues[CodingKeys.predicate.rawValue] as? [String : Any],
+              let id = keyValues[CodingKeys.id.rawValue] as? String,
+              let paused = keyValues[CodingKeys.paused.rawValue] as? Bool
+        else { return nil }
+        
+        guard let predicateData = try? JSONSerialization.data(withJSONObject: predicateKV, options: []),
+              let predicate = try? JSONDecoder().decode(ExperimentPredicate.self, from: predicateData)
+        else { return nil }
+        
+        self.predicate = predicate
+        self.id = id
+        self.paused = paused
+        
+        let experimentsRawArray = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
+            .map { $1 }
+        
+        if let experimentsData = try? JSONSerialization.data(withJSONObject: experimentsRawArray, options: []),
+           let experiments = try? JSONDecoder().decode([Experiment].self, from: experimentsData) {
+            self.experiments = experiments
+        } else {
+            self.experiments = []
+        }
+    }
+}
+
+public struct Experiment: Codable, Equatable {
+    let isEntryPoint: Bool
+    let predicate: ExperimentPredicate?
+    let values: Bool
+    let initializers: Bool
+    
+    private enum CodingKeys: String, CodingKey {
+        case isEntryPoint = "_is_entry_point"
+        case predicate = "_predicate"
+        case values = "_values"
+        case initializers = "_initializers"
     }
 }
 
@@ -56,7 +107,7 @@ public struct Rule: Codable, Equatable {
     let field: String
     let ruleOperator: RuleOperator
     let value: String
-
+    
     enum CodingKeys: String, CodingKey {
         case field
         case ruleOperator = "operator"
@@ -64,14 +115,33 @@ public struct Rule: Codable, Equatable {
     }
     
     enum RuleOperator: String, Codable, Equatable {
-            case equal = "equal"
-            case notEqual = "not_equal"
-            case contains = "contains"
-            case notContains = "not_contains"
-            case exists
-            case regexMatch = "regex_match"
-            case notRegexMatch = "not_regex_match"
+        case equal = "equal"
+        case notEqual = "not_equal"
+        case contains = "contains"
+        case notContains = "not_contains"
+        case exists
+        case regexMatch = "regex_match"
+        case notRegexMatch = "not_regex_match"
+    }
+    
+    func evaluateRule(value userValue: String?) -> Bool {
+        switch self.ruleOperator {
+        case .equal:
+            return self.value == userValue
+        case .notEqual:
+            return self.value != userValue
+        case .contains:
+            return userValue?.contains(self.value) == true
+        case .notContains:
+            return userValue?.contains(self.value) == false
+        case .exists:
+            return userValue != nil
+        case .regexMatch:
+            return userValue?.regexMatch(regex: self.value) == true
+        case .notRegexMatch:
+            return userValue?.regexMatch(regex: self.value) == false
         }
+    }
 }
 
 
@@ -80,20 +150,20 @@ public struct CompoundRule: Decodable {
         case and
         case or
     }
-
+    
     let id: String
     let combinator: Combinator
     let rules: [EvolvQuery]
 }
 
 public enum EvolvQuery: Decodable {
-
+    
     case rule(Rule)
     case compoundRule(CompoundRule)
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-
+        
         if let rule = try? container.decode(Rule.self) {
             self = .rule(rule)
         } else if let compoundRule = try? container.decode(CompoundRule.self) {
@@ -102,7 +172,7 @@ public enum EvolvQuery: Decodable {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Mismatched Types")
         }
     }
-
+    
     static func evaluate(_ expression: EvolvQuery, context: [String: String]) -> Bool {
         switch expression {
         case .rule(let rule):
@@ -124,9 +194,9 @@ public enum EvolvQuery: Decodable {
             guard compoundRule.rules.isEmpty == false else {
                 return true
             }
-
+            
             let results = compoundRule.rules.map({ evaluate($0, context: context) })
-
+            
             switch compoundRule.combinator {
             case .and:
                 return !results.contains(false)
@@ -135,14 +205,17 @@ public enum EvolvQuery: Decodable {
             }
         }
     }
-
+    
 }
 
 // MARK: - ExperimentPredicate
 public struct ExperimentPredicate: Codable, Equatable {
     let id: Int?
-    let combinator: String?
+    let combinator: EvolvPredicateCombinator
     let rules: [Rule]?
+    
+    enum EvolvPredicateCombinator: String, Codable {
+        case and = "and"
+        case or = "or"
+    }
 }
-
-
