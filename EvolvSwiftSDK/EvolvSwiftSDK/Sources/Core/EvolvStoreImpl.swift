@@ -72,7 +72,7 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func isActive(key: String) -> Bool {
-        guard let experimentCollection = evolvConfiguration.experiments.first,
+        guard let experimentCollection = evolvConfiguration.experiments.first(where: { $0.experiments.contains { $0.name == key } }),
               let experiment = experimentCollection.experiments.first(where: { $0.name == key })
         else { return false }
         
