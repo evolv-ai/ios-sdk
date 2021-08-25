@@ -76,18 +76,21 @@ public struct ExperimentCollection: Equatable {
         self.experiments = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
             .map { ($0.key, $0.value) }
             .compactMap { (name, value) in
-            let result: Experiment?
-            
-            if let experimentData = try? JSONSerialization.data(withJSONObject: value, options: []),
-               var experiment = try? JSONDecoder().decode(Experiment.self, from: experimentData) {
-                experiment.name = name
-                result = experiment
-            } else {
-                result = nil
+                let result: Experiment?
+                
+                do {
+                    let experimentData = try JSONSerialization.data(withJSONObject: value, options: [])
+                    var experiment = try JSONDecoder().decode(Experiment.self, from: experimentData)
+                    
+                    experiment.name = name
+                    result = experiment
+                } catch {
+                    print("Evolv: error while deserializing Configuration.json. Error: \(error)")
+                    result = nil
+                }
+                
+                return result
             }
-            
-            return result
-        }
     }
     
     init(predicate: ExperimentPredicate, id: String, paused: Bool, experiments: [Experiment]) {
@@ -102,7 +105,7 @@ public struct Experiment: Codable, Equatable {
     var name: String = ""
     let isEntryPoint: Bool
     let predicate: ExperimentPredicate?
-    let values: Bool
+    let values: Bool?
     let initializers: Bool
     
     private enum CodingKeys: String, CodingKey {
