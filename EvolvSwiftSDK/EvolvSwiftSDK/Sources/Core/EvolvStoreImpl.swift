@@ -71,8 +71,22 @@ public class EvolvStoreImpl: EvolvStore {
         var experiments = Array<String>()
     }
     
-    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
+    func isActive(key: String) -> Bool {
+        guard let experimentCollection = evolvConfiguration.experiments.first,
+              let experiment = experimentCollection.experiments.first(where: { $0.name == key })
+        else { return false }
         
+        return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
+    }
+    
+    func getActiveKeys() -> [String] {
+        evolvConfiguration.experiments
+            .flatMap { $0.experiments }
+            .map { $0.name }
+            .filter { isActive(key: $0) }
+    }
+    
+    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
         keyStates = configRequest ? configKeyStates : genomeKeyStates
         
         reevaluateContext()
@@ -80,14 +94,6 @@ public class EvolvStoreImpl: EvolvStore {
     
     private func reevaluateContext() {
         
-    }
-    
-    private func isActive(key: String) -> Bool {
-        guard let experimentCollection = evolvConfiguration.experiments.first,
-              let experiment = experimentCollection.experiments.first(where: { $0.name == key })
-        else { return false }
-        
-        return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
     }
     
     private func evaluatePredicates(context: EvolvContext, configuration: Configuration) {
@@ -157,13 +163,11 @@ extension EvolvStoreImpl {
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
         var eids: [String] = []
-//        TODO: implement function
         
         return []
     }
     
     func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
-        
         let result = [String: Any]()
         if (config.experiments.count == 0) {
             return result
@@ -180,10 +184,4 @@ extension EvolvStoreImpl {
     func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
         // TODO: - Add functionality 242-287
     }
-    
-    
-    
-    
-    
-    
 }

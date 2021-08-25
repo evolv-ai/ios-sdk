@@ -23,4 +23,8 @@ import Foundation
 protocol EvolvStore {
     var evolvAllocations: [Allocation] { get }
     var evolvConfiguration: Configuration { get }
+    
+    func isActive(key: String) -> Bool
+    
+    func getActiveKeys() -> [String]
 }
