@@ -50,7 +50,7 @@ public struct Client: Codable, Equatable {
 
 // MARK: - Experiment
 public struct ExperimentCollection: Equatable {
-    let predicate: ExperimentPredicate?
+    let predicate: CompoundRule?
     let id: String
     let paused: Bool
     let experiments: [Experiment]
@@ -71,7 +71,7 @@ public struct ExperimentCollection: Equatable {
         self.id = id
         self.paused = paused
         
-        self.predicate = try? JSONDecoder().decode(ExperimentPredicate.self, fromJSONObject: predicateKV)
+        self.predicate = try? JSONDecoder().decode(CompoundRule.self, fromJSONObject: predicateKV)
         
         self.experiments = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
             .map { ($0.key, $0.value) }
@@ -93,7 +93,7 @@ public struct ExperimentCollection: Equatable {
             }
     }
     
-    init(predicate: ExperimentPredicate, id: String, paused: Bool, experiments: [Experiment]) {
+    init(predicate: CompoundRule, id: String, paused: Bool, experiments: [Experiment]) {
         self.predicate = predicate
         self.id = id
         self.paused = paused
@@ -101,10 +101,10 @@ public struct ExperimentCollection: Equatable {
     }
 }
 
-public struct Experiment: Codable, Equatable {
+public struct Experiment: Decodable, Equatable {
     var name: String = ""
     let isEntryPoint: Bool
-    let predicate: ExperimentPredicate?
+    let predicate: CompoundRule?
     let values: Bool?
     let initializers: Bool
     
@@ -159,18 +159,31 @@ public struct Rule: Codable, Equatable {
 }
 
 
-public struct CompoundRule: Decodable {
+public struct CompoundRule: Decodable, Equatable {
     enum Combinator: String, Decodable {
         case and
         case or
     }
     
-    let id: String
+    let id: Int?
     let combinator: Combinator
     let rules: [EvolvQuery]
+    
+    func isActive(in context: [String : Any]) -> Bool {
+        switch combinator {
+        case .and:
+            return rules.allSatisfy { query in
+                EvolvQuery.evaluate(query, context: context as? [String : String] ?? [:])
+            }
+        case .or:
+            return rules.contains { query in
+                EvolvQuery.evaluate(query, context: context as? [String : String] ?? [:])
+            }
+        }
+    }
 }
 
-public enum EvolvQuery: Decodable {
+public enum EvolvQuery: Decodable, Equatable {
     
     case rule(Rule)
     case compoundRule(CompoundRule)
@@ -190,24 +203,9 @@ public enum EvolvQuery: Decodable {
     static func evaluate(_ expression: EvolvQuery, context: [String: String]) -> Bool {
         switch expression {
         case .rule(let rule):
-            switch (rule.ruleOperator, rule.value) {
-            case (.exists, let value as String):
-                return context.keys.contains(where: { $0 == value })
-            case (.equal, let values as [String]) where values.count > 1:
-                return context.keys.contains(where: { $0 == values[0] }) && context[values[0]] == values[1]
-            case (.notEqual, let values as [String]) where values.count > 1:
-                return context.keys.contains(where: { $0 == values[0] }) && context[values[0]] != values[1]
-            case (.contains, let values as [String]) where values.count > 1:
-                return context.contains(where: { $0.key == values[0] && $0.value.contains(values[1]) })
-            case (.notContains, let values as [String]) where values.count > 1:
-                return context.contains(where: { $0.key == values[0] && $0.value.contains(values[1]) == false })
-            default:
-                return true
-            }
+            return rule.evaluateRule(value: context[rule.field])
         case .compoundRule(let compoundRule):
-            guard compoundRule.rules.isEmpty == false else {
-                return true
-            }
+            guard compoundRule.rules.isEmpty == false else { return true }
             
             let results = compoundRule.rules.map({ evaluate($0, context: context) })
             
