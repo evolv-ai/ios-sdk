@@ -61,42 +61,59 @@ class EvolvStoreNewTests: XCTestCase {
         
         return try jsonDecoder.decode([Allocation].self, from: jsonData)
     }
-
-    func testConfigurationIsLoadedCorrectly() throws {
-        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
-        
+    
+    func initializeEvolvStore(with context: EvolvContextImpl) -> EvolvStore {
         var evolvStore: EvolvStore!
         
         EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
             .sink(receiveCompletion: { publisherCompletion in
                 XCTAssertNotNil(evolvStore)
                 XCTAssertTrue(publisherCompletion.isFinished)
-                
-                if case .finished = publisherCompletion {
-                    XCTAssertEqual(self.evolvConfiguration, evolvStore.evolvConfiguration)
-                }
             }, receiveValue: { store in
                 evolvStore = store
-            })
-            .store(in: &cancellables)
+            }).store(in: &self.cancellables)
+        
+        return evolvStore
+    }
+    
+    func testConfigurationIsLoadedCorrectly() throws {
+        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        XCTAssertEqual(self.evolvConfiguration, evolvStore.evolvConfiguration)
     }
     
     func testAllocationsAreLoadedCorrectly() throws {
         let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
         
-        var evolvStore: EvolvStore!
+        let evolvStore = initializeEvolvStore(with: context)
         
-        EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
-            .sink(receiveCompletion: { publisherCompletion in
-                XCTAssertNotNil(evolvStore)
-                XCTAssertTrue(publisherCompletion.isFinished)
-                
-                if case .finished = publisherCompletion {
-                    XCTAssertEqual(self.evolvAllocations, evolvStore.evolvAllocations)
-                }
-            }, receiveValue: { store in
-                evolvStore = store
-            })
-            .store(in: &cancellables)
+        XCTAssertEqual(self.evolvAllocations, evolvStore.evolvAllocations)
+    }
+    
+    func testGetActiveKeysHomeKeyIsActive() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "next",
+                                                       "signedin" : "false"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        let activeKeys = evolvStore.getActiveKeys()
+        
+        XCTAssert(activeKeys.contains("next"))
+        XCTAssertEqual(activeKeys.count, 1)
+    }
+    
+    func testGetActiveKeysSubKeysAreActive() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+
+        let evolvStore = initializeEvolvStore(with: context)
+        let activeKeys = evolvStore.getActiveKeys()
+        
+        XCTAssertEqual(activeKeys.count, 5)
     }
 }

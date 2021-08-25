@@ -83,7 +83,7 @@ class EvolvStoreTest: XCTestCase {
         
         let experimentPredicate = ExperimentPredicate(id: 174, combinator: .and, rules: rules)
         
-        let experiments = ExperimentCollection(predicate: experimentPredicate, id: "47d857cd5e", paused: false, experiments: [])
+//        let experiments = ExperimentCollection(predicate: experimentPredicate, id: "47d857cd5e", paused: false, experiments: [])
         
 //        let keyStates: [String: Any] = ["experiments":
 //                                            [Array(["123":

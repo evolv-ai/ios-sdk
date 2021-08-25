@@ -79,6 +79,7 @@ public class EvolvStoreImpl: EvolvStore {
         return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
     }
     
+    // TODO: Doesn't work correctly with nested rules and keys.
     func getActiveKeys() -> [String] {
         evolvConfiguration.experiments
             .flatMap { $0.experiments }
