@@ -24,94 +24,10 @@ public struct Configuration: Decodable, EvolvConfig, Equatable {
     let published: Double
     let client: Client
     let experiments: [Experiment]
-    private let _genomeExperiments: [GenomeObject]
-    
-    enum CodingKeys: String, CodingKey {
-        case published = "_published"
-        case client = "_client"
-        case _genomeExperiments = "_experiments"
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        published = try container.decode(Double.self, forKey: .published)
-        client = try container.decode(Client.self, forKey: .client)
-        _genomeExperiments = try container.decode([GenomeObject].self, forKey: ._genomeExperiments)
-        experiments = _genomeExperiments.compactMap { Experiment(keyValues: $0.value as? [String : Any] ?? [:]) }
-    }
-}
-
-// MARK: - Client
-// TODO: is it really needed for mobile version
-public struct Client: Codable, Equatable {
-    let browser, device, location, platform: String
-}
-
-// MARK: - Experiment
-public struct Experiment: Equatable {
-    let predicate: CompoundRule?
-    let id: String
-    let paused: Bool
-    let experiments: [ExperimentKey]
-    
-    enum CodingKeys: String, CodingKey {
-        case predicate = "_predicate"
-        case id
-        case paused = "_paused"
-        case web = "web"
-    }
-    
-    init?(keyValues: [String : Any]) {
-        guard let predicateKV = keyValues[CodingKeys.predicate.rawValue] as? [String : Any],
-              let id = keyValues[CodingKeys.id.rawValue] as? String,
-              let paused = keyValues[CodingKeys.paused.rawValue] as? Bool
-        else { return nil }
-        
-        self.id = id
-        self.paused = paused
-        
-        self.predicate = try? JSONDecoder().decode(CompoundRule.self, fromJSONObject: predicateKV)
-        
-        self.experiments = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
-            .map { ($0.key, $0.value) }
-            .compactMap { (name, value) in
-                let result: ExperimentKey?
-                
-                do {
-                    let experimentData = try JSONSerialization.data(withJSONObject: value, options: [])
-                    var experiment = try JSONDecoder().decode(ExperimentKey.self, from: experimentData)
-                    
-                    experiment.name = name
-                    result = experiment
-                } catch {
-                    print("Evolv: error while deserializing Configuration.json. Error: \(error)")
-                    result = nil
-                }
-                
-                return result
-            }
-    }
-    
-    init(predicate: CompoundRule, id: String, paused: Bool, experiments: [ExperimentKey]) {
-        self.predicate = predicate
-        self.id = id
-        self.paused = paused
-        self.experiments = experiments
-    }
-}
-
-public struct ExperimentKey: Decodable, Equatable {
-    var name: String = ""
-    let isEntryPoint: Bool
-    let predicate: CompoundRule?
-    let values: Bool?
-    let initializers: Bool
-    let subExperiments: [ExperimentKey]
     
     private struct CodingKeys: CodingKey {
         var stringValue: String
-        init?(stringValue: String) {
+        init(stringValue: String) {
             self.stringValue = stringValue
         }
         
@@ -124,13 +40,87 @@ public struct ExperimentKey: Decodable, Equatable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        isEntryPoint = try container.decode(Bool.self, forKey: .init(stringValue: "_is_entry_point")!)
-        predicate = try? container.decode(CompoundRule.self, forKey: .init(stringValue: "_predicate")!)
-        values = try? container.decode(Bool.self, forKey: .init(stringValue: "_values")!)
-        initializers = try container.decode(Bool.self, forKey: .init(stringValue: "_initializers")!)
+        published = try container.decode(Double.self, forKey: .init(stringValue: "_published"))
+        client = try container.decode(Client.self, forKey: .init(stringValue: "_client"))
+        experiments = try container.decode([Experiment].self, forKey: .init(stringValue: "_experiments"))
+    }
+}
+
+// MARK: - Client
+// TODO: is it really needed for mobile version
+public struct Client: Codable, Equatable {
+    let browser, device, location, platform: String
+}
+
+// MARK: - Experiment
+public struct Experiment: Decodable, Equatable {
+    let predicate: CompoundRule?
+    let id: String
+    let paused: Bool
+    let experimentKeys: [ExperimentKey]
+    
+    private struct CodingKeys: CodingKey {
+        var stringValue: String
+        init(stringValue: String) {
+            self.stringValue = stringValue
+        }
         
-        subExperiments = container.allKeys
-            .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        predicate = try? container.decode(CompoundRule.self, forKey: .init(stringValue: "_predicate"))
+        id = try container.decode(String.self, forKey: .init(stringValue: "id"))
+        paused = try container.decode(Bool.self, forKey: .init(stringValue: "_paused"))
+
+        experimentKeys = container.allKeys
+            .compactMap {
+                var exp = try? container.decode(ExperimentKey.self, forKey: $0)
+                exp?.name = $0.stringValue
+                return exp
+            }
+    }
+}
+
+public struct ExperimentKey: Decodable, Equatable {
+    var name: String = ""
+    let isEntryPoint: Bool
+    let predicate: CompoundRule?
+    let values: Bool?
+    let initializers: Bool
+    let subKeys: [ExperimentKey]
+    
+    private struct CodingKeys: CodingKey {
+        var stringValue: String
+        init(stringValue: String) {
+            self.stringValue = stringValue
+        }
+        
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        isEntryPoint = try container.decode(Bool.self, forKey: .init(stringValue: "_is_entry_point"))
+        predicate = try? container.decode(CompoundRule.self, forKey: .init(stringValue: "_predicate"))
+        values = try? container.decode(Bool.self, forKey: .init(stringValue: "_values"))
+        initializers = try container.decode(Bool.self, forKey: .init(stringValue: "_initializers"))
+        
+        subKeys = container.allKeys
+            .compactMap {
+                var exp = try? container.decode(ExperimentKey.self, forKey: $0)
+                exp?.name = $0.stringValue
+                return exp
+            }
     }
 }
 
