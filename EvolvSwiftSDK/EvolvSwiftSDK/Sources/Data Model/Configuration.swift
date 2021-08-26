@@ -23,7 +23,7 @@ import Foundation
 public struct Configuration: Decodable, EvolvConfig, Equatable {
     let published: Double
     let client: Client
-    let experiments: [ExperimentCollection]
+    let experiments: [Experiment]
     private let _genomeExperiments: [GenomeObject]
     
     enum CodingKeys: String, CodingKey {
@@ -38,7 +38,7 @@ public struct Configuration: Decodable, EvolvConfig, Equatable {
         published = try container.decode(Double.self, forKey: .published)
         client = try container.decode(Client.self, forKey: .client)
         _genomeExperiments = try container.decode([GenomeObject].self, forKey: ._genomeExperiments)
-        experiments = _genomeExperiments.compactMap { ExperimentCollection(keyValues: $0.value as? [String : Any] ?? [:]) }
+        experiments = _genomeExperiments.compactMap { Experiment(keyValues: $0.value as? [String : Any] ?? [:]) }
     }
 }
 
@@ -49,11 +49,11 @@ public struct Client: Codable, Equatable {
 }
 
 // MARK: - Experiment
-public struct ExperimentCollection: Equatable {
+public struct Experiment: Equatable {
     let predicate: CompoundRule?
     let id: String
     let paused: Bool
-    let experiments: [Experiment]
+    let experiments: [ExperimentKey]
     
     enum CodingKeys: String, CodingKey {
         case predicate = "_predicate"
@@ -76,11 +76,11 @@ public struct ExperimentCollection: Equatable {
         self.experiments = keyValues.withoutValues(withKeys: [CodingKeys.predicate, .id, .paused, .web].map { $0.rawValue })
             .map { ($0.key, $0.value) }
             .compactMap { (name, value) in
-                let result: Experiment?
+                let result: ExperimentKey?
                 
                 do {
                     let experimentData = try JSONSerialization.data(withJSONObject: value, options: [])
-                    var experiment = try JSONDecoder().decode(Experiment.self, from: experimentData)
+                    var experiment = try JSONDecoder().decode(ExperimentKey.self, from: experimentData)
                     
                     experiment.name = name
                     result = experiment
@@ -93,7 +93,7 @@ public struct ExperimentCollection: Equatable {
             }
     }
     
-    init(predicate: CompoundRule, id: String, paused: Bool, experiments: [Experiment]) {
+    init(predicate: CompoundRule, id: String, paused: Bool, experiments: [ExperimentKey]) {
         self.predicate = predicate
         self.id = id
         self.paused = paused
@@ -101,18 +101,36 @@ public struct ExperimentCollection: Equatable {
     }
 }
 
-public struct Experiment: Decodable, Equatable {
+public struct ExperimentKey: Decodable, Equatable {
     var name: String = ""
     let isEntryPoint: Bool
     let predicate: CompoundRule?
     let values: Bool?
     let initializers: Bool
+    let subExperiments: [ExperimentKey]
     
-    private enum CodingKeys: String, CodingKey {
-        case isEntryPoint = "_is_entry_point"
-        case predicate = "_predicate"
-        case values = "_values"
-        case initializers = "_initializers"
+    private struct CodingKeys: CodingKey {
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+        }
+        
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        isEntryPoint = try container.decode(Bool.self, forKey: .init(stringValue: "_is_entry_point")!)
+        predicate = try? container.decode(CompoundRule.self, forKey: .init(stringValue: "_predicate")!)
+        values = try? container.decode(Bool.self, forKey: .init(stringValue: "_values")!)
+        initializers = try container.decode(Bool.self, forKey: .init(stringValue: "_initializers")!)
+        
+        subExperiments = container.allKeys
+            .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
     }
 }
 

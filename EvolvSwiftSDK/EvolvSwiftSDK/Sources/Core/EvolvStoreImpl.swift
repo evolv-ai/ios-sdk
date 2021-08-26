@@ -101,11 +101,11 @@ public class EvolvStoreImpl: EvolvStore {
         
     }
     
-    private func isActive(experimentCollection: ExperimentCollection) -> Bool {
+    private func isActive(experimentCollection: Experiment) -> Bool {
         experimentCollection.predicate?.isActive(in: evolvContext.mergedContext) ?? true
     }
     
-    private func isActive(experiment: Experiment) -> Bool {
+    private func isActive(experiment: ExperimentKey) -> Bool {
         experiment.predicate?.isActive(in: evolvContext.mergedContext) ?? true
     }
     
