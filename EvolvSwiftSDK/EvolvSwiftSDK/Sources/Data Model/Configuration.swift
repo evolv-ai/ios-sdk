@@ -79,16 +79,16 @@ public struct Experiment: Decodable, Equatable {
         paused = try container.decode(Bool.self, forKey: .init(stringValue: "_paused"))
 
         experimentKeys = container.allKeys
-            .compactMap {
-                var exp = try? container.decode(ExperimentKey.self, forKey: $0)
-                exp?.name = $0.stringValue
-                return exp
-            }
+            .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
+    }
+    
+    func isActive(in context: [String : Any]) -> Bool {
+        predicate?.isActive(in: context) ?? true
     }
 }
 
 public struct ExperimentKey: Decodable, Equatable {
-    var name: String = ""
+    let keyPath: ExperimentKeyPath
     let isEntryPoint: Bool
     let predicate: CompoundRule?
     let values: Bool?
@@ -115,12 +115,24 @@ public struct ExperimentKey: Decodable, Equatable {
         values = try? container.decode(Bool.self, forKey: .init(stringValue: "_values"))
         initializers = try container.decode(Bool.self, forKey: .init(stringValue: "_initializers"))
         
+        let keyPath = container.codingPath
+            .dropFirst(2)
+            .map { $0.stringValue }
+        self.keyPath = ExperimentKeyPath(keyPath: keyPath)
+        
         subKeys = container.allKeys
-            .compactMap {
-                var exp = try? container.decode(ExperimentKey.self, forKey: $0)
-                exp?.name = $0.stringValue
-                return exp
-            }
+            .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
+    }
+    
+    func isActive(in context: [String : Any]) -> Bool {
+        predicate?.isActive(in: context) ?? true
+    }
+    
+    struct ExperimentKeyPath: Equatable {
+        let keyPath: [String]
+        
+        var name: String { keyPath.last ?? "" }
+        var keyPathString: String { String(keyPath.reduce("") { $0 + "." + $1 }.dropFirst()) }
     }
 }
 
@@ -250,5 +262,33 @@ public struct ExperimentPredicate: Codable, Equatable {
                 rule.evaluateRule(value: context[rule.field] as? String ?? "")
             } == true
         }
+    }
+}
+
+extension Configuration {
+    func getActiveKeys(in context: [String : Any]) -> [String] {
+        experiments.flatMap {
+            getActiveKeys(from: $0, in: context)
+        }
+    }
+    
+    private func getActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [String] {
+        guard experiment.isActive(in: context) else { return [] }
+        
+        return experiment.experimentKeys.flatMap {
+            getActiveKeys(from: $0, in: context)
+        }
+    }
+    
+    private func getActiveKeys(from experimentKey: ExperimentKey, in context: [String : Any]) -> [String] {
+        var keys = [String]()
+        
+        guard experimentKey.isActive(in: context) else { return keys }
+        
+        keys.append(experimentKey.keyPath.keyPathString)
+        
+        return experimentKey.subKeys.flatMap {
+            getActiveKeys(from: $0, in: context)
+        } + keys
     }
 }
