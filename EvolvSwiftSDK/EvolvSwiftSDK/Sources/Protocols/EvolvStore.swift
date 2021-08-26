@@ -27,4 +27,6 @@ protocol EvolvStore {
     func isActive(key: String) -> Bool
     
     func getActiveKeys() -> [String]
+    
+    func reevaluateContext()
 }

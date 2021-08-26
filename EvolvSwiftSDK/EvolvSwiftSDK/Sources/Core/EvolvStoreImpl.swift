@@ -24,6 +24,7 @@ public class EvolvStoreImpl: EvolvStore {
     var evolvConfiguration: Configuration { _evolvConfiguration }
     
     private(set) var evolvAllocations = [Allocation]()
+    private(set) var activeKeys = [String]()
     
     private var _evolvConfiguration: Configuration!
     private var evolvContext: EvolvContext
@@ -31,8 +32,6 @@ public class EvolvStoreImpl: EvolvStore {
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();
     private let evolvAPI: EvolvAPI
-    
-    private var reevaluatingContext: Bool = false
     
     private lazy var cancellables = Set<AnyCancellable>()
     
@@ -60,6 +59,7 @@ public class EvolvStoreImpl: EvolvStore {
                 }, receiveValue: { [weak self] (configuration, allocations) in
                     self?._evolvConfiguration = configuration
                     self?.evolvAllocations = allocations
+                    self?.reevaluateContext()
                 })
                 .store(in: &self.cancellables)
         }
@@ -72,21 +72,21 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func isActive(key: String) -> Bool {
-        getActiveKeys().contains(key)
+        activeKeys.contains(key)
     }
     
     func getActiveKeys() -> [String] {
-        evolvConfiguration.getActiveKeys(in: evolvContext.mergedContext)
+        activeKeys
+    }
+    
+    func reevaluateContext() {
+        activeKeys = evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContext)
     }
     
     private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
         keyStates = configRequest ? configKeyStates : genomeKeyStates
         
         reevaluateContext()
-    }
-    
-    private func reevaluateContext() {
-        
     }
     
     private func evaluatePredicates(context: EvolvContext, configuration: Configuration) {

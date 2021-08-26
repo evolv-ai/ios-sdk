@@ -19,6 +19,8 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
+    public var activeKeys: [String] { evolvStore.getActiveKeys() }
+    
     private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
@@ -54,7 +56,11 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func getActiveKeys() -> [String] {
-        evolvStore.getActiveKeys()
+        activeKeys
+    }
+    
+    public func reevaluateContext() {
+        evolvStore.reevaluateContext()
     }
     
     public func confirm() {
@@ -66,10 +72,6 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func get(value forKey: String) {
-        return
-    }
-    
-    public func reevaluateContext() {
         return
     }
 }
