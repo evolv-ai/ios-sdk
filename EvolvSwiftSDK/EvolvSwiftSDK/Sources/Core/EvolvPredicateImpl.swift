@@ -19,42 +19,42 @@
 
 import Foundation
 
-struct EvolvPredicateImpl {
-    
-    
-    
-    struct FilterOperations {
-        static func contains (a: String, b: String) -> Bool {
-            return a.contains(b)
-        }
-        
-        static func defined (a: String?) -> Bool {
-            return a != nil
-        }
-        
-        static func equal<T: Equatable> (a: T, b: T) -> Bool {
-            return a == b
-        }
-        
-        static func exists (a: String) -> Bool {
-            return a != nil
-        }
-        
-        
-    }
-//    let filterOperations: [String: ()->()]?
-    
-    public func evaluatePredicate (context: EvolvContext, config: EvolvConfig) {
-        
-    }
-}
-
-enum EvaluationResult {
-    
-    static let passed = "passed"
-    static let failed = "failed"
-    static let rejected = "rejected"
-    
-}
-
+//struct EvolvPredicateImpl {
+//    
+//    
+//    
+//    struct FilterOperations {
+//        static func contains (a: String, b: String) -> Bool {
+//            return a.contains(b)
+//        }
+//        
+//        static func defined (a: String?) -> Bool {
+//            return a != nil
+//        }
+//        
+//        static func equal<T: Equatable> (a: T, b: T) -> Bool {
+//            return a == b
+//        }
+//        
+//        static func exists (a: String) -> Bool {
+//            return a != nil
+//        }
+//        
+//        
+//    }
+////    let filterOperations: [String: ()->()]?
+//    
+//    public func evaluatePredicate (context: EvolvContext, config: EvolvConfig) {
+//        
+//    }
+//}
+//
+//enum EvaluationResult {
+//    
+//    static let passed = "passed"
+//    static let failed = "failed"
+//    static let rejected = "rejected"
+//    
+//}
+//
 

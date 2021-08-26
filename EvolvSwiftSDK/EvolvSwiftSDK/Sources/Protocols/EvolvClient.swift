@@ -20,7 +20,7 @@ import Combine
 
 public protocol EvolvClient {
     /// Active keys evaluated in the current Evolv context.
-    var activeKeys: [String] { get }
+    var activeKeys: CurrentValueSubject<[String], Never> { get }
     
     /// Initialises EvolvClient with desired EvolvClientOptions
     /// - Parameter options: Provide desired options for the EvolvClient.

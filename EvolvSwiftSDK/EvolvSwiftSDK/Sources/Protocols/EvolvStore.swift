@@ -16,11 +16,12 @@
 //  limitations under the License.
 //
 
-
-import Foundation
+import Combine
 
 /// A type that can store and retrieve participant's allocations.
 protocol EvolvStore {
+    var activeKeys: CurrentValueSubject<[String], Never> { get }
+    
     var evolvAllocations: [Allocation] { get }
     var evolvConfiguration: Configuration { get }
     
@@ -29,4 +30,6 @@ protocol EvolvStore {
     func getActiveKeys() -> [String]
     
     func reevaluateContext()
+    
+    func set(key: String, value: Any, local: Bool)
 }

@@ -24,7 +24,7 @@ public class EvolvStoreImpl: EvolvStore {
     var evolvConfiguration: Configuration { _evolvConfiguration }
     
     private(set) var evolvAllocations = [Allocation]()
-    private(set) var activeKeys = [String]()
+    private(set) var activeKeys = CurrentValueSubject<[String], Never>([])
     
     private var _evolvConfiguration: Configuration!
     private var evolvContext: EvolvContext
@@ -72,15 +72,21 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func isActive(key: String) -> Bool {
-        activeKeys.contains(key)
+        getActiveKeys().contains(key)
     }
     
     func getActiveKeys() -> [String] {
-        activeKeys
+        activeKeys.value
     }
     
     func reevaluateContext() {
-        activeKeys = evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContext)
+        activeKeys.send(evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContext))
+    }
+    
+    func set(key: String, value: Any, local: Bool) {
+        evolvContext.set(key: key, value: value, local: local)
+        
+        reevaluateContext()
     }
     
     private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
@@ -155,8 +161,6 @@ extension EvolvStoreImpl {
     }
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
-        var eids: [String] = []
-        
         return []
     }
     

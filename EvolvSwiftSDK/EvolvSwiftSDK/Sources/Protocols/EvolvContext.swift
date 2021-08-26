@@ -58,7 +58,7 @@ internal protocol EvolvContext {
     /// - Parameter key: The key to associate the value to.
     /// - Parameter value: The value to associate with the key.
     /// - Parameter local: If true, the value will only be added to the localContext.
-    mutating func set(key: String, value: Any, local: Bool) -> [String: Any]
+    mutating func set(key: String, value: Any, local: Bool)
     
 //    /// Merge the specified object into the current context.
 //    /// Note: This will cause the effective genome to be recomputed.

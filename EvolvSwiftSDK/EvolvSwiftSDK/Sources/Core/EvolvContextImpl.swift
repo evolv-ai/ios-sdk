@@ -36,13 +36,11 @@ public struct EvolvContextImpl: EvolvContext {
         return [:]
     }
     
-    public mutating func set(key: String, value: Any, local: Bool = false) -> [String : Any] {
+    public mutating func set(key: String, value: Any, local: Bool) {
         if local {
             localContext[key] = value
-            return localContext
         } else {
             remoteContext[key] = value
-            return remoteContext
         }
     }
     
