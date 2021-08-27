@@ -63,7 +63,7 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.reevaluateContext()
     }
     
-    public func set(key: String, value: Any, local: Bool) {
+    public func set(key: String, value: Any, local: Bool) -> Bool {
         evolvStore.set(key: key, value: value, local: local)
     }
     

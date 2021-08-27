@@ -31,5 +31,6 @@ protocol EvolvStore {
     
     func reevaluateContext()
     
-    func set(key: String, value: Any, local: Bool)
+    @discardableResult
+    func set(key: String, value: Any, local: Bool) -> Bool
 }
