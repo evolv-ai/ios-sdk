@@ -19,7 +19,7 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    public var activeKeys: CurrentValueSubject<[String], Never> { evolvStore.activeKeys }
+    public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
     
     private var evolvContext: EvolvContextImpl
     private let options: EvolvClientOptions
@@ -55,7 +55,7 @@ public final class EvolvClientImpl: EvolvClient {
         }
     }
     
-    public func getActiveKeys() -> [String] {
+    public func getActiveKeys() -> Set<String> {
         evolvStore.getActiveKeys()
     }
     

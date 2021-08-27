@@ -20,14 +20,14 @@ import Combine
 
 /// A type that can store and retrieve participant's allocations.
 protocol EvolvStore {
-    var activeKeys: CurrentValueSubject<[String], Never> { get }
+    var activeKeys: CurrentValueSubject<Set<String>, Never> { get }
     
     var evolvAllocations: [Allocation] { get }
     var evolvConfiguration: Configuration { get }
     
     func isActive(key: String) -> Bool
     
-    func getActiveKeys() -> [String]
+    func getActiveKeys() -> Set<String>
     
     func reevaluateContext()
     

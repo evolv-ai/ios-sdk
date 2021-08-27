@@ -116,4 +116,45 @@ class EvolvStoreNewTests: XCTestCase {
         
         XCTAssertEqual(activeKeys.count, 5)
     }
+    
+    func testActiveKeysAreReevaluatedOnContextChange() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        let firstActiveKeys = evolvStore.getActiveKeys()
+        
+        evolvStore.set(key: "signedin", value: "no", local: false)
+        
+        let secondActiveKeys = evolvStore.getActiveKeys()
+        
+        XCTAssertNotEqual(firstActiveKeys, secondActiveKeys)
+        XCTAssertEqual(firstActiveKeys, ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
+        XCTAssertEqual(secondActiveKeys, ["home.cta_text", "home.background", "home"])
+    }
+    
+    func testActiveKeysNotifyOfChangeOnContextChange() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        var receivedActiveKeys = [Set<String>]()
+        
+        evolvStore.activeKeys.sink { activeKeys in
+            receivedActiveKeys.append(activeKeys)
+            
+            if receivedActiveKeys.count == 2 {
+                XCTAssertNotEqual(receivedActiveKeys[0], receivedActiveKeys[1])
+                XCTAssertEqual(receivedActiveKeys[0], ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
+                XCTAssertEqual(receivedActiveKeys[1], ["home.cta_text", "home.background", "home"])
+            }
+        }.store(in: &cancellables)
+        
+        evolvStore.set(key: "signedin", value: "no", local: false)
+    }
 }
