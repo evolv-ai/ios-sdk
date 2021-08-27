@@ -20,8 +20,12 @@
 import Foundation
 
 public struct EvolvContextImpl: EvolvContext {
-    private var remoteContext: [String : Any] = [:]
-    private var localContext: [String : Any] = [:]
+    private(set) var remoteContext: [String : Any] = [:]
+    private(set) var localContext: [String : Any] = [:]
+    
+    var mergedContext: [String : Any] {
+        remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in r })
+    }
     
     public init(remoteContext: [String : Any], localContext: [String : Any]) {
         self.localContext = localContext

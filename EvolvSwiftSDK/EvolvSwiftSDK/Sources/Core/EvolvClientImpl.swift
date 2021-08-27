@@ -53,6 +53,10 @@ public final class EvolvClientImpl: EvolvClient {
         }
     }
     
+    public func getActiveKeys() -> [String] {
+        evolvStore.getActiveKeys()
+    }
+    
     public func confirm() {
         return
     }

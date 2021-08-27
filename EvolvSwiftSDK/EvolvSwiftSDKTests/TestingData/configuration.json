@@ -9,7 +9,32 @@
     "_experiments": [
         {
             "web": {},
-            "_predicate": {},
+            "_predicate": {
+                "id": 1165,
+                "combinator": "and",
+                "rules": [
+                    {
+                        "field": "location",
+                        "operator": "equal",
+                        "value": "UA"
+                    },
+                    {
+                        "combinator": "or",
+                        "rules": [
+                            {
+                                "field": "location",
+                                "operator": "equal",
+                                "value": "UA"
+                            },
+                            {
+                                "field": "Student",
+                                "operator": "contains",
+                                "value": "High_school"
+                            }
+                        ]
+                    }
+                ]
+            },
             "home": {
                 "_is_entry_point": true,
                 "_predicate": {
@@ -23,6 +48,12 @@
                     ]
                 },
                 "cta_text": {
+                    "_is_entry_point": false,
+                    "_predicate": null,
+                    "_values": true,
+                    "_initializers": true
+                },
+                "background": {
                     "_is_entry_point": false,
                     "_predicate": null,
                     "_values": true,

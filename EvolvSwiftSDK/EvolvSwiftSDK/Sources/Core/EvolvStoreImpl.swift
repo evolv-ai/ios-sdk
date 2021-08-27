@@ -30,7 +30,6 @@ public class EvolvStoreImpl: EvolvStore {
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();
-    private var evolvPredicate = EvolvPredicateImpl()
     private let evolvAPI: EvolvAPI
     
     private var reevaluatingContext: Bool = false
@@ -72,8 +71,23 @@ public class EvolvStoreImpl: EvolvStore {
         var experiments = Array<String>()
     }
     
-    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
+    func isActive(key: String) -> Bool {
+        guard let experimentCollection = evolvConfiguration.experiments.first(where: { $0.experimentKeys.contains { $0.name == key } }),
+              let experiment = experimentCollection.experimentKeys.first(where: { $0.name == key })
+        else { return false }
         
+        return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
+    }
+    
+    // TODO: Doesn't work correctly with nested rules and keys.
+    func getActiveKeys() -> [String] {
+        evolvConfiguration.experiments
+            .flatMap { $0.experimentKeys }
+            .map { $0.name }
+            .filter { isActive(key: $0) }
+    }
+    
+    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
         keyStates = configRequest ? configKeyStates : genomeKeyStates
         
         reevaluateContext()
@@ -83,6 +97,21 @@ public class EvolvStoreImpl: EvolvStore {
         
     }
     
+    private func evaluatePredicates(context: EvolvContext, configuration: Configuration) {
+        
+    }
+    
+    private func isActive(experimentCollection: Experiment) -> Bool {
+        experimentCollection.predicate?.isActive(in: evolvContext.mergedContext) ?? true
+    }
+    
+    private func isActive(experiment: ExperimentKey) -> Bool {
+        experiment.predicate?.isActive(in: evolvContext.mergedContext) ?? true
+    }
+    
+    private func evaluateFilter(userValue: String, against rule: Rule) {
+        
+    }
 }
 
 
@@ -135,13 +164,11 @@ extension EvolvStoreImpl {
     
     func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
         var eids: [String] = []
-//        TODO: implement function
         
         return []
     }
     
-    public func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
-        
+    func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
         let result = [String: Any]()
         if (config.experiments.count == 0) {
             return result
@@ -155,13 +182,7 @@ extension EvolvStoreImpl {
         // TODO: - Add functionality (lines 216-240)
     }
     
-    public func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
+    func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
         // TODO: - Add functionality 242-287
     }
-    
-    
-    
-    
-    
-    
 }
