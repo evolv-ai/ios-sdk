@@ -83,10 +83,14 @@ public class EvolvStoreImpl: EvolvStore {
         activeKeys.send(evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContext))
     }
     
-    func set(key: String, value: Any, local: Bool) {
-        evolvContext.set(key: key, value: value, local: local)
+    func set(key: String, value: Any, local: Bool) -> Bool {
+        let isContextChanged = evolvContext.set(key: key, value: value, local: local)
+        
+        guard isContextChanged else { return false }
         
         reevaluateContext()
+        
+        return true
     }
     
     private func update(configRequest: Bool, requestedKeys: [String], value: Any) {

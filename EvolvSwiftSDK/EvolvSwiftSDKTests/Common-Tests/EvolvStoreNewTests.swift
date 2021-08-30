@@ -101,6 +101,7 @@ class EvolvStoreNewTests: XCTestCase {
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
         
+        XCTAssert(activeKeys.contains("next"))
         XCTAssert(activeKeys.contains("next.layout"))
         XCTAssertEqual(activeKeys.count, 2)
     }
@@ -114,7 +115,7 @@ class EvolvStoreNewTests: XCTestCase {
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
         
-        XCTAssertEqual(activeKeys.count, 5)
+        XCTAssertEqual(activeKeys, ["home", "home.cta_text", "home.background", "button_color", "cta_text"])
     }
     
     func testActiveKeysAreReevaluatedOnContextChange() {

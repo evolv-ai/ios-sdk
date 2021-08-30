@@ -46,6 +46,15 @@ public protocol EvolvClient {
     /// - Parameter forKey: The identifier of the event.
     func get(value forKey: String)
     
+    /// Sets a value in the current context.
+    /// - Note: This will cause the effective genome to be recomputed.
+    /// - Parameter key: The key to associate the value to.
+    /// - Parameter value: The value to associate with the key.
+    /// - Parameter local: If true, the value will only be added to the localContext.
+    /// - Returns: True if the context was updated. False if the the context already had the provided value set for this key.
+    @discardableResult
+    func set(key: String, value: Any, local: Bool) -> Bool
+    
     /// Reevaluates the current context.
     func reevaluateContext()
     

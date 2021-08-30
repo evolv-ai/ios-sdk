@@ -54,11 +54,13 @@ internal protocol EvolvContext {
     func resolve() -> [String: Any]
     
     /// Sets a value in the current context.
-    /// Note: This will cause the effective genome to be recomputed.
+    /// - Note: This will cause the effective genome to be recomputed.
     /// - Parameter key: The key to associate the value to.
     /// - Parameter value: The value to associate with the key.
     /// - Parameter local: If true, the value will only be added to the localContext.
-    mutating func set(key: String, value: Any, local: Bool)
+    /// - Returns: True if the context was updated. False if the the context already had the provided value set for this key.
+    @discardableResult
+    mutating func set(key: String, value: Any, local: Bool) -> Bool
     
 //    /// Merge the specified object into the current context.
 //    /// Note: This will cause the effective genome to be recomputed.
