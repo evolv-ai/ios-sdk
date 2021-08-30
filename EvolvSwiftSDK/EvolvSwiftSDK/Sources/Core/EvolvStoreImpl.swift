@@ -24,7 +24,7 @@ public class EvolvStoreImpl: EvolvStore {
     var evolvConfiguration: Configuration { _evolvConfiguration }
     
     private(set) var evolvAllocations = [Allocation]()
-    private(set) var activeKeys = CurrentValueSubject<[String], Never>([])
+    private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     
     private var _evolvConfiguration: Configuration!
     private var evolvContext: EvolvContext
@@ -75,7 +75,7 @@ public class EvolvStoreImpl: EvolvStore {
         getActiveKeys().contains(key)
     }
     
-    func getActiveKeys() -> [String] {
+    func getActiveKeys() -> Set<String> {
         activeKeys.value
     }
     

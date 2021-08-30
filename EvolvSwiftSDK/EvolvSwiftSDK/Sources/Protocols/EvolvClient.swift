@@ -20,7 +20,7 @@ import Combine
 
 public protocol EvolvClient {
     /// Active keys evaluated in the current Evolv context.
-    var activeKeys: CurrentValueSubject<[String], Never> { get }
+    var activeKeys: CurrentValueSubject<Set<String>, Never> { get }
     
     /// Initialises EvolvClient with desired EvolvClientOptions
     /// - Parameter options: Provide desired options for the EvolvClient.
@@ -59,7 +59,7 @@ public protocol EvolvClient {
     func reevaluateContext()
     
     /// Gets active keys.
-    func getActiveKeys() -> [String]
+    func getActiveKeys() -> Set<String>
 }
 
 // MARK: - Default implementation and optional protocol methods

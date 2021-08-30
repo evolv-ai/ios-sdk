@@ -24,7 +24,7 @@ public struct EvolvContextImpl: EvolvContext {
     private(set) var localContext: [String : Any] = [:]
     
     var mergedContext: [String : Any] {
-        remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in r })
+        remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in l })
     }
     
     public init(remoteContext: [String : Any], localContext: [String : Any]) {

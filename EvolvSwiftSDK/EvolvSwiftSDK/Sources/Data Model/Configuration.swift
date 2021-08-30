@@ -266,10 +266,12 @@ public struct ExperimentPredicate: Codable, Equatable {
 }
 
 extension Configuration {
-    func evaluateActiveKeys(in context: [String : Any]) -> [String] {
-        experiments.flatMap {
+    func evaluateActiveKeys(in context: [String : Any]) -> Set<String> {
+        let activeKeys = experiments.flatMap {
             evaluateActiveKeys(from: $0, in: context)
         }
+        
+        return Set(activeKeys)
     }
     
     private func evaluateActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [String] {

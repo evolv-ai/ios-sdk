@@ -117,4 +117,51 @@ class EvolvStoreNewTests: XCTestCase {
         
         XCTAssertEqual(activeKeys, ["home", "home.cta_text", "home.background", "button_color", "cta_text"])
     }
+    
+    func testActiveKeysAreReevaluatedOnContextChange() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        let firstActiveKeys = evolvStore.getActiveKeys()
+        
+        evolvStore.set(key: "signedin", value: "no", local: false)
+        
+        let secondActiveKeys = evolvStore.getActiveKeys()
+        
+        XCTAssertNotEqual(firstActiveKeys, secondActiveKeys)
+        XCTAssertEqual(firstActiveKeys, ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
+        XCTAssertEqual(secondActiveKeys, ["home.cta_text", "home.background", "home"])
+    }
+    
+    func testActiveKeysNotifyOfChangeOnContextChange() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        var receivedActiveKeys = [Set<String>]()
+        
+        let expectation = self.expectation(description: "Awaiting active keys to sink expectation.")
+        
+        evolvStore.activeKeys.sink { activeKeys in
+            receivedActiveKeys.append(activeKeys)
+            
+            if receivedActiveKeys.count == 2 {
+                XCTAssertNotEqual(receivedActiveKeys[0], receivedActiveKeys[1])
+                XCTAssertEqual(receivedActiveKeys[0], ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
+                XCTAssertEqual(receivedActiveKeys[1], ["home.cta_text", "home.background", "home"])
+                
+                expectation.fulfill()
+            }
+        }.store(in: &cancellables)
+        
+        evolvStore.set(key: "signedin", value: "no", local: false)
+        
+        waitForExpectations(timeout: 2)
+    }
 }
