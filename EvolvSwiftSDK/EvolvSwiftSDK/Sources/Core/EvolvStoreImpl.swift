@@ -72,19 +72,11 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func isActive(key: String) -> Bool {
-        guard let experimentCollection = evolvConfiguration.experiments.first(where: { $0.experimentKeys.contains { $0.name == key } }),
-              let experiment = experimentCollection.experimentKeys.first(where: { $0.name == key })
-        else { return false }
-        
-        return isActive(experimentCollection: experimentCollection) && isActive(experiment: experiment)
+        getActiveKeys().contains(key)
     }
     
-    // TODO: Doesn't work correctly with nested rules and keys.
     func getActiveKeys() -> [String] {
-        evolvConfiguration.experiments
-            .flatMap { $0.experimentKeys }
-            .map { $0.name }
-            .filter { isActive(key: $0) }
+        evolvConfiguration.getActiveKeys(in: evolvContext.mergedContext)
     }
     
     private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
