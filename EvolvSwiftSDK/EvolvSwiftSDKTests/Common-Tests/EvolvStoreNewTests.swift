@@ -145,6 +145,8 @@ class EvolvStoreNewTests: XCTestCase {
         
         var receivedActiveKeys = [Set<String>]()
         
+        let expectation = self.expectation(description: "Awaiting active keys to sink expectation.")
+        
         evolvStore.activeKeys.sink { activeKeys in
             receivedActiveKeys.append(activeKeys)
             
@@ -152,9 +154,13 @@ class EvolvStoreNewTests: XCTestCase {
                 XCTAssertNotEqual(receivedActiveKeys[0], receivedActiveKeys[1])
                 XCTAssertEqual(receivedActiveKeys[0], ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
                 XCTAssertEqual(receivedActiveKeys[1], ["home.cta_text", "home.background", "home"])
+                
+                expectation.fulfill()
             }
         }.store(in: &cancellables)
         
         evolvStore.set(key: "signedin", value: "no", local: false)
+        
+        waitForExpectations(timeout: 2)
     }
 }
