@@ -33,17 +33,20 @@ public struct EvolvContextImpl: EvolvContext {
     }
     
     public func resolve() -> [String: Any] {
-        return [:]
+        return mergedContext
     }
     
-    public mutating func set(key: String, value: Any, local: Bool = false) -> [String : Any] {
+    @discardableResult
+    public mutating func set(key: String, value: Any, local: Bool) -> Bool {
+        guard ((local ? localContext[key] : remoteContext[key]) as? String) != (value as? String) else { return false }
+        
         if local {
             localContext[key] = value
-            return localContext
         } else {
             remoteContext[key] = value
-            return remoteContext
         }
+        
+        return true
     }
     
     func mergeContext(localContext: [String : Any], remoteContext: [String : Any]) -> [String : Any] {

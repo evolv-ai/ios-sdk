@@ -19,6 +19,8 @@
 import Combine
 
 public protocol EvolvClient {
+    /// Active keys evaluated in the current Evolv context.
+    var activeKeys: CurrentValueSubject<[String], Never> { get }
     
     /// Initialises EvolvClient with desired EvolvClientOptions
     /// - Parameter options: Provide desired options for the EvolvClient.
@@ -43,6 +45,15 @@ public protocol EvolvClient {
     /// Get the value of a specified key.
     /// - Parameter forKey: The identifier of the event.
     func get(value forKey: String)
+    
+    /// Sets a value in the current context.
+    /// - Note: This will cause the effective genome to be recomputed.
+    /// - Parameter key: The key to associate the value to.
+    /// - Parameter value: The value to associate with the key.
+    /// - Parameter local: If true, the value will only be added to the localContext.
+    /// - Returns: True if the context was updated. False if the the context already had the provided value set for this key.
+    @discardableResult
+    func set(key: String, value: Any, local: Bool) -> Bool
     
     /// Reevaluates the current context.
     func reevaluateContext()

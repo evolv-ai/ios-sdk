@@ -266,21 +266,21 @@ public struct ExperimentPredicate: Codable, Equatable {
 }
 
 extension Configuration {
-    func getActiveKeys(in context: [String : Any]) -> [String] {
+    func evaluateActiveKeys(in context: [String : Any]) -> [String] {
         experiments.flatMap {
-            getActiveKeys(from: $0, in: context)
+            evaluateActiveKeys(from: $0, in: context)
         }
     }
     
-    private func getActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [String] {
+    private func evaluateActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [String] {
         guard experiment.isActive(in: context) else { return [] }
         
         return experiment.experimentKeys.flatMap {
-            getActiveKeys(from: $0, in: context)
+            evaluateActiveKeys(from: $0, in: context)
         }
     }
     
-    private func getActiveKeys(from experimentKey: ExperimentKey, in context: [String : Any]) -> [String] {
+    private func evaluateActiveKeys(from experimentKey: ExperimentKey, in context: [String : Any]) -> [String] {
         var keys = [String]()
         
         guard experimentKey.isActive(in: context) else { return keys }
@@ -288,7 +288,7 @@ extension Configuration {
         keys.append(experimentKey.keyPath.keyPathString)
         
         return experimentKey.subKeys.flatMap {
-            getActiveKeys(from: $0, in: context)
+            evaluateActiveKeys(from: $0, in: context)
         } + keys
     }
 }

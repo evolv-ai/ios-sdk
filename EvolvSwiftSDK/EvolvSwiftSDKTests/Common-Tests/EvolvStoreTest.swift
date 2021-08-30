@@ -41,13 +41,13 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key" : "test_value"]
         let localContext: [String: Any] = [:]
         
-        var context = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
+        var evolvContext = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
         
-        let evolvContext = context.set(key: "new_key", value: "new_value")
+        evolvContext.set(key: "new_key", value: "new_value", local: false)
         
         XCTAssertNotNil(evolvContext)
-        XCTAssertEqual(evolvContext["new_key"] as? String, "new_value")
-        XCTAssertEqual(evolvContext["test_key"] as? String, "test_value")
+        XCTAssertEqual(evolvContext.remoteContext["new_key"] as? String, "new_value")
+        XCTAssertEqual(evolvContext.remoteContext["test_key"] as? String, "test_value")
     }
     
     func testContextIsNotEmpty() {
@@ -56,8 +56,8 @@ class EvolvStoreTest: XCTestCase {
         
         let context = EvolvContextImpl(remoteContext: remoteContext, localContext: localContext)
         
-        XCTAssertEqual(remoteContext.isEmpty, false)
-        XCTAssertEqual(localContext.isEmpty, false)
+        XCTAssertEqual(context.remoteContext.isEmpty, false)
+        XCTAssertEqual(context.localContext.isEmpty, false)
     }
     
     func testMergeContext() {
@@ -81,7 +81,7 @@ class EvolvStoreTest: XCTestCase {
         
         let rules = [Rule(field: "Age", ruleOperator: Rule.RuleOperator(rawValue: "equal")!, value: "26")]
         
-        let experimentPredicate = ExperimentPredicate(id: 174, combinator: .and, rules: rules)
+        let _ = ExperimentPredicate(id: 174, combinator: .and, rules: rules)
         
 //        let experiments = ExperimentCollection(predicate: experimentPredicate, id: "47d857cd5e", paused: false, experiments: [])
         
@@ -95,7 +95,7 @@ class EvolvStoreTest: XCTestCase {
 //                                            ]
 //                                        ]
         
-        var jsonData = """
+        let jsonData = """
                     {
                         "web": {},
                         "_predicate": {},
