@@ -101,6 +101,7 @@ class EvolvStoreNewTests: XCTestCase {
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
         
+        XCTAssert(activeKeys.contains("next"))
         XCTAssert(activeKeys.contains("next.layout"))
         XCTAssertEqual(activeKeys.count, 2)
     }
