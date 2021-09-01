@@ -85,7 +85,69 @@ class ConfigurationDataTest: XCTestCase {
         XCTAssertEqual(decodedPredicate, expectedDecodedPredicate)
     }
     
-    func testSubkeysDecoded() throws {
+    func testCompoundRulesDecoded() throws {
+        struct MockRulesContainer: Decodable, Equatable {
+            let _predicate: CompoundRule
+        }
+        
+        let predicateJSON = """
+        {
+            "_predicate": {
+                "combinator": "or",
+                "rules": [
+                    {
+                        "field": "device",
+                        "operator": "equal",
+                        "value": "mobile"
+                    },
+                    {
+                        "combinator": "or",
+                        "rules": [
+                            {
+                                "field": "location",
+                                "operator": "equal",
+                                "value": "UA"
+                            },
+                            {
+                                "field": "Student",
+                                "operator": "contains",
+                                "value": "High_school"
+                            }
+                        ]
+                    },
+                    {
+                        "field": "age",
+                        "operator": "equal",
+                        "value": "30"
+                    }
+                ]
+            }
+        }
+        """.data(using: .utf8)!
+        
+        let expectedPredicate = MockRulesContainer(_predicate: .init(id: nil,
+                                                                     combinator: .or,
+                                                                     rules: [
+                                                                        .rule(.init(field: "device", ruleOperator: .equal, value: "mobile")),
+                                                                        .compoundRule(.init(id: nil,
+                                                                                            combinator: .or,
+                                                                                            rules: [
+                                                                                                .rule(.init(field: "location",
+                                                                                                            ruleOperator: .equal,
+                                                                                                            value: "UA")),
+                                                                                                .rule(.init(field: "Student",
+                                                                                                            ruleOperator: .contains,
+                                                                                                            value: "High_school"))])),
+                                                                        .rule(.init(field: "age",
+                                                                                    ruleOperator: .equal,
+                                                                                    value: "30"))]))
+        
+        let actualPredicate = try JSONDecoder().decode(MockRulesContainer.self, from: predicateJSON)
+        
+        XCTAssertEqual(expectedPredicate, actualPredicate)
+    }
+    
+    func testExperimentWithSubkeysDecoded() throws {
         struct MockExperimentContainer: Decodable, Equatable {
             let _experiments: [Experiment]
         }
@@ -191,7 +253,7 @@ class ConfigurationDataTest: XCTestCase {
                                                               isEntryPoint: false,
                                                               predicate: .init(id: nil, combinator: .or,
                                                                                rules: [.rule(.init(field: "age", ruleOperator: .notEqual, value: "25")),
-                                                                                                                   .rule(.init(field: "location", ruleOperator: .notEqual, value: "UK"))]),
+                                                                                       .rule(.init(field: "location", ruleOperator: .notEqual, value: "UK"))]),
                                                               values: true,
                                                               initializers: true,
                                                               subKeys: [])]),
@@ -205,7 +267,7 @@ class ConfigurationDataTest: XCTestCase {
         let expectedDecodedExperiment = MockExperimentContainer(_experiments: [experiment])
         
         let actualDecodedExperiment = try JSONDecoder().decode(MockExperimentContainer.self, from: experimentJSON)
-        
+
         XCTAssertEqual(actualDecodedExperiment, expectedDecodedExperiment)
     }
 }
