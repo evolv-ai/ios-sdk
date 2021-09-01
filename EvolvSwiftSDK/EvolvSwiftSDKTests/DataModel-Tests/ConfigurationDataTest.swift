@@ -240,6 +240,12 @@ class ConfigurationDataTest: XCTestCase {
                                               values: nil,
                                               initializers: false,
                                               subKeys: [
+                                                .init(keyPath: .init(keyPath: ["home", "background"]),
+                                                      isEntryPoint: false,
+                                                      predicate: nil,
+                                                      values: true,
+                                                      initializers: true,
+                                                      subKeys: []),
                                                 .init(keyPath: .init(keyPath: ["home", "cta_text"]),
                                                       isEntryPoint: false,
                                                       predicate:
@@ -257,12 +263,6 @@ class ConfigurationDataTest: XCTestCase {
                                                               values: true,
                                                               initializers: true,
                                                               subKeys: [])]),
-                                                .init(keyPath: .init(keyPath: ["home", "background"]),
-                                                      isEntryPoint: false,
-                                                      predicate: nil,
-                                                      values: true,
-                                                      initializers: true,
-                                                      subKeys: [])
                                               ])])
         let expectedDecodedExperiment = MockExperimentContainer(_experiments: [experiment])
         
