@@ -136,7 +136,38 @@ class EvolvStoreNewTests: XCTestCase {
         XCTAssertEqual(secondActiveKeys, ["home.cta_text", "home.background", "home"])
     }
     
-    func testActiveKeysNotifyOfChangeOnContextChange() {
+    
+    // MARK: - activeKeys sink
+    func testActiveKeysAreAddedNotifyOnContextChange() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "no"],
+                                       localContext: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        var receivedActiveKeys = [Set<String>]()
+        
+        let expectation = self.expectation(description: "Awaiting active keys to sink expectation.")
+        
+        evolvStore.activeKeys.sink { activeKeys in
+            receivedActiveKeys.append(activeKeys)
+            
+            if receivedActiveKeys.count == 2 {
+                XCTAssertNotEqual(receivedActiveKeys[0], receivedActiveKeys[1])
+                XCTAssertEqual(receivedActiveKeys[0], ["home.cta_text", "home.background", "home"])
+                XCTAssertEqual(receivedActiveKeys[1], ["home.cta_text", "home.background", "home", "button_color", "cta_text"])
+                
+                expectation.fulfill()
+            }
+        }.store(in: &cancellables)
+        
+        evolvStore.set(key: "signedin", value: "yes", local: false)
+        
+        waitForExpectations(timeout: 2)
+    }
+    
+    func testActiveKeysAreRemovedNotifyOfOnContextChange() {
         let context = EvolvContextImpl(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
@@ -163,5 +194,44 @@ class EvolvStoreNewTests: XCTestCase {
         evolvStore.set(key: "signedin", value: "no", local: false)
         
         waitForExpectations(timeout: 2)
+    }
+    
+    func testActiveKeysDoNotNotifyIfNoContextChangeHappened() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        let expectation = self.expectation(description: "Active keys will not sink twice.")
+        
+        var sinkedTimes = 0
+        evolvStore.activeKeys.sink { _ in
+            sinkedTimes += 1
+        }.store(in: &cancellables)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if sinkedTimes == 1 { expectation.fulfill() }
+        }
+        
+        let isContextChanged = evolvStore.set(key: "signedin", value: "yes", local: false)
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssert(!isContextChanged)
+    }
+    
+    func testActiveKeysAreTheSameOnContextReevaluation() {
+        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+                                                       "view" : "home",
+                                                       "signedin" : "yes"],
+                                       localContext: [:])
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        let firstActiveKeys = evolvStore.getActiveKeys()
+        evolvStore.reevaluateContext()
+        let secondActiveKeys = evolvStore.getActiveKeys()
+        
+        XCTAssertEqual(firstActiveKeys, secondActiveKeys)
     }
 }
