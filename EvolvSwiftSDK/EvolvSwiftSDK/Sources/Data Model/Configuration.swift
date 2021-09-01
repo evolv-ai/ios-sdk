@@ -82,6 +82,13 @@ public struct Experiment: Decodable, Equatable {
             .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
     }
     
+    init(predicate: CompoundRule?, id: String, paused: Bool, experimentKeys: [ExperimentKey]) {
+        self.predicate = predicate
+        self.id = id
+        self.paused = paused
+        self.experimentKeys = experimentKeys
+    }
+    
     func isActive(in context: [String : Any]) -> Bool {
         predicate?.isActive(in: context) ?? true
     }
@@ -122,6 +129,15 @@ public struct ExperimentKey: Decodable, Equatable {
         
         subKeys = container.allKeys
             .compactMap { try? container.decode(ExperimentKey.self, forKey: $0) }
+    }
+    
+    init(keyPath: ExperimentKey.ExperimentKeyPath, isEntryPoint: Bool, predicate: CompoundRule?, values: Bool?, initializers: Bool, subKeys: [ExperimentKey]) {
+        self.keyPath = keyPath
+        self.isEntryPoint = isEntryPoint
+        self.predicate = predicate
+        self.values = values
+        self.initializers = initializers
+        self.subKeys = subKeys
     }
     
     func isActive(in context: [String : Any]) -> Bool {
