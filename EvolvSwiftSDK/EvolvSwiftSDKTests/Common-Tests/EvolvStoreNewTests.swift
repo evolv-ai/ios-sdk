@@ -62,7 +62,7 @@ class EvolvStoreNewTests: XCTestCase {
         return try jsonDecoder.decode([Allocation].self, from: jsonData)
     }
     
-    func initializeEvolvStore(with context: EvolvContextImpl) -> EvolvStore {
+    func initializeEvolvStore(with context: EvolvContextContainer) -> EvolvStore {
         var evolvStore: EvolvStore!
         
         EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
@@ -77,7 +77,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testConfigurationIsLoadedCorrectly() throws {
-        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
+        let context = EvolvContextContainer(remoteContext: [:], localContext: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -85,7 +85,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testAllocationsAreLoadedCorrectly() throws {
-        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
+        let context = EvolvContextContainer(remoteContext: [:], localContext: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -93,7 +93,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testGetActiveKeysHomeKeyIsActive() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "next",
                                                        "signedin" : "false"],
                                        localContext: [:])
@@ -107,7 +107,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testGetActiveKeysSubKeysAreActive() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
                                        localContext: [:])
@@ -119,7 +119,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreReevaluatedOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
                                        localContext: [:])
@@ -139,7 +139,7 @@ class EvolvStoreNewTests: XCTestCase {
     
     // MARK: - activeKeys sink
     func testActiveKeysAreAddedNotifyOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "no"],
                                        localContext: [:])
@@ -168,7 +168,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreRemovedNotifyOfOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
                                        localContext: [:])
@@ -197,7 +197,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysDoNotNotifyIfNoContextChangeHappened() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
                                        localContext: [:])
@@ -222,7 +222,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreTheSameOnContextReevaluation() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
+        let context = EvolvContextContainer(remoteContext: ["location" : "UA",
                                                        "view" : "home",
                                                        "signedin" : "yes"],
                                        localContext: [:])

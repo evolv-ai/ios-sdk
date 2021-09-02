@@ -27,7 +27,7 @@ public class EvolvStoreImpl: EvolvStore {
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     
     private var _evolvConfiguration: Configuration!
-    private var evolvContext: EvolvContext
+    private var evolvContext: EvolvContextContainer
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();
@@ -35,14 +35,14 @@ public class EvolvStoreImpl: EvolvStore {
     
     private lazy var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
+    static func initialize(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
         EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
             .initialize()
             .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
-    private init(evolvContext: EvolvContext, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
+    private init(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
         self.evolvContext = evolvContext
         self.keyStates = keyStates
         self.evolvAPI = evolvAPI
@@ -80,7 +80,7 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func reevaluateContext() {
-        activeKeys.send(evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContext))
+        activeKeys.send(evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContextUserInfo))
     }
     
     func set(key: String, value: Any, local: Bool) -> Bool {
@@ -99,16 +99,16 @@ public class EvolvStoreImpl: EvolvStore {
         reevaluateContext()
     }
     
-    private func evaluatePredicates(context: EvolvContext, configuration: Configuration) {
+    private func evaluatePredicates(context: EvolvContextContainer, configuration: Configuration) {
         
     }
     
     private func isActive(experimentCollection: Experiment) -> Bool {
-        experimentCollection.predicate?.isActive(in: evolvContext.mergedContext) ?? true
+        experimentCollection.predicate?.isActive(in: evolvContext.mergedContextUserInfo) ?? true
     }
     
     private func isActive(experiment: ExperimentKey) -> Bool {
-        experiment.predicate?.isActive(in: evolvContext.mergedContext) ?? true
+        experiment.predicate?.isActive(in: evolvContext.mergedContextUserInfo) ?? true
     }
     
     private func evaluateFilter(userValue: String, against rule: Rule) {
@@ -168,7 +168,7 @@ extension EvolvStoreImpl {
         return []
     }
     
-    func evaluatePredicates(version: Int, context: EvolvContext, config: Configuration) -> [String: Any]{
+    func evaluatePredicates(version: Int, context: EvolvContextContainer, config: Configuration) -> [String: Any]{
         let result = [String: Any]()
         if (config.experiments.count == 0) {
             return result
@@ -182,7 +182,7 @@ extension EvolvStoreImpl {
         // TODO: - Add functionality (lines 216-240)
     }
     
-    func setActiveAndEntryKeyStates(version: Int, context: EvolvContext, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
+    func setActiveAndEntryKeyStates(version: Int, context: EvolvContextContainer, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
         // TODO: - Add functionality 242-287
     }
 }
