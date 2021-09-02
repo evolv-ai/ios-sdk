@@ -16,10 +16,11 @@
 //  limitations under the License.
 //
 
-
-import Foundation
+import Combine
 
 public struct EvolvContextContainerImpl: EvolvContextContainer {
+    private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
+    
     private(set) var remoteContext: EvolvContext
     private(set) var localContext: EvolvContext
     
@@ -51,5 +52,13 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     func mergeContext(localContext: [String : Any], remoteContext: [String : Any]) -> [String : Any] {
         return remoteContext.merging(localContext) { (current, _) in current }
+    }
+    
+    func getActiveKeys() -> Set<String> {
+        activeKeys.value
+    }
+    
+    func reevaluateContext(with configuration: Configuration) {
+        activeKeys.send(configuration.evaluateActiveKeys(in: mergedContextUserInfo))
     }
 }

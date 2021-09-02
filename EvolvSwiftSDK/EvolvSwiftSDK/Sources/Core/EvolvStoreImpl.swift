@@ -21,10 +21,10 @@ import Foundation
 import Combine
 
 public class EvolvStoreImpl: EvolvStore {
+    var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeKeys }
     var evolvConfiguration: Configuration { _evolvConfiguration }
     
     private(set) var evolvAllocations = [Allocation]()
-    private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     
     private var _evolvConfiguration: Configuration!
     private var evolvContext: EvolvContextContainer
@@ -76,11 +76,11 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func getActiveKeys() -> Set<String> {
-        activeKeys.value
+        evolvContext.getActiveKeys()
     }
     
     func reevaluateContext() {
-        activeKeys.send(evolvConfiguration.evaluateActiveKeys(in: evolvContext.mergedContextUserInfo))
+        evolvContext.reevaluateContext(with: evolvConfiguration)
     }
     
     func set(key: String, value: Any, local: Bool) -> Bool {
