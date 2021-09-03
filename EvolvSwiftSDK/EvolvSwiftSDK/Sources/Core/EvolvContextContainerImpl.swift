@@ -20,6 +20,7 @@ import Combine
 
 public struct EvolvContextContainerImpl: EvolvContextContainer {
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
+    private(set) var entryKeys = CurrentValueSubject<Set<String>, Never>([])
     
     private(set) var remoteContext: EvolvContext
     private(set) var localContext: EvolvContext
@@ -59,6 +60,17 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     }
     
     func reevaluateContext(with configuration: Configuration) {
-        activeKeys.send(configuration.evaluateActiveKeys(in: mergedContextUserInfo))
+        let activeKeys = configuration.evaluateActiveKeys(in: mergedContextUserInfo)
+        
+        // All active keys
+        let activeKeysKeypathSet = Set(activeKeys
+                                            .map { $0.keyPath.keyPathString })
+        self.activeKeys.send(activeKeysKeypathSet)
+        
+        // All active & entry keys
+        let entryKeys = Set(activeKeys
+                                .filter { $0.isEntryPoint }
+                                .map { $0.keyPath.keyPathString })
+        self.entryKeys.send(entryKeys)
     }
 }

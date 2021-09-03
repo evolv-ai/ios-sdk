@@ -41,30 +41,30 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key" : "test_value"]
         let localContext: [String: Any] = [:]
         
-        var evolvContext = EvolvContextContainer(remoteContext: remoteContext, localContext: localContext)
+        var evolvContext = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
         
         evolvContext.set(key: "new_key", value: "new_value", local: false)
         
         XCTAssertNotNil(evolvContext)
-        XCTAssertEqual(evolvContext.remoteContext["new_key"] as? String, "new_value")
-        XCTAssertEqual(evolvContext.remoteContext["test_key"] as? String, "test_value")
+        XCTAssertEqual(evolvContext.remoteContext.userInfo["new_key"] as? String, "new_value")
+        XCTAssertEqual(evolvContext.remoteContext.userInfo["test_key"] as? String, "test_value")
     }
     
     func testContextIsNotEmpty() {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextContainer(remoteContext: remoteContext, localContext: localContext)
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
         
-        XCTAssertEqual(context.remoteContext.isEmpty, false)
-        XCTAssertEqual(context.localContext.isEmpty, false)
+        XCTAssertEqual(context.remoteContext.userInfo.isEmpty, false)
+        XCTAssertEqual(context.localContext.userInfo.isEmpty, false)
     }
     
     func testMergeContext() {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextContainer(remoteContext: remoteContext, localContext: localContext)
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
         
         let evolvContext = context.mergeContext(localContext: localContext, remoteContext: remoteContext)
         
