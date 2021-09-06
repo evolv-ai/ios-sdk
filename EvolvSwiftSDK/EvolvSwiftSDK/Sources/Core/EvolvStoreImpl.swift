@@ -80,7 +80,7 @@ public class EvolvStoreImpl: EvolvStore {
     }
     
     func reevaluateContext() {
-        evolvContext.reevaluateContext(with: evolvConfiguration)
+        evolvContext.reevaluateContext(with: evolvConfiguration, allocations: evolvAllocations)
     }
     
     func set(key: String, value: Any, local: Bool) -> Bool {
@@ -97,18 +97,6 @@ public class EvolvStoreImpl: EvolvStore {
         keyStates = configRequest ? configKeyStates : genomeKeyStates
         
         reevaluateContext()
-    }
-    
-    private func evaluatePredicates(context: EvolvContextContainer, configuration: Configuration) {
-        
-    }
-    
-    private func isActive(experimentCollection: Experiment) -> Bool {
-        experimentCollection.predicate?.isActive(in: evolvContext.mergedContextUserInfo) ?? true
-    }
-    
-    private func isActive(experiment: ExperimentKey) -> Bool {
-        experiment.predicate?.isActive(in: evolvContext.mergedContextUserInfo) ?? true
     }
     
     private func evaluateFilter(userValue: String, against rule: Rule) {

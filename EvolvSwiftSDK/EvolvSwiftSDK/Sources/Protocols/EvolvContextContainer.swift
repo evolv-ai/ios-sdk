@@ -72,5 +72,5 @@ internal protocol EvolvContextContainer {
     
     func getActiveKeys() -> Set<String>
     
-    func reevaluateContext(with configuration: Configuration)
+    mutating func reevaluateContext(with configuration: Configuration, allocations: [Allocation])
 }

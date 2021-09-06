@@ -24,6 +24,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     private(set) var remoteContext: EvolvContext
     private(set) var localContext: EvolvContext
+    private(set) var effectiveGenome = [String : GenomeObject]()
     
     var mergedContextUserInfo: [String : Any] {
         remoteContext.userInfo.merging(localContext.userInfo, uniquingKeysWith: { (l, r) in l })
@@ -59,12 +60,46 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         activeKeys.value
     }
     
-    func reevaluateContext(with configuration: Configuration) {
+    mutating func reevaluateContext(with configuration: Configuration, allocations: [Allocation]) {
         let activeKeys = configuration.evaluateActiveKeys(in: mergedContextUserInfo)
         
         // All active keys
         let activeKeysKeypathSet = Set(activeKeys
                                             .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
+        
+        // Active variants
+        effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
+    }
+    
+    private func generateEffectiveGenome(activeKeys: Set<String>, configuration: Configuration, allocations: [Allocation]) -> [String : GenomeObject] {
+        let expAllocations = mapExperimentsToAllocations(experiments: configuration.experiments, allocations: allocations)
+        
+        return expAllocations.map { generateEffectiveGenome(activeKeys: activeKeys, experiment: $0, allocation: $1) }
+            .flatMap { $0 }
+            .reduce([String : GenomeObject](), { (dict, tuple) in
+                var nextDict = dict
+                nextDict.updateValue(tuple.1, forKey: tuple.0)
+                return nextDict
+            })
+    }
+    
+    private func mapExperimentsToAllocations(experiments: [Experiment], allocations: [Allocation]) -> [(Experiment, Allocation)] {
+        return experiments.compactMap { experiment in
+            guard let allocation = allocations.first(where: { $0.experimentId == experiment.id }) else { return nil }
+            return (experiment, allocation)
+        }
+    }
+    
+    private func generateEffectiveGenome(activeKeys: Set<String>, experiment: Experiment, allocation: Allocation) -> [String : GenomeObject] {
+        var dict = [String : GenomeObject]()
+        
+        activeKeys.forEach { key in
+            guard let genomeForKey = try? allocation.genome.parse(forKey: key) else { return }
+            
+            dict[key] = genomeForKey
+        }
+        
+        return dict
     }
 }
