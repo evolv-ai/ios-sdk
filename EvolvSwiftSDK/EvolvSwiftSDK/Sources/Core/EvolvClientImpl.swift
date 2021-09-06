@@ -20,6 +20,7 @@ import Combine
 
 public final class EvolvClientImpl: EvolvClient {
     public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
+    public var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeVariantKeys }
     
     private var evolvContext: EvolvContextContainerImpl
     private let options: EvolvClientOptions

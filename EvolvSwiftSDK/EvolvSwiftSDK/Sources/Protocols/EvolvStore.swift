@@ -22,6 +22,8 @@ import Combine
 protocol EvolvStore {
     var activeKeys: CurrentValueSubject<Set<String>, Never> { get }
     
+    var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { get }
+    
     var evolvAllocations: [Allocation] { get }
     var evolvConfiguration: Configuration { get }
     

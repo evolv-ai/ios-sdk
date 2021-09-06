@@ -22,6 +22,8 @@ import Combine
 
 public class EvolvStoreImpl: EvolvStore {
     var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeKeys }
+    var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeVariants }
+    
     var evolvConfiguration: Configuration { _evolvConfiguration }
     
     private(set) var evolvAllocations = [Allocation]()

@@ -22,6 +22,8 @@ public protocol EvolvClient {
     /// Active keys evaluated in the current Evolv context.
     var activeKeys: CurrentValueSubject<Set<String>, Never> { get }
     
+    var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { get }
+    
     /// Initialises EvolvClient with desired EvolvClientOptions
     /// - Parameter options: Provide desired options for the EvolvClient.
     /// - Returns: Publisher for the EvolvClient object.

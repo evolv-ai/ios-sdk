@@ -42,8 +42,8 @@ extension String {
         var ret = 0
         var i = 0
         
-        while i < str.count {
-            let scalarCharacterCode = Int(str[i].unicodeScalars.first?.value ?? 0)
+        while i < self.count {
+            let scalarCharacterCode = Int(self[i].unicodeScalars.first?.value ?? 0)
             
             ret = ((31 * ret + scalarCharacterCode))
             
