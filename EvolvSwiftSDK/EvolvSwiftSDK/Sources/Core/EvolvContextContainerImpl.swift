@@ -68,8 +68,11 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
                                             .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
         
-        // Active variants
+        // Effective genome
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
+        
+        // Active variant keys
+        self.activeVariants.send(evaluateActiveVariantKeys(from: effectiveGenome))
     }
     
     private func generateEffectiveGenome(activeKeys: Set<String>, configuration: Configuration, allocations: [Allocation]) -> [String : GenomeObject] {
@@ -101,5 +104,12 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         }
         
         return dict
+    }
+    
+    private func evaluateActiveVariantKeys(from effectiveGenome: [String : GenomeObject]) -> Set<String> {
+        effectiveGenome.map { key, genome in
+            let valueHashCode = genome.jsonStringify.evolvHashCode()
+            return "\(key):\(valueHashCode)"
+        }.set()
     }
 }

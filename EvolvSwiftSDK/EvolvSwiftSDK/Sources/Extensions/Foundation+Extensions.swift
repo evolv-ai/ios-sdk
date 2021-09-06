@@ -20,7 +20,6 @@ extension String {
         }
     }
     
-    
     func regexMatches(regex: String, options: NSRegularExpression.MatchingOptions = []) throws -> [NSTextCheckingResult] {
         do {
             let regex = try NSRegularExpression(pattern: regex)
@@ -33,6 +32,26 @@ extension String {
             
             throw error
         }
+    }
+    
+    subscript(offset: Int) -> Character {
+        self[index(startIndex, offsetBy: offset)]
+    }
+    
+    func evolvHashCode() -> Int {
+        var ret = 0
+        var i = 0
+        
+        while i < str.count {
+            let scalarCharacterCode = Int(str[i].unicodeScalars.first?.value ?? 0)
+            
+            ret = ((31 * ret + scalarCharacterCode))
+            
+            i += 1
+        }
+        
+        return ret
+        
     }
 }
 
