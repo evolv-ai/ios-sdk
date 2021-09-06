@@ -77,7 +77,7 @@ public final class GenomeObject: NSObject {
     private var rawString: String = ""
     private var rawBool: Bool = false
     private var rawArray: [Any] = []
-    private var rawDictionary: [String: Any] = [:]
+    private var rawDictionary: [AnyHashable: Any] = [:]
     
     /// Value in GenomeObject
     @objc public var value: Any {
@@ -105,7 +105,7 @@ public final class GenomeObject: NSObject {
             case let array as [Any]:
                 type = .array
                 rawArray = array
-            case let dictionary as [String: Any]:
+            case let dictionary as [AnyHashable: Any]:
                 type = .dictionary
                 rawDictionary = dictionary
             case _ as NSNull:
@@ -136,7 +136,7 @@ public final class GenomeObject: NSObject {
             return unwrap(singleNode.value)
         case let array as [Any]:
             return array.map(unwrap)
-        case let dictionary as [String: Any]:
+        case let dictionary as [AnyHashable: Any]:
             var childDictionary = dictionary
             dictionary.forEach { keyValuePair in
                 childDictionary[keyValuePair.key] = unwrap(keyValuePair.value)
@@ -338,8 +338,8 @@ extension GenomeObject: ExpressibleByFloatLiteral {
 
 extension GenomeObject: ExpressibleByDictionaryLiteral {
     
-    public convenience init(dictionaryLiteral elements: (String, Any)...) {
-        let dictionary = elements.reduce(into: [String: Any](), { $0[$1.0] = $1.1})
+    public convenience init(dictionaryLiteral elements: (AnyHashable, Any)...) {
+        let dictionary = elements.reduce(into: [AnyHashable: Any](), { $0[$1.0] = $1.1})
         self.init(dictionary)
     }
     
@@ -431,9 +431,9 @@ extension GenomeObject {
         return type == .array ? array ?? [] : []
     }
     
-    public var dictionary: [String: GenomeObject]? {
+    public var dictionary: [AnyHashable: GenomeObject]? {
         if type == .dictionary {
-            var dictionary = [String: GenomeObject](minimumCapacity: rawDictionary.count)
+            var dictionary = [AnyHashable: GenomeObject](minimumCapacity: rawDictionary.count)
             
             rawDictionary.forEach { pair in
                 dictionary[pair.key] = GenomeObject(pair.value)
@@ -445,10 +445,34 @@ extension GenomeObject {
         return nil
     }
     
-    @objc public var dictionaryValue: [String: GenomeObject] {
+    @objc public var dictionaryValue: [AnyHashable: GenomeObject] {
         return type == .dictionary ? dictionary ?? [:] : [:]
     }
     
+    public var jsonStringify: String {
+        switch type {
+        case .unknown:
+            return value is NSNull ? "null" : ""
+        case .null:
+            return "null"
+        case .number:
+            return self.number?.stringValue ?? "null"
+        case .string:
+            return "\"\(self.string ?? "null")\""
+        case .bool:
+            return self.bool != nil ? String(self.bool!) : "null"
+        case .array:
+            let strings = self.array?
+                .map { $0.jsonStringify }
+                .joined(separator: ",") ?? "null"
+            return "[\(strings)]"
+        case .dictionary:
+            let values = self.dictionary?.map { key, genome in
+                "\"\(key)\":\(genome.jsonStringify)"
+            }.joined(separator: ",") ?? ""
+            return "{\(values)}"
+        }
+    }
 }
 
 // MARK: - Subscript (key path)

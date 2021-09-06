@@ -184,8 +184,44 @@ extension GenomeObjectTest {
     func testDecodeAudienceQueryWithJSONValid() {
         
     }
+}
+
+// MARK: - jsonStringify
+extension GenomeObjectTest {
+    func testJsonStringifyNull() {
+        let genomeObject = GenomeObject(NSNull())
+        
+        let expectedJSON = "null"
+        let actualJSON = genomeObject.jsonStringify
+        
+        XCTAssertEqual(expectedJSON, actualJSON)
+    }
     
+    func testJsonStringifyNumber() {
+        let genomeObject = GenomeObject(1)
+        
+        let expectedJSON = "1"
+        let actualJSON = genomeObject.jsonStringify
+        
+        XCTAssertEqual(expectedJSON, actualJSON)
+    }
     
+    func testJsonStringifyBool() {
+        let genomeObject = GenomeObject(false)
+        
+        let expectedJSON = "false"
+        let actualJSON = genomeObject.jsonStringify
+        
+        XCTAssertEqual(expectedJSON, actualJSON)
+    }
     
+    func testJsonStringifyArray() {
+        let genomeObject = GenomeObject(["1", "2", "abc", 5, NSNull(), nil, ["4", 44, nil]])
+        
+        let actualJSON = genomeObject.jsonStringify
+        let expectedJSON = "[\"1\",\"2\",\"abc\",5,null,null,[\"4\",44,null]]"
+        
+        XCTAssertEqual(expectedJSON, actualJSON)
+    }
 }
 

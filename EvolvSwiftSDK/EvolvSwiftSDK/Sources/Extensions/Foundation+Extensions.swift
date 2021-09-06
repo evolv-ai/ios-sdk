@@ -19,6 +19,21 @@ extension String {
             return false
         }
     }
+    
+    
+    func regexMatches(regex: String, options: NSRegularExpression.MatchingOptions = []) throws -> [NSTextCheckingResult] {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            
+            let range = NSRange(location: 0, length: self.count)
+            
+            return regex.matches(in: self, options: options, range: range)
+        } catch {
+            print("Evolv: invalid regex. Regex: \(regex), text: \(self). Error: \(error)")
+            
+            throw error
+        }
+    }
 }
 
 extension Dictionary {
@@ -40,5 +55,11 @@ extension JSONDecoder {
         let data = try JSONSerialization.data(withJSONObject: obj, options: options)
         
         return try self.decode(type, from: data)
+    }
+}
+
+extension Sequence where Element: Hashable {
+    func set() -> Set<Element> {
+        return Set(self)
     }
 }
