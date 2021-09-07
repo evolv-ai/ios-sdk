@@ -235,3 +235,58 @@ class EvolvStoreNewTests: XCTestCase {
         XCTAssertEqual(firstActiveKeys, secondActiveKeys)
     }
 }
+
+// MARK: - Entry keys
+extension EvolvStoreNewTests {
+    func testEntryKeysAreEvaluated() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "home.cta_text:921751162155200504"]
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testEntryKeysAreReevaluated() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        evolvStore.set(key: "view", value: "next", local: false)
+        
+        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "next:-6123526860146466115"]
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testEntryKeysAreReevaluatedToEmptySet() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        evolvStore.set(key: "view", value: "none", local: false)
+        
+        let expectedActiveVariantKeys: Set<String> = []
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testHashCodeIsEvaluatedWithoutRuntimeOverflowError() {
+        // This line will throw an uncatchable runtime error
+        // if integer overflow is not allowed.
+        _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
+    }
+}
