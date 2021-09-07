@@ -45,13 +45,12 @@ extension String {
         while i < self.count {
             let scalarCharacterCode = Int(self[i].unicodeScalars.first?.value ?? 0)
             
-            ret = ((31 * ret + scalarCharacterCode))
+            ret = ((31 &* ret &+ scalarCharacterCode))
             
             i += 1
         }
         
         return ret
-        
     }
 }
 
