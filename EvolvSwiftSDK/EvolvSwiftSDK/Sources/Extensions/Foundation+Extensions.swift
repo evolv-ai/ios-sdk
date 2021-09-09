@@ -81,3 +81,11 @@ extension Sequence where Element: Hashable {
         return Set(self)
     }
 }
+
+extension Array {
+    func appended(with element: Element) -> Array {
+        var arr = self
+        arr.append(element)
+        return arr
+    }
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590219CD26E8B3C900BFD56D /* EvolvConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590219CC26E8B3C900BFD56D /* EvolvConfirmation.swift */; };
 		5924905426CD20060018CFF9 /* Combine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5924905326CD20060018CFF9 /* Combine+Extensions.swift */; };
 		595FABF926CE72640023A1D9 /* EvolvStoreNewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FABF826CE72640023A1D9 /* EvolvStoreNewTests.swift */; };
 		595FABFB26CE73910023A1D9 /* EvolvAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595FABFA26CE73910023A1D9 /* EvolvAPI.swift */; };
@@ -81,6 +82,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		590219CC26E8B3C900BFD56D /* EvolvConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvConfirmation.swift; sourceTree = "<group>"; };
 		5924905326CD20060018CFF9 /* Combine+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Extensions.swift"; sourceTree = "<group>"; };
 		595FABF826CE72640023A1D9 /* EvolvStoreNewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvStoreNewTests.swift; sourceTree = "<group>"; };
 		595FABFA26CE73910023A1D9 /* EvolvAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvAPI.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				8D57999D267A29C4009CFA98 /* GenomeObject.swift */,
 				8D9A1BE2268DAC8300B302E6 /* EvolvEmitter.swift */,
 				8D9A1BF0268E1EBE00B302E6 /* WaitForIt.swift */,
+				590219CC26E8B3C900BFD56D /* EvolvConfirmation.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				8D9C6104266F88640011EC8A /* LogOutput.swift in Sources */,
 				8D9C60FF266F88640011EC8A /* EvolvStoreImpl.swift in Sources */,
 				5924905426CD20060018CFF9 /* Combine+Extensions.swift in Sources */,
+				590219CD26E8B3C900BFD56D /* EvolvConfirmation.swift in Sources */,
 				8DD4F36626832CAF002134B7 /* EvolvBeacon.swift in Sources */,
 				8D9C610A266F88640011EC8A /* Allocation.swift in Sources */,
 				8D9C610C266F88640011EC8A /* EvolvHTTPAPI.swift in Sources */,
