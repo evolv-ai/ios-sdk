@@ -72,8 +72,7 @@ public final class EvolvClientImpl: EvolvClient {
         let oldConfirmations = evolvStore.evolvContext.confirmations
         let oldConfirmationCids = evolvStore.evolvContext.confirmations.map { $0.cid }
         
-        // MARK: - TODO: ADD CONTAMINATIONS
-        let contaminationCids = [""]
+        let contaminationCids = evolvStore.evolvContext.contaminations.map { $0.cid }
         
         let activeEids = evolvStore.evolvConfiguration.experiments
             .filter { $0.isActive(in: evolvStore.evolvContext.mergedContextUserInfo) }
