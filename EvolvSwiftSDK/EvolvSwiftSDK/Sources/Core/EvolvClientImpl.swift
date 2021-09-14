@@ -69,6 +69,8 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func confirm() {
+        guard !evolvStore.evolvContext.activeEntryKeys.value.isEmpty else { return }
+        
         let oldConfirmations = evolvStore.evolvContext.confirmations
         let oldConfirmationCids = evolvStore.evolvContext.confirmations.map { $0.cid }
         
