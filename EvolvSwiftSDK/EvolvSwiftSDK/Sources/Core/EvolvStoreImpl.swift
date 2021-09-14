@@ -25,11 +25,11 @@ public class EvolvStoreImpl: EvolvStore {
     var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeVariants }
     
     var evolvConfiguration: Configuration { _evolvConfiguration }
+    var evolvContext: EvolvContextContainer
     
     private(set) var evolvAllocations = [Allocation]()
     
     private var _evolvConfiguration: Configuration!
-    private var evolvContext: EvolvContextContainer
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
     private var genomeKeyStates = KeyStates();

@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  File.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,18 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+struct EvolvEvent: Encodable {
+    let payload: AnyEncodable
+    let uid: String
+    var type: String
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit(events: [EvolvEvent])
+    init<T: EvolvEventInstance>(_ eventInstance: T) {
+        self.payload = AnyEncodable(eventInstance)
+        self.uid = eventInstance.uid
+        self.type = eventInstance.eventType
+    }
 }
+
+

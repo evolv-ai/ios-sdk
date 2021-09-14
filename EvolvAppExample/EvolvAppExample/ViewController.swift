@@ -20,7 +20,8 @@ class ViewController: UIViewController {
         // Provide your credentials for the Evolv API.
         let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab",
                                          localContext: ["location" : "UA",
-                                                        "age" : "25"])
+                                                        "age" : "25",
+                                                        "view" : "home"])
         
         // Initialise and populate EvolvClient with desired options.
         // Store this object to work with it later.
@@ -41,5 +42,6 @@ class ViewController: UIViewController {
     
     func showcaseEvolvClient() {
         print("Active keys: \(evolvClient.getActiveKeys())")
+        evolvClient.confirm()
     }
 }

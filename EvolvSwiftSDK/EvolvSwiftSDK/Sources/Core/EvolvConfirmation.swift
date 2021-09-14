@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvConfirmation.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,24 +16,20 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-/// A type that can store and retrieve participant's allocations.
-protocol EvolvStore {
-    var activeKeys: CurrentValueSubject<Set<String>, Never> { get }
+struct EvolvConfirmation: EvolvEventInstance {
+    let cid: String
+    let uid: String
+    let eid: String
+    let timeStamp: Date
     
-    var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { get }
+    var eventType: String = "confirmation"
     
-    var evolvAllocations: [Allocation] { get }
-    var evolvConfiguration: Configuration { get }
-    var evolvContext: EvolvContextContainer { get set }
-    
-    func isActive(key: String) -> Bool
-    
-    func getActiveKeys() -> Set<String>
-    
-    func reevaluateContext()
-    
-    @discardableResult
-    func set(key: String, value: Any, local: Bool) -> Bool
+    private enum CodingKeys: String, CodingKey {
+        case cid
+        case uid
+        case eid
+        case timeStamp = "timestamp"
+    }
 }

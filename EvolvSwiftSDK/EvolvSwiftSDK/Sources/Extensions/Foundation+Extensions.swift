@@ -88,4 +88,12 @@ extension Array {
         arr.append(element)
         return arr
     }
+    
+    func appended(with array: [Element]) -> Array {
+        return self + array
+    }
+}
+
+extension HTTPURLResponse {
+    var isSuccessStatusCode: Bool { statusCode >= 200 && statusCode < 300 }
 }

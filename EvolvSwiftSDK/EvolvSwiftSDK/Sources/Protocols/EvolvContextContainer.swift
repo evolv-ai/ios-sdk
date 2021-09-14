@@ -34,6 +34,8 @@ internal protocol EvolvContextContainer {
     
     var activeEntryKeys: CurrentValueSubject<Set<String>, Never> { get }
     
+    var confirmations: [EvolvConfirmation] { get set }
+    
     init(remoteContextUserInfo: [String: Any], localContextUserInfo: [String: Any])
     
 //    /// Checks if the specified key is currently defined in the context.

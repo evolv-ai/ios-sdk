@@ -19,6 +19,8 @@
 import Combine
 
 public struct EvolvContextContainerImpl: EvolvContextContainer {
+    var confirmations = [EvolvConfirmation]()
+    
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeVariants = CurrentValueSubject<Set<String>, Never>([])
