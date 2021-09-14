@@ -100,8 +100,35 @@ public final class EvolvClientImpl: EvolvClient {
         evolvAPI.submit(events: eventsToSubmit)
     }
     
-    public func contaminate() {
-        return
+    public func contaminate(details: EvolvContaminationReason?, allExperiments: Bool) {
+        let allocations = evolvStore.evolvAllocations
+        guard !allocations.isEmpty else { return }
+        
+        let oldContaminations = evolvStore.evolvContext.contaminations
+        let oldContaminatedCids = oldContaminations.map { $0.cid }
+        
+        let activeEids = evolvStore.evolvConfiguration.experiments
+            .filter { $0.isActive(in: evolvStore.evolvContext.mergedContextUserInfo) }
+            .map { $0.id }
+        
+        // Filter allocations
+        let contaminatableAllocations = evolvStore.evolvAllocations.filter { allocation in
+            !oldContaminatedCids.contains(allocation.candidateId) &&
+            (allExperiments || activeEids.contains(allocation.experimentId))
+        }
+        guard !contaminatableAllocations.isEmpty else { return }
+        
+        // Map confirmable allocations to confirmations and update context
+        let timeStamp = Date()
+        let newContaminationsToSubmit = contaminatableAllocations.map {
+            EvolvContamination(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timeStamp, contaminationReason: details)
+        }
+        
+        evolvStore.evolvContext.contaminations = newContaminationsToSubmit + oldContaminations
+        
+        // Submit events to EvolvAPI
+        let eventsToSubmit = newContaminationsToSubmit.map { EvolvEvent($0) }
+        evolvAPI.submit(events: eventsToSubmit)
     }
     
     public func get(value forKey: String) {

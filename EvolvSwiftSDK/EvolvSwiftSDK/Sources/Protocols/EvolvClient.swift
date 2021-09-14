@@ -39,10 +39,12 @@ public protocol EvolvClient {
     
     /// Sends a contamination event to Evolv.
     ///
-    ///  Method produces a contamination event which will contaminate the
+    /// Method produces a contamination event which will contaminate the
     /// participant's allocation. Method will not do anything in the event
     /// that the allocation timed out or failed.
-    func contaminate()
+    /// - Parameter details: Optional. Information on the reason for contamination.
+    /// - Parameter allExperiments: If true, the user will be excluded from all optimizations, including optimization not applicable to this page.
+    func contaminate(details: EvolvContaminationReason?, allExperiments: Bool)
     
     /// Get the value of a specified key.
     /// - Parameter forKey: The identifier of the event.

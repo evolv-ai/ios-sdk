@@ -20,6 +20,7 @@ import Combine
 
 public struct EvolvContextContainerImpl: EvolvContextContainer {
     var confirmations = [EvolvConfirmation]()
+    var contaminations = [EvolvContamination]()
     
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
