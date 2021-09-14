@@ -18,18 +18,18 @@
 
 import Foundation
 
-struct EvolvConfirmation: EvolvEventInstance {
+struct EvolvConfirmation: EvolvEvent {
     let cid: String
     let uid: String
     let eid: String
     let timeStamp: Date
-    
-    var eventType: String = "confirmation"
+    var type: String = "confirmation"
     
     private enum CodingKeys: String, CodingKey {
         case cid
         case uid
         case eid
         case timeStamp = "timestamp"
+        case type
     }
 }

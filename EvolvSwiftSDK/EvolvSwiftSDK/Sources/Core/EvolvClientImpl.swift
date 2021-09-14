@@ -95,8 +95,7 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.evolvContext.confirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
         
         // Submit events to EvolvAPI
-        let eventsToSubmit = newConfirmationsToSubmit.map { EvolvEvent($0) }
-        evolvAPI.submit(events: eventsToSubmit)
+        evolvAPI.submit(events: newConfirmationsToSubmit)
     }
     
     public func contaminate(details: EvolvContaminationReason?, allExperiments: Bool) {
@@ -126,8 +125,7 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.evolvContext.contaminations = newContaminationsToSubmit + oldContaminations
         
         // Submit events to EvolvAPI
-        let eventsToSubmit = newContaminationsToSubmit.map { EvolvEvent($0) }
-        evolvAPI.submit(events: eventsToSubmit)
+        evolvAPI.submit(events: newContaminationsToSubmit)
     }
     
     public func get(value forKey: String) {

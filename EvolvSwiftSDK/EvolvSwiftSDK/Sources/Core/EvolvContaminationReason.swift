@@ -19,10 +19,15 @@
 import Foundation
 
 /// Information on the reason for contamination.
-public struct EvolvContaminationReason {
+public struct EvolvContaminationReason: Encodable {
     /// Reason of the contamination.
-    let reason: String
+    public let reason: String
     
     /// Optional extra details for debugging.
-    let details: String?
+    public let details: String?
+    
+    public init(reason: String, details: String?) {
+        self.reason = reason
+        self.details = details
+    }
 }

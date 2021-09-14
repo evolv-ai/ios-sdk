@@ -23,5 +23,5 @@ protocol EvolvAPI {
     
     func allocations() -> AnyPublisher<[Allocation], Error>
     
-    func submit(events: [EvolvEvent])
+    func submit<T: EvolvEvent>(events: [T])
 }

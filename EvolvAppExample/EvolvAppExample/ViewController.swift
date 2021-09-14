@@ -42,6 +42,5 @@ class ViewController: UIViewController {
     
     func showcaseEvolvClient() {
         print("Active keys: \(evolvClient.getActiveKeys())")
-        evolvClient.confirm()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  EvolvEventInstance.swift
+//  EvolvEvent.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -18,7 +18,6 @@
 
 import Foundation
 
-protocol EvolvEventInstance: Encodable {
-    var eventType: String { get }
-    var uid: String { get }
+protocol EvolvEvent: Encodable {
+    
 }

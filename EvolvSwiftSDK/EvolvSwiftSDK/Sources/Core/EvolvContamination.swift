@@ -18,19 +18,20 @@
 
 import Foundation
 
-struct EvolvContamination: EvolvEventInstance {
+struct EvolvContamination: EvolvEvent {
     let cid: String
     let uid: String
     let eid: String
     let timeStamp: Date
     let contaminationReason: EvolvContaminationReason?
-    
-    var eventType: String = "contamination"
+    var type: String = "contamination"
     
     private enum CodingKeys: String, CodingKey {
         case cid
         case uid
         case eid
         case timeStamp = "timestamp"
+        case type
+        case contaminationReason
     }
 }
