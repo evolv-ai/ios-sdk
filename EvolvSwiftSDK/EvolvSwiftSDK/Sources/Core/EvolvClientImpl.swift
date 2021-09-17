@@ -69,7 +69,7 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func confirm() {
-        guard !evolvStore.evolvContext.activeEntryKeys.value.isEmpty else { return }
+        let activeEntryKeys = evolvStore.evolvContext.activeEntryKeys.value
         
         let oldConfirmations = evolvStore.evolvContext.confirmations
         let oldConfirmationCids = evolvStore.evolvContext.confirmations.map { $0.cid }
@@ -77,7 +77,9 @@ public final class EvolvClientImpl: EvolvClient {
         let contaminationCids = evolvStore.evolvContext.contaminations.map { $0.cid }
         
         let activeEids = evolvStore.evolvConfiguration.experiments
-            .filter { $0.isActive(in: evolvStore.evolvContext.mergedContextUserInfo) }
+            .filter { key in
+                activeEntryKeys.contains(where: { key.getKey(at: .init(stringLiteral: $0)) != nil })
+            }
             .map { $0.id }
         
         // Filter allocations

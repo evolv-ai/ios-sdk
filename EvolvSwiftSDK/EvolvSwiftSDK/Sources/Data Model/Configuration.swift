@@ -93,6 +93,16 @@ public struct Experiment: Decodable, Equatable {
     func isActive(in context: [String : Any]) -> Bool {
         predicate?.isActive(in: context) ?? true
     }
+    
+    func getKey(at path: ExperimentKey.ExperimentKeyPath) -> ExperimentKey? {
+        func getKey(at path: ExperimentKey.ExperimentKeyPath, from key: ExperimentKey) -> ExperimentKey? {
+            key.subKeys.first { $0.keyPath == path } ??
+            key.subKeys.first { getKey(at: path, from: $0) != nil }
+        }
+        
+        let d =  experimentKeys.first { getKey(at: path, from: $0) != nil }
+        return d
+    }
 }
 
 public struct ExperimentKey: Decodable, Equatable, Hashable {
@@ -146,11 +156,21 @@ public struct ExperimentKey: Decodable, Equatable, Hashable {
         predicate?.isActive(in: context) ?? true
     }
     
-    struct ExperimentKeyPath: Equatable, Hashable {
+    struct ExperimentKeyPath: Equatable, Hashable, ExpressibleByStringLiteral {
+        typealias StringLiteralType = String
         let keyPath: [String]
         
         var name: String { keyPath.last ?? "" }
         var keyPathString: String { String(keyPath.reduce("") { $0 + "." + $1 }.dropFirst()) }
+        
+        init(keyPath: [String]) {
+            self.keyPath = keyPath
+        }
+        
+        init(stringLiteral: Self.StringLiteralType) {
+            let array = stringLiteral.split(separator: ".").map { String($0) }
+            self.init(keyPath: array)
+        }
     }
 }
 
