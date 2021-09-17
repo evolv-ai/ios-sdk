@@ -16,55 +16,8 @@
 //  limitations under the License.
 //
 
-
 import Foundation
 
-/// The EvolvContext provides functionality to manage data relating to the client state, or context in which the variants will be applied.
-/// This data is used for determining which variables are active, and for general analytics.
-internal protocol EvolvContext {
-    var remoteContext: [String : Any] { get }
-    
-    var localContext: [String : Any] { get }
-    
-    var mergedContext: [String : Any] { get }
-    
-    init(remoteContext: [String: Any], localContext: [String: Any])
-    
-//    /// Checks if the specified key is currently defined in the context.
-//    /// - Parameter key: The key to check.
-//    func contains(key: Bool)
-//
-//    /// Checks if the specified key is currently defined in the context.
-//    /// - Parameter key: The key associated with the value to retrieve.
-//    func get(key: String)
-//
-//    /// Adds value to specified array in context. If array doesn't exist its created and added to.
-//    /// - Parameter key: The array to add to.
-//    /// - Parameter value: Value to add to the array.
-//    /// - Parameter local: If true, the value will only be added to the localContext.
-//    /// - Parameter limit: Max length of array to maintain.
-//    func pushToArray(key: String, value: String, local: Bool, limit: Int)
-//
-//    /// Remove a specified key from the context.
-//    /// Note: This will cause the effective genome to be recomputed.
-//    /// - Parameter key: The key to remove from the context.
-//    func remove(key: String)
-    
-    /// Computes the effective context from the local and remote contexts.
-    func resolve() -> [String: Any]
-    
-    /// Sets a value in the current context.
-    /// - Note: This will cause the effective genome to be recomputed.
-    /// - Parameter key: The key to associate the value to.
-    /// - Parameter value: The value to associate with the key.
-    /// - Parameter local: If true, the value will only be added to the localContext.
-    /// - Returns: True if the context was updated. False if the the context already had the provided value set for this key.
-    @discardableResult
-    mutating func set(key: String, value: Any, local: Bool) -> Bool
-    
-//    /// Merge the specified object into the current context.
-//    /// Note: This will cause the effective genome to be recomputed.
-//    /// - Parameter update: The values to update the context with.
-//    /// - Parameter value: If true, the values will only be added to the localContext.
-//    func update(update: AnyObject, local: Bool)
+public protocol EvolvContext {
+    var userInfo: [String : Any] { get set }
 }

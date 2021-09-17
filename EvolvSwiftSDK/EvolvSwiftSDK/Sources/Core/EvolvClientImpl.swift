@@ -20,8 +20,9 @@ import Combine
 
 public final class EvolvClientImpl: EvolvClient {
     public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
+    public var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeVariantKeys }
     
-    private var evolvContext: EvolvContextImpl
+    private var evolvContext: EvolvContextContainerImpl
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
@@ -38,7 +39,7 @@ public final class EvolvClientImpl: EvolvClient {
     private init(options: EvolvClientOptions) {
         self.options = options
         self.evolvAPI = EvolvHTTPAPI(options: options)
-        self.evolvContext = EvolvContextImpl(remoteContext: options.remoteContext, localContext: options.localContext)
+        self.evolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
     }
     
     private func initialize() -> Future<EvolvClientImpl, Error> {

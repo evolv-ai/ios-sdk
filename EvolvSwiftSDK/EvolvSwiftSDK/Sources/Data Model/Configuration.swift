@@ -95,7 +95,7 @@ public struct Experiment: Decodable, Equatable {
     }
 }
 
-public struct ExperimentKey: Decodable, Equatable {
+public struct ExperimentKey: Decodable, Equatable, Hashable {
     let keyPath: ExperimentKeyPath
     let isEntryPoint: Bool
     let predicate: CompoundRule?
@@ -146,7 +146,7 @@ public struct ExperimentKey: Decodable, Equatable {
         predicate?.isActive(in: context) ?? true
     }
     
-    struct ExperimentKeyPath: Equatable {
+    struct ExperimentKeyPath: Equatable, Hashable {
         let keyPath: [String]
         
         var name: String { keyPath.last ?? "" }
@@ -155,7 +155,7 @@ public struct ExperimentKey: Decodable, Equatable {
 }
 
 // MARK: - Rule
-public struct Rule: Codable, Equatable {
+public struct Rule: Codable, Equatable, Hashable {
     let field: String
     let ruleOperator: RuleOperator
     let value: String
@@ -197,7 +197,7 @@ public struct Rule: Codable, Equatable {
 }
 
 
-public struct CompoundRule: Decodable, Equatable {
+public struct CompoundRule: Decodable, Equatable, Hashable {
     enum Combinator: String, Decodable {
         case and
         case or
@@ -221,7 +221,7 @@ public struct CompoundRule: Decodable, Equatable {
     }
 }
 
-public enum EvolvQuery: Decodable, Equatable {
+public enum EvolvQuery: Decodable, Equatable, Hashable {
     
     case rule(Rule)
     case compoundRule(CompoundRule)
@@ -284,7 +284,7 @@ public struct ExperimentPredicate: Codable, Equatable {
 }
 
 extension Configuration {
-    func evaluateActiveKeys(in context: [String : Any]) -> Set<String> {
+    func evaluateActiveKeys(in context: [String : Any]) -> Set<ExperimentKey> {
         let activeKeys = experiments.flatMap {
             evaluateActiveKeys(from: $0, in: context)
         }
@@ -292,7 +292,7 @@ extension Configuration {
         return Set(activeKeys)
     }
     
-    private func evaluateActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [String] {
+    private func evaluateActiveKeys(from experiment: Experiment, in context: [String : Any]) -> [ExperimentKey] {
         guard experiment.isActive(in: context) else { return [] }
         
         return experiment.experimentKeys.flatMap {
@@ -300,12 +300,12 @@ extension Configuration {
         }
     }
     
-    private func evaluateActiveKeys(from experimentKey: ExperimentKey, in context: [String : Any]) -> [String] {
-        var keys = [String]()
+    private func evaluateActiveKeys(from experimentKey: ExperimentKey, in context: [String : Any]) -> [ExperimentKey] {
+        var keys = [ExperimentKey]()
         
         guard experimentKey.isActive(in: context) else { return keys }
         
-        keys.append(experimentKey.keyPath.keyPathString)
+        keys.append(experimentKey)
         
         return experimentKey.subKeys.flatMap {
             evaluateActiveKeys(from: $0, in: context)

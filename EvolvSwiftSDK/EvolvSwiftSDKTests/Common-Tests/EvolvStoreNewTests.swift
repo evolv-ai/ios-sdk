@@ -62,7 +62,7 @@ class EvolvStoreNewTests: XCTestCase {
         return try jsonDecoder.decode([Allocation].self, from: jsonData)
     }
     
-    func initializeEvolvStore(with context: EvolvContextImpl) -> EvolvStore {
+    func initializeEvolvStore(with context: EvolvContextContainer) -> EvolvStore {
         var evolvStore: EvolvStore!
         
         EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
@@ -77,7 +77,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testConfigurationIsLoadedCorrectly() throws {
-        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -85,7 +85,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testAllocationsAreLoadedCorrectly() throws {
-        let context = EvolvContextImpl(remoteContext: [:], localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -93,10 +93,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testGetActiveKeysHomeKeyIsActive() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "next",
-                                                       "signedin" : "false"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "next",
+                                                                        "signedin" : "false"],
+                                                localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
@@ -107,10 +107,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testGetActiveKeysSubKeysAreActive() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "yes"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
 
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
@@ -119,10 +119,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreReevaluatedOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "yes"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         let firstActiveKeys = evolvStore.getActiveKeys()
@@ -139,10 +139,10 @@ class EvolvStoreNewTests: XCTestCase {
     
     // MARK: - activeKeys sink
     func testActiveKeysAreAddedNotifyOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "no"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "no"],
+                                                localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -168,10 +168,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreRemovedNotifyOfOnContextChange() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "yes"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -197,10 +197,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysDoNotNotifyIfNoContextChangeHappened() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "yes"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
         let evolvStore = initializeEvolvStore(with: context)
         
         let expectation = self.expectation(description: "Active keys will not sink twice.")
@@ -222,10 +222,10 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testActiveKeysAreTheSameOnContextReevaluation() {
-        let context = EvolvContextImpl(remoteContext: ["location" : "UA",
-                                                       "view" : "home",
-                                                       "signedin" : "yes"],
-                                       localContext: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
         let evolvStore = initializeEvolvStore(with: context)
         
         let firstActiveKeys = evolvStore.getActiveKeys()
@@ -233,5 +233,60 @@ class EvolvStoreNewTests: XCTestCase {
         let secondActiveKeys = evolvStore.getActiveKeys()
         
         XCTAssertEqual(firstActiveKeys, secondActiveKeys)
+    }
+}
+
+// MARK: - Entry keys
+extension EvolvStoreNewTests {
+    func testEntryKeysAreEvaluated() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "home.cta_text:921751162155200504"]
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testEntryKeysAreReevaluated() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        evolvStore.set(key: "view", value: "next", local: false)
+        
+        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "next:-6123526860146466115"]
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testEntryKeysAreReevaluatedToEmptySet() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
+        
+        let evolvStore = initializeEvolvStore(with: context)
+        
+        evolvStore.set(key: "view", value: "none", local: false)
+        
+        let expectedActiveVariantKeys: Set<String> = []
+        let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
+        
+        XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
+    }
+    
+    func testHashCodeIsEvaluatedWithoutRuntimeOverflowError() {
+        // This line will throw an uncatchable runtime error
+        // if integer overflow is not allowed.
+        _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
     }
 }
