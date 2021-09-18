@@ -73,4 +73,53 @@ class EvolvClientTests: XCTestCase {
         
         XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
     }
+    
+    func testEvolvClientContaminationAllExperimentsTrue() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        let contaminationReason = EvolvContaminationReason(reason: "Test reason.", details: "Test detauls")
+        
+        client.contaminate(details: contaminationReason, allExperiments: true)
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvContamination]
+        let expectedSubmittedEvents: [EvolvContamination] = [
+            .init(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp, contaminationReason: contaminationReason),
+            .init(cid: "2fhi23sdsd6:47d2551pc1f", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "00436dee0b", timeStamp: actualSubmittedEvents[1].timeStamp, contaminationReason: contaminationReason)
+        ]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    func testEvolvClientContaminationAllExperimentsFalse() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        let contaminationReason = EvolvContaminationReason(reason: "Test reason.", details: "Test detauls")
+        
+        client.contaminate(details: contaminationReason, allExperiments: false)
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvContamination]
+        let expectedSubmittedEvents: [EvolvContamination] = [
+            .init(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp, contaminationReason: contaminationReason)
+        ]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    func testEvolvClientContaminationNoneSubmitted() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        let contaminationReason = EvolvContaminationReason(reason: "Test reason.", details: "Test detauls")
+
+        client.contaminate(details: contaminationReason, allExperiments: false)
+
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvContamination]
+        let expectedSubmittedEvents = [EvolvContamination]()
+
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
 }
