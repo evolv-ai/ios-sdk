@@ -19,7 +19,7 @@
 import Foundation
 
 /// Information on the reason for contamination.
-public struct EvolvContaminationReason: Encodable {
+public struct EvolvContaminationReason: Encodable, Equatable {
     /// Reason of the contamination.
     public let reason: String
     

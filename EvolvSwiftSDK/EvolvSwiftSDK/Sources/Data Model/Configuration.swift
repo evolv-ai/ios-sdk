@@ -44,6 +44,12 @@ public struct Configuration: Decodable, EvolvConfig, Equatable {
         client = try container.decode(Client.self, forKey: .init(stringValue: "_client"))
         experiments = try container.decode([Experiment].self, forKey: .init(stringValue: "_experiments"))
     }
+    
+    internal init(published: Double, client: Client, experiments: [Experiment]) {
+        self.published = published
+        self.client = client
+        self.experiments = experiments
+    }
 }
 
 // MARK: - Client

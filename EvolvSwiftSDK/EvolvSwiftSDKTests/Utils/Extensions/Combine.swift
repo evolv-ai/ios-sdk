@@ -1,5 +1,5 @@
 //
-//  EvolvContamination.swift
+//  Combine.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -17,21 +17,22 @@
 //
 
 import Foundation
+import Combine
 
-struct EvolvContamination: EvolvEvent, Equatable {
-    let cid: String
-    let uid: String
-    let eid: String
-    let timeStamp: Date
-    let contaminationReason: EvolvContaminationReason?
-    var type: String = "contamination"
-    
-    private enum CodingKeys: String, CodingKey {
-        case cid
-        case uid
-        case eid
-        case timeStamp = "timestamp"
-        case type
-        case contaminationReason
+extension Publisher {
+    func wait() -> Output {
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var result: Output?
+        
+        _ = self.sink { completion in
+            semaphore.signal()
+        } receiveValue: { value in
+            result = value
+        }
+        
+        semaphore.wait()
+        
+        return result!
     }
 }

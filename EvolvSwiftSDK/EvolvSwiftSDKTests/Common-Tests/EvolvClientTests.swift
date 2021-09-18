@@ -24,11 +24,19 @@ class EvolvClientTests: XCTestCase {
     var cancellables: Set<AnyCancellable>!
     
     var options: EvolvClientOptions!
+    var allocations: [Allocation]!
+    var configuration: Configuration!
+    var evolvAPI: EvolvAPIMock!
     
     override func setUpWithError() throws {
         cancellables = Set()
         
         options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab")
+        
+        allocations = try getAllocations()
+        configuration = try getConfig()
+        
+        evolvAPI = EvolvAPIMock(evolvConfiguration: configuration, evolvAllocations: allocations)
     }
 
     override func tearDownWithError() throws {
@@ -36,16 +44,33 @@ class EvolvClientTests: XCTestCase {
         options = nil
     }
     
-    func testEvolvClientInitialisesWithStore() throws {
-        var evolvClient: EvolvClient!
+    func testEvolvClientConfirm() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
+                                                                        "view" : "home",
+                                                                        "signedin" : "yes"],
+                                                localContextUserInfo: [:])
         
-        EvolvClientImpl.initialize(options: options)
-            .sink(receiveCompletion: { publisherCompletion in
-                XCTAssertNotNil(evolvClient)
-                XCTAssertTrue(publisherCompletion.isFinished)
-            }, receiveValue: { client in
-                evolvClient = client
-            })
-            .store(in: &cancellables)
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        client.confirm()
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvConfirmation]
+        let expectedSubmittedEvents = [EvolvConfirmation(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp)]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    func testEvolvClientNoConfirmation() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        client.confirm()
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvConfirmation]
+        let expectedSubmittedEvents = [EvolvConfirmation]()
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
     }
 }

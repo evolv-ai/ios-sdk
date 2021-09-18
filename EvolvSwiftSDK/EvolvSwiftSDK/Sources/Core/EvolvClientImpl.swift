@@ -30,15 +30,21 @@ public final class EvolvClientImpl: EvolvClient {
     private lazy var cancellables = Set<AnyCancellable>()
     
     public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
-        EvolvClientImpl(options: options)
+        EvolvClientImpl(options: options, evolvAPI: EvolvHTTPAPI(options: options))
             .initialize()
             .map { $0 as EvolvClient }
             .eraseToAnyPublisher()
     }
     
-    private init(options: EvolvClientOptions) {
+    /// - Warning: For testing only.
+    internal convenience init(options: EvolvClientOptions, evolvStore: EvolvStore, evolvAPI: EvolvAPI) {
+        self.init(options: options, evolvAPI: evolvAPI)
+        self.evolvStore = evolvStore
+    }
+    
+    private init(options: EvolvClientOptions, evolvAPI: EvolvAPI) {
         self.options = options
-        self.evolvAPI = EvolvHTTPAPI(options: options)
+        self.evolvAPI = evolvAPI
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
     }
     

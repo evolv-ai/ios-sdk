@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct EvolvConfirmation: EvolvEvent {
+struct EvolvConfirmation: EvolvEvent, Equatable {
     let cid: String
     let uid: String
     let eid: String
