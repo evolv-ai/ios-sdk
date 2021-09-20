@@ -230,7 +230,7 @@ extension EvolvStoreNewTests {
         
         let evolvStore = initializeEvolvStore(with: context)
         
-        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "home.cta_text:921751162155200504"]
+        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "button_color:33083510437", "cta_text:-3290682211151201190", "home.cta_text:921751162155200504"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
@@ -246,7 +246,7 @@ extension EvolvStoreNewTests {
         
         evolvStore.set(key: "view", value: "next", local: false)
         
-        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "next:-6123526860146466115"]
+        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "cta_text:-3290682211151201190", "button_color:33083510437", "next:-6123526860146466115"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
@@ -257,6 +257,8 @@ extension EvolvStoreNewTests {
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
                                                 localContextUserInfo: [:])
+        
+        evolvAPIMock = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -273,4 +275,6 @@ extension EvolvStoreNewTests {
         // if integer overflow is not allowed.
         _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
     }
+    
+    
 }
