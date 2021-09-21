@@ -32,6 +32,8 @@ protocol EvolvStore {
     
     func getActiveKeys() -> Set<String>
     
+    func get(valueForKey key: String) -> Any?
+    
     func reevaluateContext()
     
     @discardableResult

@@ -47,8 +47,10 @@ public protocol EvolvClient {
     func contaminate(details: EvolvContaminationReason?, allExperiments: Bool)
     
     /// Get the value of a specified key.
-    /// - Parameter forKey: The identifier of the event.
-    func get(value forKey: String)
+    /// - Parameter valueForKey: The identifier of the event.
+    func get(valueForKey key: String) -> Any?
+    
+    func get<T: Decodable>(nativeDecodableValueForKey key: String) throws -> T?
     
     /// Sets a value in the current context.
     /// - Note: This will cause the effective genome to be recomputed.

@@ -138,8 +138,16 @@ public final class EvolvClientImpl: EvolvClient {
         evolvAPI.submit(events: newContaminationsToSubmit)
     }
     
-    public func get(value forKey: String) {
-        return
+    public func get(valueForKey key: String) -> Any? {
+        evolvStore.get(valueForKey: key)
+    }
+    
+    public func get<T: Decodable>(nativeDecodableValueForKey key: String) -> T? {
+        guard let anyValue = self.get(valueForKey: key) as? [AnyHashable : Any] else { return nil }
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: anyValue) else { return nil }
+        
+        return try? JSONDecoder().decode(T.self, from: data)
     }
 }
 

@@ -35,6 +35,8 @@ public class EvolvStoreImpl: EvolvStore {
     private var genomeKeyStates = KeyStates();
     private let evolvAPI: EvolvAPI
     
+    private var genomeValueSubjects = [String : CurrentValueSubject<Any?, Never>]()
+    
     private lazy var cancellables = Set<AnyCancellable>()
     
     static func initialize(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
@@ -83,6 +85,8 @@ public class EvolvStoreImpl: EvolvStore {
     
     func reevaluateContext() {
         evolvContext.reevaluateContext(with: evolvConfiguration, allocations: evolvAllocations)
+        
+        updateGenomeValueSubjects()
     }
     
     func set(key: String, value: Any, local: Bool) -> Bool {
@@ -95,14 +99,43 @@ public class EvolvStoreImpl: EvolvStore {
         return true
     }
     
-    private func update(configRequest: Bool, requestedKeys: [String], value: Any) {
-        keyStates = configRequest ? configKeyStates : genomeKeyStates
+    func get(valueForKey key: String) -> Any? {
+        guard activeKeys.value.contains(key) else { return nil }
         
-        reevaluateContext()
+        if let subject = genomeValueSubjects[key] {
+            return subject.value
+        } else {
+            genomeValueSubjects[key] = CurrentValueSubject(nil)
+            
+            updateGenomeValueSubjects()
+            
+            return genomeValueSubjects[key]?.value
+        }
     }
     
-    private func evaluateFilter(userValue: String, against rule: Rule) {
+    private func updateGenomeValueSubjects() {
+        var genomeValueSubjectToNullify = [String]()
         
+        genomeValueSubjects.forEach { (key, subject) in
+            guard activeKeys.value.contains(key) else {
+                genomeValueSubjectToNullify.append(key)
+                return
+            }
+            
+            var genome: GenomeObject?
+            for allocation in evolvAllocations {
+                genome = try? allocation.genome.parse(forKey: key)
+                if genome != nil { break }
+            }
+            
+            guard let genome = genome,
+                  GenomeObject(subject.value as Any) != genome
+            else { return }
+            
+            subject.send(genome.rawValue)
+        }
+        
+        genomeValueSubjects.removeValues(forKeys: genomeValueSubjectToNullify)
     }
 }
 

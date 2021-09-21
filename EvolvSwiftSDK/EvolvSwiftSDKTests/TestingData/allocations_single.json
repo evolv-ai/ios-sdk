@@ -9,6 +9,14 @@
             },
             "next": {
                 "layout": "Default Layout"
+            },
+            "button_color": {
+                "first_button": {
+                    "color": "blue"
+                },
+                "second_button": {
+                    "color": "red"
+                }
             }
         },
         "audience_query": {

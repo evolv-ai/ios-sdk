@@ -44,6 +44,7 @@ class EvolvClientTests: XCTestCase {
         options = nil
     }
     
+    // MARK: - Confirm
     func testEvolvClientConfirm() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
@@ -74,6 +75,7 @@ class EvolvClientTests: XCTestCase {
         XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
     }
     
+    // MARK: - Contaminate
     func testEvolvClientContaminationAllExperimentsTrue() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
@@ -121,5 +123,80 @@ class EvolvClientTests: XCTestCase {
         let expectedSubmittedEvents = [EvolvContamination]()
 
         XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    // MARK: - Get value for key
+    func testGetsDictionaryValueForActiveKey() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let expectedHomeKey = ["cta_text": "Click Here"]
+        let actualHomeKey = client.get(valueForKey: "home") as? [String : String]
+        
+        XCTAssertEqual(expectedHomeKey, actualHomeKey)
+    }
+    
+    func testGetsNilValueForNonActiveKey() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let actualHomeKey = client.get(valueForKey: "home")
+        
+        XCTAssert(actualHomeKey == nil)
+    }
+    
+    func testGetsNativePrimitiveValuesForActiveKeys() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let actualHomeKey = client.get(valueForKey: "home.cta_text") as? String
+        
+        XCTAssert(actualHomeKey == "Click Here")
+    }
+    
+    func testGetsPrimitiveValuesForActiveKeys() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let actualHomeKey = client.get(valueForKey: "button_color") as? Int
+        
+        XCTAssert(actualHomeKey == 1500)
+    }
+    
+    func testGetsDecodableStructureForActiveKeys() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        struct ButtonColorKey: Decodable, Equatable {
+            struct SingleButton: Decodable, Equatable {
+                let color: String
+            }
+            
+            let first_button: SingleButton
+            let second_button: SingleButton
+        }
+        
+        let actualButtonGenome: ButtonColorKey? = client.get(nativeDecodableValueForKey: "button_color")
+        let expectedButtonGenome = ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red"))
+        
+        XCTAssertEqual(expectedButtonGenome, actualButtonGenome)
     }
 }
