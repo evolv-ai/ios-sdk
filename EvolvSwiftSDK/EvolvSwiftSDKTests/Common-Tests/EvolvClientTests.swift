@@ -194,9 +194,119 @@ class EvolvClientTests: XCTestCase {
             let second_button: SingleButton
         }
         
-        let actualButtonGenome: ButtonColorKey? = client.get(nativeDecodableValueForKey: "button_color")
+        let actualButtonGenome: ButtonColorKey? = client.get(decodableValueForKey: "button_color")
         let expectedButtonGenome = ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red"))
         
         XCTAssertEqual(expectedButtonGenome, actualButtonGenome)
+    }
+    
+    func testGetsNullifiesOnContextChange() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let firstActualValue = client.get(valueForKey: "button_color") as? Int
+        _ = client.set(key: "device", value: "unknown", local: false)
+        let secondActualValue = client.get(valueForKey: "button_color") as? Int
+        
+        XCTAssertEqual([firstActualValue, secondActualValue], [1500, nil])
+    }
+    
+    func testGetsValueAfterNilOnContextChange() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"unknown",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        let firstActualValue = client.get(valueForKey: "button_color") as? Int
+        _ = client.set(key: "device", value: "mobile", local: false)
+        let secondActualValue = client.get(valueForKey: "button_color") as? Int
+        
+        XCTAssertEqual([firstActualValue, secondActualValue], [nil, 1500])
+    }
+    
+    // MARK: - Get value subscription
+    func testSubscribeGetSingleValue() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        var actualValue: Int?
+        _ = client.get(subscriptionOnValueForKey: "button_color")
+            .sink(receiveValue: { actualValue = $0 as? Int })
+        
+        XCTAssertEqual(actualValue, 1500)
+    }
+    
+    func testSubscribeNullifiesOnContextChange() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        var actualValues = [Int?]()
+        client.get(subscriptionOnValueForKey: "button_color")
+            .sink(receiveValue: { actualValues.append($0 as? Int) })
+            .store(in: &cancellables)
+        
+        _ = client.set(key: "device", value: "unknown", local: false)
+        
+        XCTAssertEqual(actualValues, [1500, nil])
+    }
+    
+    func testSubscribeGetValueAfterNilOnContextChange() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
+                                                                        "device":"unknown",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        var actualValues = [Int?]()
+        client.get(subscriptionOnValueForKey: "button_color")
+            .sink(receiveValue: { actualValues.append($0 as? Int) })
+            .store(in: &cancellables)
+        
+        _ = client.set(key: "device", value: "mobile", local: false)
+        
+        XCTAssertEqual(actualValues, [nil, 1500])
+    }
+    
+    func testGetsDecodableValues() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:])
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        struct ButtonColorKey: Decodable, Equatable {
+            struct SingleButton: Decodable, Equatable {
+                let color: String
+            }
+            
+            let first_button: SingleButton
+            let second_button: SingleButton
+        }
+        
+        var actualValues = [ButtonColorKey?]()
+        
+        let buttonColorKey: AnyPublisher<ButtonColorKey?, Never> = client.get(subscriptionDecodableOnValueForKey: "button_color")
+        buttonColorKey.sink(receiveValue: { genome in
+            actualValues.append(genome)
+        }).store(in: &cancellables)
+        _ = client.set(key: "device", value: "none", local: false)
+        
+        let expectedValues = [ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red")), nil]
+        
+        XCTAssertEqual(expectedValues, actualValues)
     }
 }
