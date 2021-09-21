@@ -144,7 +144,7 @@ public final class EvolvClientImpl: EvolvClient {
     
     public func get<T: Decodable>(decodableValueForKey key: String) -> T? {
         guard let anyValue = self.get(valueForKey: key) as? [AnyHashable : Any],
-              let data = try? JSONSerialization.data(withJSONObject: anyValue)
+              let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue)
         else { return nil }
         
         return try? JSONDecoder().decode(T.self, from: data)
@@ -159,7 +159,7 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.get(subscriptionOnValueForKey: key)
             .map { value -> T? in
                 guard let anyValue = value as? [AnyHashable : Any],
-                      let data = try? JSONSerialization.data(withJSONObject: anyValue)
+                      let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue)
                 else { return nil }
                 
                 return try? JSONDecoder().decode(T.self, from: data)

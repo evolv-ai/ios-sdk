@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ObjcHelpers.h"
 
 //! Project version number for EvolvSwiftSDK.
 FOUNDATION_EXPORT double EvolvSwiftSDKVersionNumber;

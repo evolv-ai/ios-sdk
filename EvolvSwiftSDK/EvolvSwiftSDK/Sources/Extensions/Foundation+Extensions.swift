@@ -76,6 +76,23 @@ extension JSONDecoder {
     }
 }
 
+extension JSONSerialization {
+    static func crashSafeData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
+        var data: Result<Data, Error> = .failure(EvolvError.generic)
+        
+        tryBlock {
+            do {
+                let result = try JSONSerialization.data(withJSONObject: obj, options: opt)
+                data = .success(result)
+            } catch {
+                data = .failure(error)
+            }
+        }
+        
+        return try data.get()
+    }
+}
+
 extension Sequence where Element: Hashable {
     func set() -> Set<Element> {
         return Set(self)
