@@ -276,6 +276,4 @@ extension EvolvStoreNewTests {
         // if integer overflow is not allowed.
         _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
     }
-    
-    
 }

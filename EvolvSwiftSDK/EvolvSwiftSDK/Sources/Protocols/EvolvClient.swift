@@ -47,13 +47,23 @@ public protocol EvolvClient {
     func contaminate(details: EvolvContaminationReason?, allExperiments: Bool)
     
     /// Get the value of a specified key.
-    /// - Parameter valueForKey: The identifier of the event.
+    /// - Parameter valueForKey: The key of the value to retrieve.
+    /// - Returns: Value for the provided key.
     func get(valueForKey key: String) -> Any?
     
+    /// Get the value of a specified key.
+    /// - Parameter valueForKey: The key of the value to retrieve.
+    /// - Returns: Decoded value for the provided key. Value MUST be of `JSON` type.
     func get<T: Decodable>(decodableValueForKey key: String) throws -> T?
     
+    /// Get the publisher of values of the specified key.
+    /// - Parameter valueForKey: The key of the value to retrieve.
+    /// - Returns: Publisher that will broadcast values whenever the change for the specified key.
     func get(subscriptionOnValueForKey key: String) -> AnyPublisher<Any?, Never>
     
+    /// Get the publisher of values of the specified key & decode it.
+    /// - Parameter valueForKey: The key of the value to retrieve.
+    /// - Returns: Publisher that will broadcast decoded values whenever the change for the specified key. Value MUST be of `JSON` type.
     func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String) -> AnyPublisher<T?, Never>
     
     /// Sets a value in the current context.
