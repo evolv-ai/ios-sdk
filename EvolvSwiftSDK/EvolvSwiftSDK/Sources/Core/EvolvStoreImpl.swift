@@ -113,29 +113,31 @@ public class EvolvStoreImpl: EvolvStore {
         }
     }
     
-    private func updateGenomeValueSubjects() {
-        var genomeValueSubjectToNullify = [String]()
+    public func get(subscriptionOnValueForKey key: String) -> CurrentValueSubject<Any?, Never> {
+        if let subject = genomeValueSubjects[key] {
+            return subject
+        }
         
+        let newSubject: CurrentValueSubject<Any?, Never> = CurrentValueSubject(nil)
+        genomeValueSubjects[key] = newSubject
+        
+        updateGenomeValueSubjects()
+        
+        return newSubject
+    }
+
+    private func updateGenomeValueSubjects() {
         genomeValueSubjects.forEach { (key, subject) in
-            guard activeKeys.value.contains(key) else {
-                genomeValueSubjectToNullify.append(key)
-                return
-            }
-            
             var genome: GenomeObject?
             for allocation in evolvAllocations {
                 genome = try? allocation.genome.parse(forKey: key)
                 if genome != nil { break }
             }
             
-            guard let genome = genome,
-                  GenomeObject(subject.value as Any) != genome
-            else { return }
+            let newValue = activeKeys.value.contains(key) ? genome?.rawValue : nil
             
-            subject.send(genome.rawValue)
+            subject.send(newValue)
         }
-        
-        genomeValueSubjects.removeValues(forKeys: genomeValueSubjectToNullify)
     }
 }
 

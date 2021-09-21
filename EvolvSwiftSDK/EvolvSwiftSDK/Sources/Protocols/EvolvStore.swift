@@ -34,6 +34,8 @@ protocol EvolvStore {
     
     func get(valueForKey key: String) -> Any?
     
+    func get(subscriptionOnValueForKey key: String) -> CurrentValueSubject<Any?, Never>
+    
     func reevaluateContext()
     
     @discardableResult

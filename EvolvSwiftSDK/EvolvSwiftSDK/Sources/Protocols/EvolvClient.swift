@@ -50,7 +50,11 @@ public protocol EvolvClient {
     /// - Parameter valueForKey: The identifier of the event.
     func get(valueForKey key: String) -> Any?
     
-    func get<T: Decodable>(nativeDecodableValueForKey key: String) throws -> T?
+    func get<T: Decodable>(decodableValueForKey key: String) throws -> T?
+    
+    func get(subscriptionOnValueForKey key: String) -> AnyPublisher<Any?, Never>
+    
+    func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String) -> AnyPublisher<T?, Never>
     
     /// Sets a value in the current context.
     /// - Note: This will cause the effective genome to be recomputed.
