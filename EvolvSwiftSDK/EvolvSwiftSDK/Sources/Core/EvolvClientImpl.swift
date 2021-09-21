@@ -19,8 +19,8 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
-    public var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeVariantKeys }
+    public var activeKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeKeys.eraseToAnyPublisher() }
+    public var activeVariantKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeVariantKeys.eraseToAnyPublisher() }
     
     private var initialEvolvContext: EvolvContextContainerImpl
     private let options: EvolvClientOptions
