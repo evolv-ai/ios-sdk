@@ -1,0 +1,53 @@
+[
+    {
+        "uid": "C51EEAFC-724D-47F7-B99A-F3494357F164",
+        "eid": "ff01d1516c",
+        "cid": "5fa0fd38aae6:47d857cd5e",
+        "genome": {
+            "home": {
+                "cta_text": "Click Here"
+            },
+            "next": {
+                "layout": "Default Layout"
+            },
+            "button_color": {
+                "first_button": {
+                    "color": "blue"
+                },
+                "second_button": {
+                    "color": "red"
+                }
+            }
+        },
+        "audience_query": {
+            "id": 174,
+            "name": "Test_Audiences",
+            "combinator": "and",
+            "rules": [
+                {
+                    "field": "Age",
+                    "operator": "equal",
+                    "value": "26"
+                },
+                {
+                    "combinator": "or",
+                    "rules": [
+                        {
+                            "field": "Sex",
+                            "operator": "equal",
+                            "value": "female"
+                        },
+                        {
+                            "field": "Student",
+                            "operator": "contains",
+                            "value": "High_school"
+                        }
+                    ]
+                }
+            ]
+        },
+        "ordinal": 0,
+        "group_id": "511ce252-92b5-4611-a00c-0e4120369c96",
+        "excluded": false
+    }
+]

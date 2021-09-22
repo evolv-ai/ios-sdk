@@ -47,7 +47,7 @@
         "eid": "00436dee0b",
         "cid": "2fhi23sdsd6:47d2551pc1f",
         "genome": {
-            "button_color": "black",
+            "button_color": 1500,
             "cta_text": "Test cta_text"
         },
         "audience_query": {

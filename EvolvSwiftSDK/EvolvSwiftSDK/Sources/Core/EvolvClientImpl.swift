@@ -19,8 +19,8 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
-    public var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeVariantKeys }
+    public var activeKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeKeys.eraseToAnyPublisher() }
+    public var activeVariantKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeVariantKeys.eraseToAnyPublisher() }
     
     private var initialEvolvContext: EvolvContextContainerImpl
     private let options: EvolvClientOptions
@@ -138,8 +138,33 @@ public final class EvolvClientImpl: EvolvClient {
         evolvAPI.submit(events: newContaminationsToSubmit)
     }
     
-    public func get(value forKey: String) {
-        return
+    public func get(valueForKey key: String) -> Any? {
+        evolvStore.get(valueForKey: key)
+    }
+    
+    public func get<T: Decodable>(decodableValueForKey key: String) -> T? {
+        guard let anyValue = self.get(valueForKey: key) as? [AnyHashable : Any],
+              let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue)
+        else { return nil }
+        
+        return try? JSONDecoder().decode(T.self, from: data)
+    }
+    
+    public func get(subscriptionOnValueForKey key: String) -> AnyPublisher<Any?, Never> {
+        evolvStore.get(subscriptionOnValueForKey: key)
+            .eraseToAnyPublisher()
+    }
+    
+    public func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String) -> AnyPublisher<T?, Never> {
+        evolvStore.get(subscriptionOnValueForKey: key)
+            .map { value -> T? in
+                guard let anyValue = value as? [AnyHashable : Any],
+                      let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue)
+                else { return nil }
+                
+                return try? JSONDecoder().decode(T.self, from: data)
+            }
+            .eraseToAnyPublisher()
     }
 }
 

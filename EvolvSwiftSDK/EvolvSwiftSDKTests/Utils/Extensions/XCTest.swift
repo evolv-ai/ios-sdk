@@ -29,8 +29,8 @@ extension XCTest {
         return try JSONDecoder().decode(Configuration.self, from: jsonData)
     }
     
-    func getAllocations() throws -> [Allocation] {
-        let pathString = Bundle(for: type(of: self)).path(forResource: "allocations", ofType: "json")
+    func getAllocations(fileName: String = "allocations") throws -> [Allocation] {
+        let pathString = Bundle(for: type(of: self)).path(forResource: fileName, ofType: "json")
         let json = try String(contentsOfFile: pathString!, encoding: .utf8)
         let jsonData = json.data(using: .utf8)!
         
