@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  Combine.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,23 @@
 //  limitations under the License.
 //
 
+import Foundation
 import Combine
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
-    
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
+extension Publisher {
+    func wait() -> Output {
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var result: Output?
+        
+        _ = self.sink { completion in
+            semaphore.signal()
+        } receiveValue: { value in
+            result = value
+        }
+        
+        semaphore.wait()
+        
+        return result!
+    }
 }

@@ -81,3 +81,19 @@ extension Sequence where Element: Hashable {
         return Set(self)
     }
 }
+
+extension Array {
+    func appended(with element: Element) -> Array {
+        var arr = self
+        arr.append(element)
+        return arr
+    }
+    
+    func appended(with array: [Element]) -> Array {
+        return self + array
+    }
+}
+
+extension HTTPURLResponse {
+    var isSuccessStatusCode: Bool { statusCode >= 200 && statusCode < 300 }
+}

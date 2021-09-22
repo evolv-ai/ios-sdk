@@ -64,4 +64,10 @@ extension EvolvHTTPAPI: EvolvAPI {
     func allocations() -> AnyPublisher<[Allocation], Error> {
         return run(URLRequest(url: httpConfig.allocationsURL))
     }
+    
+    func submit<T: EvolvEvent>(events: [T]) {
+        events.forEach {
+            try? httpClient.post(to: httpConfig.eventsURL, with: $0)
+        }
+    }
 }

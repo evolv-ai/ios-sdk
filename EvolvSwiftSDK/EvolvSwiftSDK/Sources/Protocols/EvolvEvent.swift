@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvEvent.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,8 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+protocol EvolvEvent: Encodable {
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
 }

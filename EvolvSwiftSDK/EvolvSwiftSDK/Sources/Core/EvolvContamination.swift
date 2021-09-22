@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvContamination.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,22 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+struct EvolvContamination: EvolvEvent, Equatable {
+    let cid: String
+    let uid: String
+    let eid: String
+    let timeStamp: Date
+    let contaminationReason: EvolvContaminationReason?
+    var type: String = "contamination"
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
+    private enum CodingKeys: String, CodingKey {
+        case cid
+        case uid
+        case eid
+        case timeStamp = "timestamp"
+        case type
+        case contaminationReason
+    }
 }

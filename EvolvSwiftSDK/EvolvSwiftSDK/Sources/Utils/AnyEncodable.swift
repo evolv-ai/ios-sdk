@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  AnyEncodable.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,17 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+/// Type-erasing encodable
+struct AnyEncodable: Encodable {
+    private let _encode: (Encoder) throws -> Void
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
+    public init<T: Encodable>(_ wrapped: T) {
+        _encode = wrapped.encode
+    }
+
+    func encode(to encoder: Encoder) throws {
+        try _encode(encoder)
+    }
 }

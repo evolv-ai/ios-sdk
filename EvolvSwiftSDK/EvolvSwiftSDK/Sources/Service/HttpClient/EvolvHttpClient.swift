@@ -35,4 +35,34 @@ struct EvolvHttpClient {
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
+    
+    func postWithPublisher<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = JSONEncoder()) throws -> AnyPublisher<HTTPURLResponse, URLError> {
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = try encoder.encode(body)
+        
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .compactMap {
+                print($0.response)
+                return $0.response as? HTTPURLResponse
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+    
+    func post<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = JSONEncoder()) throws {
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = try encoder.encode(body)
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                print("Evolv: error sending POST request: \(error)")
+            } else if let response = response as? HTTPURLResponse, !response.isSuccessStatusCode {
+                print("Evolv: error sending POST request: HTTP \(response.statusCode), response: \(String(describing: String(data: data ?? Data(), encoding: .utf8)))")
+            }
+        }.resume()
+    }
 }

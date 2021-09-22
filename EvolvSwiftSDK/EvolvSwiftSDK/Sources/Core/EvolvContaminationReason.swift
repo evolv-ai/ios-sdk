@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvContaminationReason.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,18 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+/// Information on the reason for contamination.
+public struct EvolvContaminationReason: Encodable, Equatable {
+    /// Reason of the contamination.
+    public let reason: String
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
+    /// Optional extra details for debugging.
+    public let details: String?
     
-    func submit<T: EvolvEvent>(events: [T])
+    public init(reason: String, details: String?) {
+        self.reason = reason
+        self.details = details
+    }
 }

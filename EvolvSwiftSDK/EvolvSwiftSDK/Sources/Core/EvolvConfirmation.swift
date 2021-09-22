@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvConfirmation.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,12 +16,20 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+struct EvolvConfirmation: EvolvEvent, Equatable {
+    let cid: String
+    let uid: String
+    let eid: String
+    let timeStamp: Date
+    var type: String = "confirmation"
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
+    private enum CodingKeys: String, CodingKey {
+        case cid
+        case uid
+        case eid
+        case timeStamp = "timestamp"
+        case type
+    }
 }

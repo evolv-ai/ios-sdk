@@ -26,6 +26,7 @@ protocol EvolvStore {
     
     var evolvAllocations: [Allocation] { get }
     var evolvConfiguration: Configuration { get }
+    var evolvContext: EvolvContextContainer { get set }
     
     func isActive(key: String) -> Bool
     

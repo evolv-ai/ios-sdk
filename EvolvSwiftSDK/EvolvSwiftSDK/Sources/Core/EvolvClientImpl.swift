@@ -22,7 +22,7 @@ public final class EvolvClientImpl: EvolvClient {
     public var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeKeys }
     public var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvStore.activeVariantKeys }
     
-    private var evolvContext: EvolvContextContainerImpl
+    private var initialEvolvContext: EvolvContextContainerImpl
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
@@ -30,23 +30,29 @@ public final class EvolvClientImpl: EvolvClient {
     private lazy var cancellables = Set<AnyCancellable>()
     
     public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
-        EvolvClientImpl(options: options)
+        EvolvClientImpl(options: options, evolvAPI: EvolvHTTPAPI(options: options))
             .initialize()
             .map { $0 as EvolvClient }
             .eraseToAnyPublisher()
     }
     
-    private init(options: EvolvClientOptions) {
+    /// - Warning: For testing only.
+    internal convenience init(options: EvolvClientOptions, evolvStore: EvolvStore, evolvAPI: EvolvAPI) {
+        self.init(options: options, evolvAPI: evolvAPI)
+        self.evolvStore = evolvStore
+    }
+    
+    private init(options: EvolvClientOptions, evolvAPI: EvolvAPI) {
         self.options = options
-        self.evolvAPI = EvolvHTTPAPI(options: options)
-        self.evolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
+        self.evolvAPI = evolvAPI
+        self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
     }
     
     private func initialize() -> Future<EvolvClientImpl, Error> {
         Future { [weak self] promise in
             guard let self = self else { return }
             
-            EvolvStoreImpl.initialize(evolvContext: self.evolvContext, evolvAPI: self.evolvAPI)
+            EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI)
                 .sink(receiveCompletion: { publisherCompletion in
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { evolvStore in
@@ -69,11 +75,67 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func confirm() {
-        return
+        let activeEntryKeys = evolvStore.evolvContext.activeEntryKeys.value
+        
+        let oldConfirmations = evolvStore.evolvContext.confirmations
+        let oldConfirmationCids = evolvStore.evolvContext.confirmations.map { $0.cid }
+        
+        let contaminationCids = evolvStore.evolvContext.contaminations.map { $0.cid }
+        
+        let activeEids = evolvStore.evolvConfiguration.experiments
+            .filter { key in
+                activeEntryKeys.contains(where: { key.getKey(at: .init(stringLiteral: $0)) != nil })
+            }
+            .map { $0.id }
+        
+        // Filter allocations
+        let confirmableAllocations = evolvStore.evolvAllocations.filter { allocation in
+            !oldConfirmationCids.contains(allocation.candidateId) &&
+            !contaminationCids.contains(allocation.candidateId) &&
+            activeEids.contains(allocation.experimentId)
+        }
+        
+        guard !confirmableAllocations.isEmpty else { return }
+        
+        // Map confirmable allocations to confirmations and update context
+        let timestamp = Date()
+        let newConfirmationsToSubmit = confirmableAllocations
+            .map { EvolvConfirmation(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timestamp)}
+        
+        evolvStore.evolvContext.confirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
+        
+        // Submit events to EvolvAPI
+        evolvAPI.submit(events: newConfirmationsToSubmit)
     }
     
-    public func contaminate() {
-        return
+    public func contaminate(details: EvolvContaminationReason?, allExperiments: Bool) {
+        let allocations = evolvStore.evolvAllocations
+        guard !allocations.isEmpty else { return }
+        
+        let oldContaminations = evolvStore.evolvContext.contaminations
+        let oldContaminatedCids = oldContaminations.map { $0.cid }
+        
+        let activeEids = evolvStore.evolvConfiguration.experiments
+            .filter { $0.isActive(in: evolvStore.evolvContext.mergedContextUserInfo) }
+            .map { $0.id }
+        
+        // Filter allocations
+        let contaminatableAllocations = evolvStore.evolvAllocations.filter { allocation in
+            !oldContaminatedCids.contains(allocation.candidateId) &&
+            (allExperiments || activeEids.contains(allocation.experimentId))
+        }
+        guard !contaminatableAllocations.isEmpty else { return }
+        
+        // Map confirmable allocations to confirmations and update context
+        let timeStamp = Date()
+        let newContaminationsToSubmit = contaminatableAllocations.map {
+            EvolvContamination(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timeStamp, contaminationReason: details)
+        }
+        
+        evolvStore.evolvContext.contaminations = newContaminationsToSubmit + oldContaminations
+        
+        // Submit events to EvolvAPI
+        evolvAPI.submit(events: newContaminationsToSubmit)
     }
     
     public func get(value forKey: String) {

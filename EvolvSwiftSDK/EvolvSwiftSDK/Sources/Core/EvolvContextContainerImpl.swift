@@ -19,7 +19,11 @@
 import Combine
 
 public struct EvolvContextContainerImpl: EvolvContextContainer {
+    var confirmations = [EvolvConfirmation]()
+    var contaminations = [EvolvContamination]()
+    
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
+    private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeVariants = CurrentValueSubject<Set<String>, Never>([])
     
     private(set) var remoteContext: EvolvContext
@@ -68,6 +72,12 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
                                             .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
         
+        // Active entry keys
+        let activeEntryKeysKeyPathSet = filterActiveKeysForEntryKeys(activeKeys: activeKeys)
+            .map { $0.keyPath.keyPathString }
+            .set()
+        self.activeEntryKeys.send(activeEntryKeysKeyPathSet)
+        
         // Effective genome
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
         
@@ -111,5 +121,21 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
             let valueHashCode = genome.jsonStringify.evolvHashCode()
             return "\(key):\(valueHashCode)"
         }.set()
+    }
+    
+    private func filterActiveKeysForEntryKeys(activeKeys: Set<ExperimentKey>) -> Set<ExperimentKey> {
+        func findEntryKey(key: ExperimentKey) -> ExperimentKey? {
+            if key.isEntryPoint {
+                return key
+            } else {
+                return key.subKeys.first { findEntryKey(key: $0) != nil }
+            }
+        }
+        
+        return activeKeys
+            .compactMap { findEntryKey(key: $0) }
+            .flatMap { $0.subKeys.appended(with: $0) }
+            .set()
+            .intersection(activeKeys)
     }
 }

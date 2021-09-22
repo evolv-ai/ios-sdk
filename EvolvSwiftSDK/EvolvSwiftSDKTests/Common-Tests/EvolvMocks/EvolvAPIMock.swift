@@ -19,9 +19,17 @@
 import Combine
 @testable import EvolvSwiftSDK
 
-struct EvolvAPIMock: EvolvAPI {
+class EvolvAPIMock: EvolvAPI {
     let evolvConfiguration: Configuration
     let evolvAllocations: [Allocation]
+    
+    var submittedEvents: [EvolvEvent]
+    
+    internal init(evolvConfiguration: Configuration, evolvAllocations: [Allocation], submittedEvents: [EvolvEvent] = []) {
+        self.evolvConfiguration = evolvConfiguration
+        self.evolvAllocations = evolvAllocations
+        self.submittedEvents = submittedEvents
+    }
     
     func configuration() -> AnyPublisher<Configuration, Error> {
         Just(evolvConfiguration)
@@ -31,5 +39,9 @@ struct EvolvAPIMock: EvolvAPI {
     func allocations() -> AnyPublisher<[Allocation], Error> {
         Just(evolvAllocations)
             .eraseToAnyPublisherWithError()
+    }
+    
+    func submit<T: EvolvEvent>(events: [T]) {
+        submittedEvents = events
     }
 }

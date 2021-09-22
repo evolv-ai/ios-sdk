@@ -46,22 +46,6 @@ class EvolvStoreNewTests: XCTestCase {
         evolvAPIMock = nil
     }
     
-    func getConfig() throws -> Configuration {
-        let pathString = Bundle(for: type(of: self)).path(forResource: "configuration.json", ofType: nil)
-        let json = try String(contentsOfFile: pathString!, encoding: .utf8)
-        let jsonData = json.data(using: .utf8)!
-        
-        return try jsonDecoder.decode(Configuration.self, from: jsonData)
-    }
-    
-    func getAllocations() throws -> [Allocation] {
-        let pathString = Bundle(for: type(of: self)).path(forResource: "allocations", ofType: "json")
-        let json = try String(contentsOfFile: pathString!, encoding: .utf8)
-        let jsonData = json.data(using: .utf8)!
-        
-        return try jsonDecoder.decode([Allocation].self, from: jsonData)
-    }
-    
     func initializeEvolvStore(with context: EvolvContextContainer) -> EvolvStore {
         var evolvStore: EvolvStore!
         
