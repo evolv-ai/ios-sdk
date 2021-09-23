@@ -125,6 +125,29 @@ class EvolvClientTests: XCTestCase {
         XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
     }
     
+    // MARK: - Emit
+    func testEventIsEmited() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI)
+        
+        struct Metadata: Encodable, Equatable {
+            let first: String
+            let second: Int
+        }
+        
+        let metadata = Metadata(first: "test", second: 123)
+        client.emit(eventType: "testEventIsEmited()", metadata: metadata, flush: true)
+        
+        let actualSubmittedEvent = evolvAPI.submittedEvents[0] as! EvolvCustomEventForSubmission<Metadata>
+        let expectedSubmittedEvent = EvolvCustomEventForSubmission(type: "testEventIsEmited()", uid: options.participantID, metadata: metadata)
+        
+        XCTAssertEqual(evolvAPI.submittedEvents.count, 1)
+        XCTAssertEqual(actualSubmittedEvent.uid, expectedSubmittedEvent.uid)
+        XCTAssertEqual(actualSubmittedEvent.type, expectedSubmittedEvent.type)
+        XCTAssertEqual(actualSubmittedEvent.metadata, expectedSubmittedEvent.metadata)
+    }
+    
     // MARK: - Get value for key
     func testGetsDictionaryValueForActiveKey() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
