@@ -113,7 +113,7 @@ public class EvolvStoreImpl: EvolvStore {
         }
     }
     
-    public func get(subscriptionOnValueForKey key: String) -> CurrentValueSubject<Any?, Never> {
+    func get(subscriptionOnValueForKey key: String) -> CurrentValueSubject<Any?, Never> {
         if let subject = genomeValueSubjects[key] {
             return subject
         }
@@ -125,7 +125,11 @@ public class EvolvStoreImpl: EvolvStore {
         
         return newSubject
     }
-
+    
+    func saveEventToContext(name: String, timeStamp: Date) {
+        evolvContext.events.append(.init(type: name, timestamp: timeStamp))
+    }
+    
     private func updateGenomeValueSubjects() {
         genomeValueSubjects.forEach { (key, subject) in
             var genome: GenomeObject?

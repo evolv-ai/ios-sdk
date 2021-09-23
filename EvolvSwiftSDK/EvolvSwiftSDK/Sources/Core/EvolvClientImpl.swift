@@ -166,31 +166,14 @@ public final class EvolvClientImpl: EvolvClient {
             }
             .eraseToAnyPublisher()
     }
-}
-
-public struct EvolvClientOptions {
-    public let apiVersion: Int
-    public let evolvDomain: String
-    public let participantID: String
-    public let environmentId: String
-    public let autoConfirm: Bool
-    public let analytics: String
-    public let beacon: EvolvBeacon?
-    public let bufferEvents: [String : Any]
-    public let remoteContext: [String : Any]
-    public let localContext: [String : Any]
     
-    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: String = "", beacon: EvolvBeacon? = nil, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:]) {
-        self.apiVersion = apiVersion
-        self.evolvDomain = evolvDomain
-        self.participantID = participantID
-        self.environmentId = environmentId
-        self.autoConfirm = autoConfirm
-        self.analytics = analytics
-        self.beacon = beacon
-        self.bufferEvents = bufferEvents
-        self.remoteContext = remoteContext
-        self.localContext = localContext
+    public func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool) {
+        let event = EvolvCustomEventForSubmission(type: eventType, uid: options.participantID, metadata: metadata)
+        
+        evolvAPI.submit(events: [event])
     }
     
+    public func emit(eventType: String, flush: Bool) {
+        emit(eventType: eventType, metadata: nil as String?, flush: flush)
+    }
 }
