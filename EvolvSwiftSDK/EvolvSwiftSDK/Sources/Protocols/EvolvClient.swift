@@ -75,6 +75,10 @@ public protocol EvolvClient {
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
     
+    func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool)
+    
+    func emit(eventType: String, flush: Bool)
+    
     /// Reevaluates the current context.
     func reevaluateContext()
     

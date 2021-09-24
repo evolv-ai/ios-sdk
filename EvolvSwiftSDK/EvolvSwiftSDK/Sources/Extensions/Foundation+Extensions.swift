@@ -78,18 +78,22 @@ extension JSONDecoder {
 
 extension JSONSerialization {
     static func crashSafeData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
-        var data: Result<Data, Error> = .failure(EvolvError.generic)
+        var dataResult: Result<Data, Error> = .failure(EvolvError.generic)
         
-        tryBlock {
+        let exception = tryBlock {
             do {
                 let result = try JSONSerialization.data(withJSONObject: obj, options: opt)
-                data = .success(result)
+                dataResult = .success(result)
             } catch {
-                data = .failure(error)
+                dataResult = .failure(error)
             }
         }
         
-        return try data.get()
+        if let exception = exception {
+            dataResult = .failure(NSError(domain: "Evolv", code: -1, userInfo: ["exception": exception]))
+        }
+        
+        return try dataResult.get()
     }
 }
 

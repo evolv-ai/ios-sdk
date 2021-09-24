@@ -38,6 +38,8 @@ protocol EvolvStore {
     
     func reevaluateContext()
     
+    func saveEventToContext(name: String, timeStamp: Date)
+    
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
 }
