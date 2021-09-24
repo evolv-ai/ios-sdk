@@ -25,7 +25,7 @@ public class EvolvStoreImpl: EvolvStore {
     var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeVariants }
     
     var evolvConfiguration: Configuration { _evolvConfiguration }
-    var evolvContext: EvolvContextContainer
+    var evolvContext: EvolvContextContainerImpl
     
     private(set) var evolvAllocations = [Allocation]()
     
@@ -39,14 +39,14 @@ public class EvolvStoreImpl: EvolvStore {
     
     private lazy var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
+    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
         EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
             .initialize()
             .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
-    private init(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
+    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
         self.evolvContext = evolvContext
         self.keyStates = keyStates
         self.evolvAPI = evolvAPI

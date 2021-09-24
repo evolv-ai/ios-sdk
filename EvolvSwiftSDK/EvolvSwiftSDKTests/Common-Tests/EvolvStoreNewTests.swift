@@ -46,7 +46,7 @@ class EvolvStoreNewTests: XCTestCase {
         evolvAPIMock = nil
     }
     
-    func initializeEvolvStore(with context: EvolvContextContainer) -> EvolvStore {
+    func initializeEvolvStore(with context: EvolvContextContainerImpl) -> EvolvStore {
         var evolvStore: EvolvStore!
         
         EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)

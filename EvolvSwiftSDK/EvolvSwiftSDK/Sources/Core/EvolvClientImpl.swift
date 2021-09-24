@@ -54,12 +54,61 @@ public final class EvolvClientImpl: EvolvClient {
             
             EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI)
                 .sink(receiveCompletion: { publisherCompletion in
+                    self.waitForOnInitialization()
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { evolvStore in
                     self.evolvStore = evolvStore
                 })
                 .store(in: &self.cancellables)
         }
+    }
+    
+    private func waitForOnInitialization() {
+        let scope = evolvStore.evolvContext
+        
+        if options.analytics {
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { payload in
+                // function (type, ctx) {
+                // contextBeacon.emit(type, context.remoteContext);
+            }
+            
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { payload in
+                // function (type, key, value, local) {
+                // if (local) {
+                //   return;
+                // }
+                //
+                // contextBeacon.emit(type, {key: key, value: value});
+            }
+            
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_CHANGED) { payload in
+                // (type, key, value, before, local) {
+                // if (local) {
+                //   return;
+                // }
+                //
+                // contextBeacon.emit(type, {key: key, value: value});
+            }
+            
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { payload in
+                // function (type, key, local) {
+                // if (local) {
+                //     return;
+                //   }
+                //
+                //   contextBeacon.emit(type, {key: key});
+                // });
+            }
+        }
+        
+        if options.autoConfirm {
+            self.confirm()
+            WaitForIt.shared.waitFor(scope: scope, it: REQUEST_FAILED) { payload in
+                // self?.contaminate(details: , allExperiments: )
+            }
+        }
+        
+        WaitForIt.shared.emit(scope: scope, it: EvolvClient_INITIALIZED, options)
     }
     
     public func getActiveKeys() -> Set<String> {
@@ -75,37 +124,41 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func confirm() {
-        let activeEntryKeys = evolvStore.evolvContext.activeEntryKeys.value
-        
-        let oldConfirmations = evolvStore.evolvContext.confirmations
-        let oldConfirmationCids = evolvStore.evolvContext.confirmations.map { $0.cid }
-        
-        let contaminationCids = evolvStore.evolvContext.contaminations.map { $0.cid }
-        
-        let activeEids = evolvStore.evolvConfiguration.experiments
-            .filter { key in
-                activeEntryKeys.contains(where: { key.getKey(at: .init(stringLiteral: $0)) != nil })
+        WaitForIt.shared.waitFor(scope: evolvStore.evolvContext, it: EFFECTIVE_GENOME_UPDATED) { [weak self] _ in
+            guard let self = self else { return }
+            
+            let activeEntryKeys = self.evolvStore.evolvContext.activeEntryKeys.value
+            
+            let oldConfirmations = self.evolvStore.evolvContext.confirmations
+            let oldConfirmationCids = self.evolvStore.evolvContext.confirmations.map { $0.cid }
+            
+            let contaminationCids = self.evolvStore.evolvContext.contaminations.map { $0.cid }
+            
+            let activeEids = self.evolvStore.evolvConfiguration.experiments
+                .filter { key in
+                    activeEntryKeys.contains(where: { key.getKey(at: .init(stringLiteral: $0)) != nil })
+                }
+                .map { $0.id }
+            
+            // Filter allocations
+            let confirmableAllocations = self.evolvStore.evolvAllocations.filter { allocation in
+                !oldConfirmationCids.contains(allocation.candidateId) &&
+                !contaminationCids.contains(allocation.candidateId) &&
+                activeEids.contains(allocation.experimentId)
             }
-            .map { $0.id }
-        
-        // Filter allocations
-        let confirmableAllocations = evolvStore.evolvAllocations.filter { allocation in
-            !oldConfirmationCids.contains(allocation.candidateId) &&
-            !contaminationCids.contains(allocation.candidateId) &&
-            activeEids.contains(allocation.experimentId)
+            
+            guard !confirmableAllocations.isEmpty else { return }
+            
+            // Map confirmable allocations to confirmations and update context
+            let timestamp = Date()
+            let newConfirmationsToSubmit = confirmableAllocations
+                .map { EvolvConfirmation(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timestamp)}
+            
+            self.evolvStore.evolvContext.confirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
+            
+            // Submit events to EvolvAPI
+            self.evolvAPI.submit(events: newConfirmationsToSubmit)
         }
-        
-        guard !confirmableAllocations.isEmpty else { return }
-        
-        // Map confirmable allocations to confirmations and update context
-        let timestamp = Date()
-        let newConfirmationsToSubmit = confirmableAllocations
-            .map { EvolvConfirmation(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timestamp)}
-        
-        evolvStore.evolvContext.confirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
-        
-        // Submit events to EvolvAPI
-        evolvAPI.submit(events: newConfirmationsToSubmit)
     }
     
     public func contaminate(details: EvolvContaminationReason?, allExperiments: Bool) {
@@ -179,3 +232,8 @@ public final class EvolvClientImpl: EvolvClient {
         emit(eventType: eventType, metadata: nil as String?, flush: flush)
     }
 }
+
+fileprivate let EvolvClient_INITIALIZED = "initialized"
+fileprivate let EvolvClient_CONFIRMED = "confirmed"
+fileprivate let EvolvClient_CONTAMINATED = "contaminated"
+fileprivate let EvolvClient_EVENT_EMITTED = "event.emitted"

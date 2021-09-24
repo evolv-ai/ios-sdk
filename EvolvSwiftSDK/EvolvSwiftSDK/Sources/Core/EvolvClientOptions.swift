@@ -24,13 +24,13 @@ public struct EvolvClientOptions {
     public let participantID: String
     public let environmentId: String
     public let autoConfirm: Bool
-    public let analytics: String
+    public let analytics: Bool
     public let beacon: EvolvBeacon?
     public let bufferEvents: [String : Any]
     public let remoteContext: [String : Any]
     public let localContext: [String : Any]
     
-    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: String = "", beacon: EvolvBeacon? = nil, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:]) {
+    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: Bool = false, beacon: EvolvBeacon? = nil, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:]) {
         self.apiVersion = apiVersion
         self.evolvDomain = evolvDomain
         self.participantID = participantID

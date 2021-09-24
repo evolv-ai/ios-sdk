@@ -46,8 +46,8 @@ class EvolvStoreTest: XCTestCase {
         evolvContext.set(key: "new_key", value: "new_value", local: false)
         
         XCTAssertNotNil(evolvContext)
-        XCTAssertEqual(evolvContext.remoteContext.userInfo["new_key"] as? String, "new_value")
-        XCTAssertEqual(evolvContext.remoteContext.userInfo["test_key"] as? String, "test_value")
+        XCTAssertEqual(evolvContext.remoteContext["new_key"] as? String, "new_value")
+        XCTAssertEqual(evolvContext.remoteContext["test_key"] as? String, "test_value")
     }
     
     func testContextIsNotEmpty() {
@@ -56,8 +56,8 @@ class EvolvStoreTest: XCTestCase {
         
         let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
         
-        XCTAssertEqual(context.remoteContext.userInfo.isEmpty, false)
-        XCTAssertEqual(context.localContext.userInfo.isEmpty, false)
+        XCTAssertEqual(context.remoteContext.isEmpty, false)
+        XCTAssertEqual(context.localContext.isEmpty, false)
     }
     
     func testMergeContext() {

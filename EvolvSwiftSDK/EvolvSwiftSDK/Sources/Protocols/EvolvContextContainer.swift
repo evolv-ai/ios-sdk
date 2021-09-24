@@ -22,9 +22,9 @@ import Combine
 /// The EvolvContext provides functionality to manage data relating to the client state, or context in which the variants will be applied.
 /// This data is used for determining which variables are active, and for general analytics.
 internal protocol EvolvContextContainer {
-    var remoteContext: EvolvContext { get }
+    var remoteContext: [String : Any] { get }
     
-    var localContext: EvolvContext { get }
+    var localContext: [String : Any] { get }
     
     var mergedContextUserInfo: [String : Any] { get }
     

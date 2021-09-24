@@ -27,17 +27,17 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeVariants = CurrentValueSubject<Set<String>, Never>([])
     
-    private(set) var remoteContext: EvolvContext
-    private(set) var localContext: EvolvContext
+    private(set) var remoteContext: [String : Any]
+    private(set) var localContext: [String : Any]
     private(set) var effectiveGenome = [String : GenomeObject]()
     
     var mergedContextUserInfo: [String : Any] {
-        remoteContext.userInfo.merging(localContext.userInfo, uniquingKeysWith: { (l, r) in l })
+        remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in l })
     }
     
     public init(remoteContextUserInfo: [String : Any], localContextUserInfo: [String : Any]) {
-        self.localContext = EvolvContextImpl(userInfo: localContextUserInfo)
-        self.remoteContext = EvolvContextImpl(userInfo: remoteContextUserInfo)
+        self.localContext = localContextUserInfo
+        self.remoteContext = remoteContextUserInfo
     }
     
     public func resolve() -> [String: Any] {
@@ -46,12 +46,12 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     @discardableResult
     public mutating func set(key: String, value: Any, local: Bool) -> Bool {
-        guard ((local ? localContext.userInfo[key] : remoteContext.userInfo[key]) as? String) != (value as? String) else { return false }
+        guard ((local ? localContext[key] : remoteContext[key]) as? String) != (value as? String) else { return false }
         
         if local {
-            localContext.userInfo[key] = value
+            localContext[key] = value
         } else {
-            remoteContext.userInfo[key] = value
+            remoteContext[key] = value
         }
         
         return true
@@ -70,7 +70,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         
         // All active keys
         let activeKeysKeypathSet = Set(activeKeys
-                                            .map { $0.keyPath.keyPathString })
+                                        .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
         
         // Active entry keys
@@ -138,5 +138,25 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
             .flatMap { $0.subKeys.appended(with: $0) }
             .set()
             .intersection(activeKeys)
+    }
+}
+
+extension EvolvContextContainerImpl: Hashable, Equatable {
+    public static func == (lhs: EvolvContextContainerImpl, rhs: EvolvContextContainerImpl) -> Bool {
+        lhs.confirmations == rhs.confirmations &&
+        lhs.contaminations == rhs.contaminations &&
+        lhs.events == rhs.events &&
+        lhs.activeKeys.value == rhs.activeKeys.value &&
+        lhs.activeEntryKeys.value == rhs.activeEntryKeys.value &&
+        lhs.activeVariants.value == rhs.activeVariants.value &&
+        lhs.localContext as? [String : String] == rhs.localContext as? [String : String] &&
+        lhs.remoteContext as? [String : String] == rhs.remoteContext as? [String : String] &&
+        lhs.effectiveGenome == rhs.effectiveGenome
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(activeKeys.value)
+        hasher.combine(activeEntryKeys.value)
+        hasher.combine(activeVariants.value)
     }
 }
