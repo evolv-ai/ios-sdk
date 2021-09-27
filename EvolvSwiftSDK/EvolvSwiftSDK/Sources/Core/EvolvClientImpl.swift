@@ -28,6 +28,7 @@ public final class EvolvClientImpl: EvolvClient {
     private let options: EvolvClientOptions
     private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
+    private var contextBeacon: EvolvBeacon
     
     private lazy var cancellables = Set<AnyCancellable>()
     
@@ -49,6 +50,7 @@ public final class EvolvClientImpl: EvolvClient {
         self.evolvAPI = evolvAPI
         self.scope = scope
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
+        self.contextBeacon = EvolvBeacon(endPoint: evolvAPI.submit(data:), uid: options.participantID, blockTransmit: options.blockTransmit)
         WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     
@@ -69,9 +71,12 @@ public final class EvolvClientImpl: EvolvClient {
     
     private func waitForOnInitialization() {
         if options.analytics {
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { payload in
-                // function (type, ctx) {
-                // contextBeacon.emit(type, context.remoteContext);
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { [weak self] payload in
+                guard let self = self,
+                      let type = payload["it"] as? String
+                else { return }
+                
+                self.contextBeacon.emit(type: type, payload: self.evolvStore.evolvContext.confirmations)
             }
             
             WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { payload in
