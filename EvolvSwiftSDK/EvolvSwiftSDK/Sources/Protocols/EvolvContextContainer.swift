@@ -40,8 +40,6 @@ internal protocol EvolvContextContainer {
     
     var events: [EvolvCustomEvent] { get set }
     
-    init(remoteContextUserInfo: [String: Any], localContextUserInfo: [String: Any])
-    
 //    /// Checks if the specified key is currently defined in the context.
 //    /// - Parameter key: The key to check.
 //    func contains(key: Bool)

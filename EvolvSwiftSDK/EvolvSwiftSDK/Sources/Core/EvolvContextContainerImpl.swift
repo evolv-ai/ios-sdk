@@ -23,7 +23,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     var contaminations = [EvolvContamination]()
     var events = [EvolvCustomEvent]()
     
-    private let scope = UUID()
+    private let scope: AnyHashable
     
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
@@ -37,9 +37,10 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in l })
     }
     
-    public init(remoteContextUserInfo: [String : Any], localContextUserInfo: [String : Any]) {
+    public init(remoteContextUserInfo: [String : Any], localContextUserInfo: [String : Any], scope: AnyHashable) {
         self.localContext = localContextUserInfo
         self.remoteContext = remoteContextUserInfo
+        self.scope = scope
     }
     
     public func resolve() -> [String: Any] {

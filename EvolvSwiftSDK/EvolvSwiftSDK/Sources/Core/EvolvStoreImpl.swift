@@ -29,7 +29,7 @@ public class EvolvStoreImpl: EvolvStore {
     
     private(set) var evolvAllocations = [Allocation]()
     
-    private var scope = UUID()
+    private var scope: AnyHashable
     
     private var _evolvConfiguration: Configuration!
     private var keyStates: KeyStates
@@ -41,17 +41,18 @@ public class EvolvStoreImpl: EvolvStore {
     
     private var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
-        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
+    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
+        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, scope: scope, keyStates: keyStates)
             .initialize()
             .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
-    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
+    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) {
         self.evolvContext = evolvContext
         self.keyStates = keyStates
         self.evolvAPI = evolvAPI
+        self.scope = scope
     }
     
     private func initialize() -> Future<EvolvStoreImpl, Error> {
