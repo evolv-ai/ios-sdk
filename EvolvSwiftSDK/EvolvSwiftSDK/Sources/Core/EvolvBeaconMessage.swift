@@ -1,5 +1,5 @@
 //
-//  EvolvBeacon.swift
+//  EvolvBeaconMessage.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,9 +16,15 @@
 //  limitations under the License.
 //
 
-
 import Foundation
 
-public protocol EvolvBeacon {
-    
+struct EvolvBeaconMessage: Encodable {
+    let uid: String
+    let messages: [EvolvBeaconMessagePayload]
+}
+
+struct EvolvBeaconMessagePayload: Encodable {
+    let type: String
+    let payload: AnyEncodable?
+    let timestamp = Date()
 }

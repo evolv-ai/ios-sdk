@@ -24,4 +24,6 @@ protocol EvolvAPI {
     func allocations() -> AnyPublisher<[Allocation], Error>
     
     func submit<T: EvolvEvent>(events: [T])
+    
+    func submit(data: EvolvBeaconMessage)
 }

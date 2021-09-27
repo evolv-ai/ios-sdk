@@ -18,7 +18,6 @@
 
 import Foundation
 
-/// Type-erasing encodable
 struct AnyEncodable: Encodable {
     private let _encode: (Encoder) throws -> Void
     

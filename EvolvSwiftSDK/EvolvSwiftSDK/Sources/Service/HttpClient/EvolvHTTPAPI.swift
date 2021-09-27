@@ -70,4 +70,8 @@ extension EvolvHTTPAPI: EvolvAPI {
             try? httpClient.post(to: httpConfig.eventsURL, with: $0)
         }
     }
+    
+    func submit(data: EvolvBeaconMessage) {
+        try? httpClient.post(to: httpConfig.dataURL, with: data)
+    }
 }
