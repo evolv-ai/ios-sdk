@@ -47,7 +47,7 @@ public final class EvolvClientImpl: EvolvClient {
     private init(options: EvolvClientOptions, evolvAPI: EvolvAPI) {
         self.options = options
         self.evolvAPI = evolvAPI
-        self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
+        self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
         WaitForIt.shared.emit(scope: self.scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     
@@ -55,7 +55,7 @@ public final class EvolvClientImpl: EvolvClient {
         Future { [weak self] promise in
             guard let self = self else { return }
             
-            EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI)
+            EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI, scope: self.scope)
                 .sink(receiveCompletion: { publisherCompletion in
                     self.waitForOnInitialization()
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
