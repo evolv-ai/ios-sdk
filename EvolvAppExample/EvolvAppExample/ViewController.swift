@@ -12,13 +12,13 @@ import EvolvSwiftSDK
 class ViewController: UIViewController {
     var evolvClient: EvolvClient!
     var cancellables = Set<AnyCancellable>()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Initialise options for the EvolvClient.
         // Provide your credentials for the Evolv API.
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab",
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true,
                                          localContext: ["location" : "UA",
                                                         "age" : "25",
                                                         "view" : "home"])
@@ -42,5 +42,6 @@ class ViewController: UIViewController {
     
     func showcaseEvolvClient() {
         print("Active keys: \(evolvClient.getActiveKeys())")
+        evolvClient.confirm()
     }
 }

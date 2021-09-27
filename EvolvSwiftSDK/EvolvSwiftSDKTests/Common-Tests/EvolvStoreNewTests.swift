@@ -27,6 +27,7 @@ class EvolvStoreNewTests: XCTestCase {
     var evolvAPIMock: EvolvAPI!
     var evolvConfiguration: Configuration!
     var evolvAllocations: [Allocation]!
+    var scope: AnyHashable!
     
     override func setUpWithError() throws {
         jsonDecoder = JSONDecoder()
@@ -36,6 +37,7 @@ class EvolvStoreNewTests: XCTestCase {
         evolvAllocations = try getAllocations()
         
         evolvAPIMock = EvolvAPIMock(evolvConfiguration: evolvConfiguration, evolvAllocations: evolvAllocations)
+        scope = UUID()
     }
     
     override func tearDownWithError() throws {
@@ -44,12 +46,13 @@ class EvolvStoreNewTests: XCTestCase {
         evolvConfiguration = nil
         evolvAllocations = nil
         evolvAPIMock = nil
+        scope = nil
     }
     
     func initializeEvolvStore(with context: EvolvContextContainerImpl) -> EvolvStore {
         var evolvStore: EvolvStore!
         
-        EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock)
+        EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPIMock, scope: scope)
             .sink(receiveCompletion: { publisherCompletion in
                 XCTAssertNotNil(evolvStore)
                 XCTAssertTrue(publisherCompletion.isFinished)
@@ -61,7 +64,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testConfigurationIsLoadedCorrectly() throws {
-        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -69,7 +72,7 @@ class EvolvStoreNewTests: XCTestCase {
     }
     
     func testAllocationsAreLoadedCorrectly() throws {
-        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:])
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: [:], localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -80,7 +83,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "next",
                                                                         "signedin" : "false"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
@@ -94,7 +97,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
 
         let evolvStore = initializeEvolvStore(with: context)
         let activeKeys = evolvStore.getActiveKeys()
@@ -106,7 +109,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         let firstActiveKeys = evolvStore.getActiveKeys()
@@ -126,7 +129,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "no"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -155,7 +158,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -184,7 +187,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         let evolvStore = initializeEvolvStore(with: context)
         
         let expectation = self.expectation(description: "Active keys will not sink twice.")
@@ -209,7 +212,7 @@ class EvolvStoreNewTests: XCTestCase {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         let evolvStore = initializeEvolvStore(with: context)
         
         let firstActiveKeys = evolvStore.getActiveKeys()
@@ -226,7 +229,7 @@ extension EvolvStoreNewTests {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -240,7 +243,7 @@ extension EvolvStoreNewTests {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         let evolvStore = initializeEvolvStore(with: context)
         
@@ -256,7 +259,7 @@ extension EvolvStoreNewTests {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
-                                                localContextUserInfo: [:])
+                                                localContextUserInfo: [:], scope: scope)
         
         evolvAPIMock = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
         

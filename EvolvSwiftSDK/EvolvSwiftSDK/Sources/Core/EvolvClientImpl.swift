@@ -19,7 +19,7 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
-    private let scope = UUID()
+    private let scope: AnyHashable
     
     public var activeKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeKeys.eraseToAnyPublisher() }
     public var activeVariantKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeVariantKeys.eraseToAnyPublisher() }
@@ -32,23 +32,24 @@ public final class EvolvClientImpl: EvolvClient {
     private lazy var cancellables = Set<AnyCancellable>()
     
     public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
-        EvolvClientImpl(options: options, evolvAPI: EvolvHTTPAPI(options: options))
+        EvolvClientImpl(options: options, evolvAPI: EvolvHTTPAPI(options: options), scope: UUID())
             .initialize()
             .map { $0 as EvolvClient }
             .eraseToAnyPublisher()
     }
     
     /// - Warning: For testing only.
-    internal convenience init(options: EvolvClientOptions, evolvStore: EvolvStore, evolvAPI: EvolvAPI) {
-        self.init(options: options, evolvAPI: evolvAPI)
+    internal convenience init(options: EvolvClientOptions, evolvStore: EvolvStore, evolvAPI: EvolvAPI, scope: AnyHashable) {
+        self.init(options: options, evolvAPI: evolvAPI, scope: scope)
         self.evolvStore = evolvStore
     }
     
-    private init(options: EvolvClientOptions, evolvAPI: EvolvAPI) {
+    private init(options: EvolvClientOptions, evolvAPI: EvolvAPI, scope: AnyHashable) {
         self.options = options
         self.evolvAPI = evolvAPI
+        self.scope = scope
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
-        WaitForIt.shared.emit(scope: self.scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     
     private func initialize() -> Future<EvolvClientImpl, Error> {
@@ -67,8 +68,6 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     private func waitForOnInitialization() {
-        let scope = evolvStore.evolvContext
-        
         if options.analytics {
             WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { payload in
                 // function (type, ctx) {
@@ -127,7 +126,7 @@ public final class EvolvClientImpl: EvolvClient {
     }
     
     public func confirm() {
-        WaitForIt.shared.waitFor(scope: evolvStore.evolvContext, it: EFFECTIVE_GENOME_UPDATED) { [weak self] _ in
+        WaitForIt.shared.waitFor(scope: scope, it: EFFECTIVE_GENOME_UPDATED) { [weak self] _ in
             guard let self = self else { return }
             
             let activeEntryKeys = self.evolvStore.evolvContext.activeEntryKeys.value
