@@ -23,6 +23,8 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     var contaminations = [EvolvContamination]()
     var events = [EvolvCustomEvent]()
     
+    private let scope = UUID()
+    
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeVariants = CurrentValueSubject<Set<String>, Never>([])
@@ -48,11 +50,30 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     public mutating func set(key: String, value: Any, local: Bool) -> Bool {
         guard ((local ? localContext[key] : remoteContext[key]) as? String) != (value as? String) else { return false }
         
+        let valueBefore: Any?
         if local {
+            valueBefore = localContext[key]
             localContext[key] = value
         } else {
+            valueBefore = remoteContext[key]
             remoteContext[key] = value
         }
+        
+        let updated = self.resolve()
+        if let valueBefore = valueBefore {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : valueBefore,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+            
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        }
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
         
         return true
     }
@@ -81,6 +102,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         
         // Effective genome
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
+        WaitForIt.shared.emit(scope: self.scope, it: EFFECTIVE_GENOME_UPDATED, effectiveGenome)
         
         // Active variant keys
         self.activeVariants.send(evaluateActiveVariantKeys(from: effectiveGenome))

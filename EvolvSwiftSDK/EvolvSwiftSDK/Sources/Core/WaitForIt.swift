@@ -19,11 +19,11 @@
 import Foundation
 
 class WaitForIt {
-    typealias HandlerFunc = ((Any) -> Void)
+    typealias HandlerFunc = ((_ userInfo: [String : Any]) -> Void)
     
-    private var scopedHandlers = OrderedDictionary<AnyHashable, [AnyHashable: [HandlerFunc]]>()
-    private var scopedOnceHandlers = OrderedDictionary<AnyHashable, [AnyHashable: [HandlerFunc]]>()
-    private var scopedPayloads = OrderedDictionary<AnyHashable, [AnyHashable: Any]>()
+    private var scopedHandlers = OrderedDictionary<AnyHashable, [AnyHashable : [HandlerFunc]]>()
+    private var scopedOnceHandlers = OrderedDictionary<AnyHashable, [AnyHashable : [HandlerFunc]]>()
+    private var scopedPayloads = OrderedDictionary<AnyHashable, [AnyHashable : [String : Any]]>()
     
     static let shared = WaitForIt()
     
@@ -56,11 +56,11 @@ class WaitForIt {
         }
     }
     
-    func emit(scope: AnyHashable, it: AnyHashable, _ other: Any...) {
+    func emit(scope: AnyHashable, it: AnyHashable, _ other: [String : Any] = [:]) {
         ensureScope(scope)
         
         var payload = other
-        payload.insert(it, at: 0)
+        payload["it"] = it
         scopedPayloads[scope]?[it] = payload
         
         scopedOnceHandlers[scope]?[it]?.forEach { $0(payload) }

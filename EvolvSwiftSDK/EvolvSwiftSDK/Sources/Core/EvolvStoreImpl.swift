@@ -29,6 +29,8 @@ public class EvolvStoreImpl: EvolvStore {
     
     private(set) var evolvAllocations = [Allocation]()
     
+    private var scope = UUID()
+    
     private var _evolvConfiguration: Configuration!
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
@@ -37,7 +39,7 @@ public class EvolvStoreImpl: EvolvStore {
     
     private var genomeValueSubjects = [String : CurrentValueSubject<Any?, Never>]()
     
-    private lazy var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
         EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
@@ -69,6 +71,10 @@ public class EvolvStoreImpl: EvolvStore {
         }
     }
     
+    deinit {
+        WaitForIt.shared.emit(scope: self.scope, it: STORE_DESTROYED)
+    }
+    
     struct KeyStates {
         var needed = Set<String>()
         var requested = Set<String>()
@@ -85,6 +91,8 @@ public class EvolvStoreImpl: EvolvStore {
     
     func reevaluateContext() {
         evolvContext.reevaluateContext(with: evolvConfiguration, allocations: evolvAllocations)
+        
+        WaitForIt.shared.emit(scope: scope, it: EFFECTIVE_GENOME_UPDATED, evolvContext.effectiveGenome)
         
         updateGenomeValueSubjects()
     }

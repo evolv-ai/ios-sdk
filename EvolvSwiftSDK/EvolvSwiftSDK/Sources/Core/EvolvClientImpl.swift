@@ -19,6 +19,8 @@
 import Combine
 
 public final class EvolvClientImpl: EvolvClient {
+    private let scope = UUID()
+    
     public var activeKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeKeys.eraseToAnyPublisher() }
     public var activeVariantKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeVariantKeys.eraseToAnyPublisher() }
     
@@ -46,6 +48,7 @@ public final class EvolvClientImpl: EvolvClient {
         self.options = options
         self.evolvAPI = evolvAPI
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext)
+        WaitForIt.shared.emit(scope: self.scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     
     private func initialize() -> Future<EvolvClientImpl, Error> {
@@ -108,7 +111,7 @@ public final class EvolvClientImpl: EvolvClient {
             }
         }
         
-        WaitForIt.shared.emit(scope: scope, it: EvolvClient_INITIALIZED, options)
+        WaitForIt.shared.emit(scope: scope, it: EvolvClient_INITIALIZED, ["options":options])
     }
     
     public func getActiveKeys() -> Set<String> {
@@ -158,6 +161,8 @@ public final class EvolvClientImpl: EvolvClient {
             
             // Submit events to EvolvAPI
             self.evolvAPI.submit(events: newConfirmationsToSubmit)
+            
+            WaitForIt.shared.emit(scope: self.scope, it: EvolvClient_CONFIRMED)
         }
     }
     
@@ -189,6 +194,8 @@ public final class EvolvClientImpl: EvolvClient {
         
         // Submit events to EvolvAPI
         evolvAPI.submit(events: newContaminationsToSubmit)
+        
+        WaitForIt.shared.emit(scope: self.scope, it: EvolvClient_CONTAMINATED)
     }
     
     public func get(valueForKey key: String) -> Any? {
@@ -226,6 +233,12 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.evolvContext.events.append(.init(type: eventType, timestamp: Date()))
         
         evolvAPI.submit(events: [event])
+        
+        var userInfo: [String : Any] = ["type" : eventType]
+        if let metadata = metadata {
+            userInfo["metadata"] = metadata
+        }
+        WaitForIt.shared.emit(scope: scope, it: EvolvClient_EVENT_EMITTED, userInfo)
     }
     
     public func emit(eventType: String, flush: Bool) {
