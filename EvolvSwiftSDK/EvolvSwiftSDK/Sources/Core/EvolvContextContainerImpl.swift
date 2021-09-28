@@ -67,7 +67,6 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
                                                                             "before" : valueBefore,
                                                                             "local" : local,
                                                                             "updated" : updated])
-            
         } else {
             WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
                                                                             "value" : value,
@@ -89,11 +88,13 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     mutating func reevaluateContext(with configuration: Configuration, allocations: [Allocation]) {
         let activeKeys = configuration.evaluateActiveKeys(in: mergedContextUserInfo)
+        let activeKeysBefore = self.activeKeys.value
         
         // All active keys
         let activeKeysKeypathSet = Set(activeKeys
                                         .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
+        self.contextChanged(key: "keys.active", value: activeKeysKeypathSet, before: activeKeysBefore)
         
         // Active entry keys
         let activeEntryKeysKeyPathSet = filterActiveKeysForEntryKeys(activeKeys: activeKeys)
@@ -105,8 +106,10 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
         WaitForIt.shared.emit(scope: self.scope, it: EFFECTIVE_GENOME_UPDATED, effectiveGenome)
         
-        // Active variant keys
+        // Active variants
+        let activeVariantsBefore = self.activeVariants.value
         self.activeVariants.send(evaluateActiveVariantKeys(from: effectiveGenome))
+        self.contextChanged(key: "variants.active", value: self.activeVariants.value, before: activeVariantsBefore)
     }
     
     private func generateEffectiveGenome(activeKeys: Set<String>, configuration: Configuration, allocations: [Allocation]) -> [String : GenomeObject] {
@@ -181,5 +184,28 @@ extension EvolvContextContainerImpl: Hashable, Equatable {
         hasher.combine(activeKeys.value)
         hasher.combine(activeEntryKeys.value)
         hasher.combine(activeVariants.value)
+    }
+}
+
+extension EvolvContextContainerImpl {
+    func contextChanged<T: Encodable>(key: String, value: Set<T>, before: Set<T>, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        contextChanged(key: key, value: Array(value), before: Array(before), userInfo: userInfo, local: local)
+    }
+    
+    func contextChanged<T: Encodable>(key: String, value: [T], before: [T], userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if !before.isEmpty {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
     }
 }

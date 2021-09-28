@@ -19,13 +19,17 @@
 import Foundation
 
 struct AnyEncodable: Encodable {
-    private let _encode: (Encoder) throws -> Void
+    private let encode: (Encoder) throws -> Void
     
-    public init<T: Encodable>(_ wrapped: T) {
-        _encode = wrapped.encode
+    init<T: Encodable>(_ wrapped: T) {
+        encode = wrapped.encode
+    }
+    
+    init(_ wrapped: Encodable) {
+        encode = wrapped.encode
     }
 
     func encode(to encoder: Encoder) throws {
-        try _encode(encoder)
+        try encode(encoder)
     }
 }

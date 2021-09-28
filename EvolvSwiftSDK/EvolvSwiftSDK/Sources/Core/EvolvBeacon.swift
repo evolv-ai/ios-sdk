@@ -56,7 +56,7 @@ class EvolvBeacon {
         submitToEndpoint(body)
     }
     
-    func emit<T: Encodable>(type: String, payload: T, flush: Bool = false) {
+    func emit(type: String, payload: Encodable, flush: Bool = false) {
         awaitingMessages.send(awaitingMessages.value
                                 .appended(with: .init(type: type, payload: .init(payload))))
         
@@ -64,4 +64,16 @@ class EvolvBeacon {
             transmit(messages: awaitingMessages.value)
         }
     }
+    
+    func emit(type: String, key: String, value: Encodable?, flush: Bool = false) {
+        let anyEncodable = value == nil ? nil : AnyEncodable(value!)
+        let payload = SimpleKVStorage(key: key, value: anyEncodable)
+        
+        emit(type: type, payload: payload, flush: flush)
+    }
+}
+
+fileprivate struct SimpleKVStorage: Encodable {
+    let key: String
+    let value: AnyEncodable?
 }

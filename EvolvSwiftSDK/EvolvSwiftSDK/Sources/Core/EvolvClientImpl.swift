@@ -76,35 +76,39 @@ public final class EvolvClientImpl: EvolvClient {
                       let type = payload["it"] as? String
                 else { return }
                 
-                self.contextBeacon.emit(type: type, payload: self.evolvStore.evolvContext.confirmations)
+                self.contextBeacon.emit(type: type, payload: self.evolvStore.evolvContext.remoteContext.encoded())
             }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { payload in
-                // function (type, key, value, local) {
-                // if (local) {
-                //   return;
-                // }
-                //
-                // contextBeacon.emit(type, {key: key, value: value});
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { [weak self] payload in
+                guard let self = self,
+                      payload["local"] as? Bool == false,
+                      let type = payload["it"] as? String,
+                      let key = payload["key"] as? String,
+                      let value = payload["value"] as? Encodable
+                else { return }
+                
+                self.contextBeacon.emit(type: type, key: key, value: value)
             }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_CHANGED) { payload in
-                // (type, key, value, before, local) {
-                // if (local) {
-                //   return;
-                // }
-                //
-                // contextBeacon.emit(type, {key: key, value: value});
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_CHANGED) { [weak self] payload in
+                guard let self = self,
+                      payload["local"] as? Bool == false,
+                      let type = payload["it"] as? String,
+                      let key = payload["key"] as? String,
+                      let value = payload["value"] as? Encodable
+                else { return }
+                
+                self.contextBeacon.emit(type: type, key: key, value: value)
             }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { payload in
-                // function (type, key, local) {
-                // if (local) {
-                //     return;
-                //   }
-                //
-                //   contextBeacon.emit(type, {key: key});
-                // });
+            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { [weak self] payload in
+                guard let self = self,
+                      payload["local"] as? Bool == false,
+                      let type = payload["it"] as? String,
+                      let key = payload["key"] as? String
+                else { return }
+                
+                self.contextBeacon.emit(type: type, key: key, value: nil)
             }
         }
         
@@ -161,7 +165,9 @@ public final class EvolvClientImpl: EvolvClient {
             let newConfirmationsToSubmit = confirmableAllocations
                 .map { EvolvConfirmation(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timestamp)}
             
-            self.evolvStore.evolvContext.confirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
+            let newContextConfirmations = newConfirmationsToSubmit.appended(with: oldConfirmations)
+            self.evolvStore.evolvContext.confirmations = newContextConfirmations
+            self.evolvStore.evolvContext.contextChanged(key: "experiments.confirmations", value: newContextConfirmations, before: oldConfirmations)
             
             // Submit events to EvolvAPI
             self.evolvAPI.submit(events: newConfirmationsToSubmit)
@@ -194,7 +200,9 @@ public final class EvolvClientImpl: EvolvClient {
             EvolvContamination(cid: $0.candidateId, uid: $0.userId, eid: $0.experimentId, timeStamp: timeStamp, contaminationReason: details)
         }
         
-        evolvStore.evolvContext.contaminations = newContaminationsToSubmit + oldContaminations
+        let newContextContaminations = newContaminationsToSubmit + oldContaminations
+        evolvStore.evolvContext.contaminations = newContextContaminations
+        evolvStore.evolvContext.contextChanged(key: "experiments.contaminations", value: newContextContaminations, before: oldContaminations)
         
         // Submit events to EvolvAPI
         evolvAPI.submit(events: newContaminationsToSubmit)

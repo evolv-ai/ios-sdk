@@ -66,6 +66,7 @@ public class EvolvStoreImpl: EvolvStore {
                 }, receiveValue: { [weak self] (configuration, allocations) in
                     self?._evolvConfiguration = configuration
                     self?.evolvAllocations = allocations
+                    self?.evolvContext.contextChanged(key: "experiments.allocations", value: allocations, before: [])
                     self?.reevaluateContext()
                 })
                 .store(in: &self.cancellables)
