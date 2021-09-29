@@ -25,5 +25,5 @@ protocol EvolvAPI {
     
     func submit<T: EvolvEvent>(events: [T])
     
-    func submit(data: EvolvBeaconMessage)
+    func submit(data: AnyEncodable)
 }

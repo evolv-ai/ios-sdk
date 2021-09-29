@@ -20,7 +20,7 @@ import Foundation
 import Combine
 
 class EvolvBeacon {
-    typealias EvolvBeaconEndpoint = ((EvolvBeaconMessage) -> Void)
+    typealias EvolvBeaconEndpoint = ((AnyEncodable) -> Void)
     
     private let submitToEndpoint: EvolvBeaconEndpoint
     private let uid: String
@@ -53,7 +53,7 @@ class EvolvBeacon {
         
         let body = EvolvBeaconMessage(uid: uid, messages: messages)
         
-        submitToEndpoint(body)
+        submitToEndpoint(.init(body))
     }
     
     func emit(type: String, payload: Encodable, flush: Bool = false) {

@@ -29,6 +29,7 @@ public final class EvolvClientImpl: EvolvClient {
     private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
     private var contextBeacon: EvolvBeacon
+//    private var eventBeacon: EvolvBeacon
     
     private lazy var cancellables = Set<AnyCancellable>()
     
@@ -51,6 +52,7 @@ public final class EvolvClientImpl: EvolvClient {
         self.scope = scope
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
         self.contextBeacon = EvolvBeacon(endPoint: evolvAPI.submit(data:), uid: options.participantID, blockTransmit: options.blockTransmit)
+//        self.eventBeacon = EvolvBeacon(endPoint: evolvAPI.submit(events:), uid: options.participantID, blockTransmit: options.blockTransmit)
         WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     

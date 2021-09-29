@@ -20,13 +20,22 @@ import Foundation
 
 struct AnyEncodable: Encodable {
     private let encode: (Encoder) throws -> Void
+    #if DEBUG
+    let _object: Any
+    #endif
     
     init<T: Encodable>(_ wrapped: T) {
         encode = wrapped.encode
+        #if DEBUG
+        _object = wrapped
+        #endif
     }
     
     init(_ wrapped: Encodable) {
         encode = wrapped.encode
+        #if DEBUG
+        _object = wrapped
+        #endif
     }
 
     func encode(to encoder: Encoder) throws {

@@ -41,7 +41,11 @@ class EvolvAPIMock: EvolvAPI {
             .eraseToAnyPublisherWithError()
     }
     
-    func submit<T: EvolvEvent>(events: [T]) {
+    func submit<T>(events: [T]) where T : EvolvEvent {
         submittedEvents = events
+    }
+    
+    func submit(data: AnyEncodable) {
+        
     }
 }
