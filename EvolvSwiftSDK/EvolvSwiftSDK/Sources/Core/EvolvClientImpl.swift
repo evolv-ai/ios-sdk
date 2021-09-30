@@ -58,13 +58,15 @@ public final class EvolvClientImpl: EvolvClient {
         Future { [weak self] promise in
             guard let self = self else { return }
             
+            self.waitForOnInitialization()
+            
             EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI, scope: self.scope)
                 .sink(receiveCompletion: { publisherCompletion in
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { evolvStore in
                     self.evolvStore = evolvStore
-                    self.waitForOnInitialization()
                     self.evolvStore.evolvContext.emitInitialValues()
+                    self.waitForAfterInitialization()
                 })
                 .store(in: &self.cancellables)
         }
@@ -112,7 +114,9 @@ public final class EvolvClientImpl: EvolvClient {
                 self.contextBeacon.emit(type: type, key: key, value: nil)
             }
         }
-        
+    }
+    
+    private func waitForAfterInitialization() {
         if options.autoConfirm {
             self.confirm()
             WaitForIt.shared.waitFor(scope: scope, it: REQUEST_FAILED) { payload in

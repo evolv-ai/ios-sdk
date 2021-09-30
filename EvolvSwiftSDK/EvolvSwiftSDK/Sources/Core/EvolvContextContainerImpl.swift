@@ -33,6 +33,8 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     private(set) var localContext: [String : Any]
     private(set) var effectiveGenome = [String : GenomeObject]()
     
+    private var keysEverEmitted = Set<String>()
+    
     var mergedContextUserInfo: [String : Any] {
         remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in l })
     }
@@ -43,7 +45,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         self.scope = scope
     }
     
-    func emitInitialValues() {
+    mutating func emitInitialValues() {
         remoteContext.forEach { (key, value) in
             guard let encodable = value as? Encodable else { return }
             contextChanged(key: key, value: AnyEncodable(encodable), before: nil)
@@ -173,6 +175,48 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     }
 }
 
+extension EvolvContextContainerImpl {
+    mutating func contextChanged<T: Encodable>(key: String, value: Set<T>, before: Set<T>, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        contextChanged(key: key, value: Array(value), before: Array(before), userInfo: userInfo, local: local)
+    }
+    
+    mutating func contextChanged<T: Encodable>(key: String, value: [T], before: [T], userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if keysEverEmitted.contains(key) {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        keysEverEmitted.insert(key)
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+    }
+    
+    mutating func contextChanged<T: Encodable>(key: String, value: T, before: T?, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if keysEverEmitted.contains(key) {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        keysEverEmitted.insert(key)
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+    }
+}
+
 extension EvolvContextContainerImpl: Hashable, Equatable {
     public static func == (lhs: EvolvContextContainerImpl, rhs: EvolvContextContainerImpl) -> Bool {
         lhs.confirmations == rhs.confirmations &&
@@ -190,47 +234,5 @@ extension EvolvContextContainerImpl: Hashable, Equatable {
         hasher.combine(activeKeys.value)
         hasher.combine(activeEntryKeys.value)
         hasher.combine(activeVariants.value)
-    }
-}
-
-extension EvolvContextContainerImpl {
-    func contextChanged<T: Encodable>(key: String, value: Set<T>, before: Set<T>, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
-        contextChanged(key: key, value: Array(value), before: Array(before), userInfo: userInfo, local: local)
-    }
-    
-    func contextChanged<T: Encodable>(key: String, value: [T], before: [T], userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
-        if (value.isEmpty && before.isEmpty) { return }
-        
-        let updated = self.resolve()
-        if !before.isEmpty {
-            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
-                                                                            "value" : value,
-                                                                            "before" : before,
-                                                                            "local" : local,
-                                                                            "updated" : updated])
-        } else {
-            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
-                                                                          "value" : value,
-                                                                          "local" : local,
-                                                                          "updated" : updated])
-        }
-        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
-    }
-    
-    func contextChanged<T: Encodable>(key: String, value: T, before: T?, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
-        let updated = self.resolve()
-        if let before = before {
-            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
-                                                                            "value" : value,
-                                                                            "before" : before,
-                                                                            "local" : local,
-                                                                            "updated" : updated])
-        } else {
-            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
-                                                                          "value" : value,
-                                                                          "local" : local,
-                                                                          "updated" : updated])
-        }
-        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
     }
 }
