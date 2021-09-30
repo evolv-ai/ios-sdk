@@ -29,7 +29,6 @@ public final class EvolvClientImpl: EvolvClient {
     private let evolvAPI: EvolvAPI
     private var evolvStore: EvolvStore!
     private var contextBeacon: EvolvBeacon
-//    private var eventBeacon: EvolvBeacon
     
     private lazy var cancellables = Set<AnyCancellable>()
     
@@ -46,26 +45,26 @@ public final class EvolvClientImpl: EvolvClient {
         self.evolvStore = evolvStore
     }
     
-    private init(options: EvolvClientOptions, evolvAPI: EvolvAPI, scope: AnyHashable) {
+    init(options: EvolvClientOptions, evolvAPI: EvolvAPI, scope: AnyHashable) {
         self.options = options
         self.evolvAPI = evolvAPI
         self.scope = scope
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
-        self.contextBeacon = EvolvBeacon(endPoint: evolvAPI.submit(data:), uid: options.participantID, blockTransmit: options.blockTransmit)
-//        self.eventBeacon = EvolvBeacon(endPoint: evolvAPI.submit(events:), uid: options.participantID, blockTransmit: options.blockTransmit)
+        self.contextBeacon = options.beacon ?? EvolvBeacon(endPoint: evolvAPI.submit(data:), uid: options.participantID, blockTransmit: options.blockTransmit)
         WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
     }
     
-    private func initialize() -> Future<EvolvClientImpl, Error> {
+    func initialize() -> Future<EvolvClientImpl, Error> {
         Future { [weak self] promise in
             guard let self = self else { return }
             
             EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI, scope: self.scope)
                 .sink(receiveCompletion: { publisherCompletion in
-                    self.waitForOnInitialization()
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { evolvStore in
                     self.evolvStore = evolvStore
+                    self.waitForOnInitialization()
+                    self.evolvStore.evolvContext.emitInitialValues()
                 })
                 .store(in: &self.cancellables)
         }
@@ -78,7 +77,7 @@ public final class EvolvClientImpl: EvolvClient {
                       let type = payload["it"] as? String
                 else { return }
                 
-                self.contextBeacon.emit(type: type, payload: self.evolvStore.evolvContext.remoteContext.encoded())
+                self.contextBeacon.emit(type: type, payload: [AnyHashable : Any]().encoded())
             }
             
             WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { [weak self] payload in

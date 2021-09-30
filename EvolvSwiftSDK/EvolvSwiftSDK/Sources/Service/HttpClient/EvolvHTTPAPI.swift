@@ -71,7 +71,7 @@ extension EvolvHTTPAPI: EvolvAPI {
         }
     }
     
-    func submit(data: AnyEncodable) {
+    func submit(data: EvolvBeaconMessage) {
         try? httpClient.post(to: httpConfig.dataURL, with: data)
     }
 }

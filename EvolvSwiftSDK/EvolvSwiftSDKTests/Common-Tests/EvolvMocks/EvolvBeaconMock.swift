@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvBeaconMock.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,14 +16,15 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
+@testable import EvolvSwiftSDK
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+class EvolvBeaconMock: EvolvBeacon {
+    override func emit(type: String, payload: Encodable, flush: Bool = false) {
+        super.emit(type: type, payload: payload, flush: true)
+    }
     
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
-    
-    func submit(data: EvolvBeaconMessage)
+    override func emit(type: String, key: String, value: Encodable?, flush: Bool = false) {
+        super.emit(type: type, key: key, value: value, flush: true)
+    }
 }

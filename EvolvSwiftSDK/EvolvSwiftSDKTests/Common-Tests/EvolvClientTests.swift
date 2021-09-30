@@ -28,23 +28,29 @@ class EvolvClientTests: XCTestCase {
     var configuration: Configuration!
     var evolvAPI: EvolvAPIMock!
     var scope: AnyHashable!
+    var evolvBeacon: EvolvBeacon!
     
     override func setUpWithError() throws {
         cancellables = Set()
         
-        options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab")
-        
         allocations = try getAllocations()
         configuration = try getConfig()
+        scope = UUID()
         
         evolvAPI = EvolvAPIMock(evolvConfiguration: configuration, evolvAllocations: allocations)
-        scope = UUID()
+        evolvBeacon = EvolvBeaconMock(endPoint: evolvAPI.submit(data:), uid: "80658403_1629111253538", blockTransmit: false)
+        
+        options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, beacon: evolvBeacon)
     }
 
     override func tearDownWithError() throws {
+        configuration = nil
+        allocations = []
+        evolvAPI = nil
         cancellables = nil
         options = nil
         scope = nil
+        evolvBeacon = nil
     }
     
     // MARK: - Confirm
@@ -355,5 +361,59 @@ class EvolvClientTests: XCTestCase {
         let expectedValues = [ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red")), nil]
         
         XCTAssertEqual(expectedValues, actualValues)
+    }
+}
+
+// MARK: - Data call analtics
+extension EvolvClientTests {
+    func testDataCallContextIsInitialized() {
+        let _ = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        let actualSubmittedData = evolvAPI.submittedData.first
+        let expectedSubmittedDatta = EvolvBeaconMessage(uid: options.participantID, messages: [.init(type: CONTEXT_INITIALIZED, payload: AnyEncodable([AnyHashable : Any]().encoded()))])
+        
+        XCTAssertEqual(actualSubmittedData, expectedSubmittedDatta)
+    }
+    
+    func testDataCallAllocationsAreAdded() {
+        let _ = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        let actualSubmittedData = evolvAPI.submittedData.last
+        let expectedSubmittedData = EvolvBeaconMessage(uid: options.participantID,
+                                                        messages: [.init(type: CONTEXT_VALUE_ADDED,
+                                                                    payload: .init(SimpleKVStorage(key: "experiments.allocations", value: .init(allocations))))])
+        
+        XCTAssertEqual(actualSubmittedData, expectedSubmittedData)
+    }
+    
+    func testDataCallUserInfoIsAdded() {
+        let remoteContext = ["device" : "mobile",
+                             "location" : "UA"]
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let _ = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        let actualSubmittedData = Array(evolvAPI.submittedData[2...3]).set()
+        let expectedSubmittedData = [EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.added", payload: .init(SimpleKVStorage(key: "device", value: AnyEncodable(AnyEncodable("mobile")))))]),
+                                     EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.added", payload: .init(SimpleKVStorage(key: "location", value: AnyEncodable(AnyEncodable("UA")))))])].set()
+        
+        XCTAssertEqual(actualSubmittedData, expectedSubmittedData)
+    }
+    
+    func testDataCallUserInfoIsChanged() {
+        let remoteContext = ["location" : "UA"]
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        _ = client.set(key: "location", value: "US", local: false)
+        
+        let actualSubmittedData = evolvAPI.submittedData[2...3].set()
+        let expectedSubmittedData = [EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.added", payload: .init(SimpleKVStorage(key: "location", value: AnyEncodable(AnyEncodable("UA")))))]),
+                                     EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.changed", payload: .init(SimpleKVStorage(key: "location", value: AnyEncodable("US"))))])].set()
+        
+        XCTAssertEqual(expectedSubmittedData, actualSubmittedData)
     }
 }

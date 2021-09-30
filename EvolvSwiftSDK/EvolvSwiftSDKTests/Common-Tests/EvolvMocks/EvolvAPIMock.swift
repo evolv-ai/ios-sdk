@@ -24,6 +24,7 @@ class EvolvAPIMock: EvolvAPI {
     let evolvAllocations: [Allocation]
     
     var submittedEvents: [EvolvEvent]
+    var submittedData = [EvolvBeaconMessage]()
     
     internal init(evolvConfiguration: Configuration, evolvAllocations: [Allocation], submittedEvents: [EvolvEvent] = []) {
         self.evolvConfiguration = evolvConfiguration
@@ -45,7 +46,7 @@ class EvolvAPIMock: EvolvAPI {
         submittedEvents = events
     }
     
-    func submit(data: AnyEncodable) {
-        
+    func submit(data: EvolvBeaconMessage) {
+        submittedData.append(data)
     }
 }

@@ -20,7 +20,7 @@ import Foundation
 import Combine
 
 class EvolvBeacon {
-    typealias EvolvBeaconEndpoint = ((AnyEncodable) -> Void)
+    typealias EvolvBeaconEndpoint = ((EvolvBeaconMessage) -> Void)
     
     private let submitToEndpoint: EvolvBeaconEndpoint
     private let uid: String
@@ -53,7 +53,7 @@ class EvolvBeacon {
         
         let body = EvolvBeaconMessage(uid: uid, messages: messages)
         
-        submitToEndpoint(.init(body))
+        submitToEndpoint(body)
     }
     
     func emit(type: String, payload: Encodable, flush: Bool = false) {
@@ -73,7 +73,7 @@ class EvolvBeacon {
     }
 }
 
-fileprivate struct SimpleKVStorage: Encodable {
+struct SimpleKVStorage: Encodable {
     let key: String
     let value: AnyEncodable?
 }

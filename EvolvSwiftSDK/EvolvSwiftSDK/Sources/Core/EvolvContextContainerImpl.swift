@@ -43,6 +43,13 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         self.scope = scope
     }
     
+    func emitInitialValues() {
+        remoteContext.forEach { (key, value) in
+            guard let encodable = value as? Encodable else { return }
+            contextChanged(key: key, value: AnyEncodable(encodable), before: nil)
+        }
+    }
+    
     public func resolve() -> [String: Any] {
         return mergedContextUserInfo
     }
@@ -104,7 +111,6 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         
         // Effective genome
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
-        WaitForIt.shared.emit(scope: self.scope, it: EFFECTIVE_GENOME_UPDATED, effectiveGenome)
         
         // Active variants
         let activeVariantsBefore = self.activeVariants.value
@@ -193,8 +199,27 @@ extension EvolvContextContainerImpl {
     }
     
     func contextChanged<T: Encodable>(key: String, value: [T], before: [T], userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        if (value.isEmpty && before.isEmpty) { return }
+        
         let updated = self.resolve()
         if !before.isEmpty {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+    }
+    
+    func contextChanged<T: Encodable>(key: String, value: T, before: T?, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if let before = before {
             WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
                                                                             "value" : value,
                                                                             "before" : before,
