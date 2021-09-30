@@ -65,7 +65,6 @@ public final class EvolvClientImpl: EvolvClient {
                     promise(publisherCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { evolvStore in
                     self.evolvStore = evolvStore
-                    self.evolvStore.evolvContext.emitInitialValues()
                     self.waitForAfterInitialization()
                 })
                 .store(in: &self.cancellables)

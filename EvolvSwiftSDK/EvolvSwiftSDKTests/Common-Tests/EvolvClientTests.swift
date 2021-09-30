@@ -416,4 +416,22 @@ extension EvolvClientTests {
         
         XCTAssertTrue(expectedSubmittedData.isSubset(of: actualSubmittedData))
     }
+    
+    func testDataCallActiveKeysAreAddedAndChanged() {
+        let remoteContext = ["location":"UA",
+                             "view":"home",
+                             "name":"Alex"]
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        _ = client.set(key: "view", value: "next", local: false)
+        
+        let actualSubmittedData = evolvAPI.submittedData.set()
+        let expectedSubmittedData = [EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.added", payload: AnyEncodable(SimpleKVStorage(key: "keys.active", value: AnyEncodable(["home.background", "home.cta_text", "home"]))))]),
+                                     EvolvBeaconMessage(uid: "80658403_1629111253538",
+                                                        messages: [.init(type: "context.value.changed", payload: AnyEncodable(SimpleKVStorage(key: "keys.active", value: AnyEncodable(["next", "next.layout"]))))])].set()
+        
+        XCTAssertTrue(expectedSubmittedData.isSubset(of: actualSubmittedData))
+    }
 }

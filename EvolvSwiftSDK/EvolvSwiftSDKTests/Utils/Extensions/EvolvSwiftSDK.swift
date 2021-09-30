@@ -51,6 +51,8 @@ extension AnyEncodable: Equatable {
             return lhs == rhs
         } else if let lhs = lhs as? [Allocation], let rhs = rhs as? [Allocation] {
             return lhs == rhs
+        } else if let lhs = lhs as? [String], let rhs = rhs as? [String] {
+            return lhs.set() == rhs.set()
         }
         
         return false
