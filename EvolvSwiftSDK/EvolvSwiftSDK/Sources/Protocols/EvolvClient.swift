@@ -84,6 +84,10 @@ public protocol EvolvClient {
     
     /// Gets active keys.
     func getActiveKeys() -> Set<String>
+    
+    func on(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
+    
+    func once(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
 }
 
 // MARK: - Default implementation and optional protocol methods

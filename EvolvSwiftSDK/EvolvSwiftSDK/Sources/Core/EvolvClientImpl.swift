@@ -260,6 +260,14 @@ public final class EvolvClientImpl: EvolvClient {
     public func emit(eventType: String, flush: Bool) {
         emit(eventType: eventType, metadata: nil as String?, flush: flush)
     }
+    
+    public func on(topic: String, listener: @escaping (([String : Any?]) -> Void)) {
+        WaitForIt.shared.waitFor(scope: scope, it: topic, handler: listener)
+    }
+    
+    public func once(topic: String, listener: @escaping (([String : Any?]) -> Void)) {
+        WaitForIt.shared.waitOnceFor(scope: scope, it: topic, handler: listener)
+    }
 }
 
 fileprivate let EvolvClient_INITIALIZED = "initialized"
