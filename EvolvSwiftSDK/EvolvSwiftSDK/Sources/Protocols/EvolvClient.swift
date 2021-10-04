@@ -75,6 +75,9 @@ public protocol EvolvClient {
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
     
+    @discardableResult
+    func remove(key: String) -> Bool
+    
     func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool)
     
     func emit(eventType: String, flush: Bool)

@@ -51,7 +51,7 @@ public final class EvolvClientImpl: EvolvClient {
         self.scope = scope
         self.initialEvolvContext = EvolvContextContainerImpl(remoteContextUserInfo: options.remoteContext, localContextUserInfo: options.localContext, scope: scope)
         self.contextBeacon = options.beacon ?? EvolvBeacon(endPoint: evolvAPI.submit(data:), uid: options.participantID, blockTransmit: options.blockTransmit)
-        WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["context":self.initialEvolvContext])
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_INITIALIZED, ["options" : self.options])
     }
     
     func initialize() -> Future<EvolvClientImpl, Error> {
@@ -136,6 +136,10 @@ public final class EvolvClientImpl: EvolvClient {
     
     public func set(key: String, value: Any, local: Bool) -> Bool {
         evolvStore.set(key: key, value: value, local: local)
+    }
+    
+    public func remove(key: String) -> Bool {
+        evolvStore.remove(key: key)
     }
     
     public func confirm() {
@@ -270,7 +274,7 @@ public final class EvolvClientImpl: EvolvClient {
     }
 }
 
-fileprivate let EvolvClient_INITIALIZED = "initialized"
-fileprivate let EvolvClient_CONFIRMED = "confirmed"
-fileprivate let EvolvClient_CONTAMINATED = "contaminated"
-fileprivate let EvolvClient_EVENT_EMITTED = "event.emitted"
+let EvolvClient_INITIALIZED = "initialized"
+let EvolvClient_CONFIRMED = "confirmed"
+let EvolvClient_CONTAMINATED = "contaminated"
+let EvolvClient_EVENT_EMITTED = "event.emitted"

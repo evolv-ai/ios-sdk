@@ -42,4 +42,6 @@ protocol EvolvStore {
     
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
+    
+    func remove(key: String) -> Bool
 }
