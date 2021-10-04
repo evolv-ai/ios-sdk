@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct EvolvCustomEvent {
+struct EvolvCustomEvent: Equatable {
     let type: String
     let timestamp: Date
 }

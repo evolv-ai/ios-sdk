@@ -24,22 +24,38 @@ public struct EvolvClientOptions {
     public let participantID: String
     public let environmentId: String
     public let autoConfirm: Bool
-    public let analytics: String
-    public let beacon: EvolvBeacon?
+    public let analytics: Bool
+    public let blockTransmit: Bool
     public let bufferEvents: [String : Any]
     public let remoteContext: [String : Any]
     public let localContext: [String : Any]
+    let beacon: EvolvBeacon?
     
-    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: String = "", beacon: EvolvBeacon? = nil, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:]) {
+    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: Bool = false, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:], blockTransmit: Bool = false) {
         self.apiVersion = apiVersion
         self.evolvDomain = evolvDomain
         self.participantID = participantID
         self.environmentId = environmentId
         self.autoConfirm = autoConfirm
         self.analytics = analytics
-        self.beacon = beacon
         self.bufferEvents = bufferEvents
         self.remoteContext = remoteContext
         self.localContext = localContext
+        self.blockTransmit = blockTransmit
+        self.beacon = nil
+    }
+    
+    init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", autoConfirm: Bool = true, analytics: Bool = false, bufferEvents: [String : Any] = [:], remoteContext: [String : Any] = [:], localContext: [String : Any] = [:], blockTransmit: Bool = false, beacon: EvolvBeacon) {
+        self.apiVersion = apiVersion
+        self.evolvDomain = evolvDomain
+        self.participantID = participantID
+        self.environmentId = environmentId
+        self.autoConfirm = autoConfirm
+        self.analytics = analytics
+        self.bufferEvents = bufferEvents
+        self.remoteContext = remoteContext
+        self.localContext = localContext
+        self.blockTransmit = blockTransmit
+        self.beacon = beacon
     }
 }

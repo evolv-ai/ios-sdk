@@ -18,15 +18,27 @@
 
 import Foundation
 
-/// Type-erasing encodable
 struct AnyEncodable: Encodable {
-    private let _encode: (Encoder) throws -> Void
+    private let encode: (Encoder) throws -> Void
+    #if DEBUG
+    let _object: Any
+    #endif
     
-    public init<T: Encodable>(_ wrapped: T) {
-        _encode = wrapped.encode
+    init<T: Encodable>(_ wrapped: T) {
+        encode = wrapped.encode
+        #if DEBUG
+        _object = wrapped
+        #endif
+    }
+    
+    init(_ wrapped: Encodable) {
+        encode = wrapped.encode
+        #if DEBUG
+        _object = wrapped
+        #endif
     }
 
     func encode(to encoder: Encoder) throws {
-        try _encode(encoder)
+        try encode(encoder)
     }
 }

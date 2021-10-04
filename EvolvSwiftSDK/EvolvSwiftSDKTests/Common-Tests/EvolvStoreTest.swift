@@ -23,17 +23,20 @@ import XCTest
 class EvolvStoreTest: XCTestCase {
     
     var jsonDecoder: JSONDecoder!
+    var scope: AnyHashable!
     
     override func setUp() {
         super.setUp()
         
         jsonDecoder = JSONDecoder()
+        scope = UUID()
     }
 
     override func tearDown() {
         super.tearDown()
         
         jsonDecoder = nil
+        scope = nil
     }
 
     func testSetKeysInContext() {
@@ -41,30 +44,30 @@ class EvolvStoreTest: XCTestCase {
         let remoteContext: [String: Any] = ["test_key" : "test_value"]
         let localContext: [String: Any] = [:]
         
-        var evolvContext = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
+        var evolvContext = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext, scope: scope)
         
         evolvContext.set(key: "new_key", value: "new_value", local: false)
         
         XCTAssertNotNil(evolvContext)
-        XCTAssertEqual(evolvContext.remoteContext.userInfo["new_key"] as? String, "new_value")
-        XCTAssertEqual(evolvContext.remoteContext.userInfo["test_key"] as? String, "test_value")
+        XCTAssertEqual(evolvContext.remoteContext["new_key"] as? String, "new_value")
+        XCTAssertEqual(evolvContext.remoteContext["test_key"] as? String, "test_value")
     }
     
     func testContextIsNotEmpty() {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext, scope: scope)
         
-        XCTAssertEqual(context.remoteContext.userInfo.isEmpty, false)
-        XCTAssertEqual(context.localContext.userInfo.isEmpty, false)
+        XCTAssertEqual(context.remoteContext.isEmpty, false)
+        XCTAssertEqual(context.localContext.isEmpty, false)
     }
     
     func testMergeContext() {
         let remoteContext: [String: Any] = ["test_key1" : "test_value1"]
         let localContext: [String: Any] = ["test_key2" : "test_value2"]
         
-        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext)
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: remoteContext, localContextUserInfo: localContext, scope: scope)
         
         let evolvContext = context.mergeContext(localContext: localContext, remoteContext: remoteContext)
         

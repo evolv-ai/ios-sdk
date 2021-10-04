@@ -23,21 +23,33 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     var contaminations = [EvolvContamination]()
     var events = [EvolvCustomEvent]()
     
+    private let scope: AnyHashable
+    
     private(set) var activeKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeEntryKeys = CurrentValueSubject<Set<String>, Never>([])
     private(set) var activeVariants = CurrentValueSubject<Set<String>, Never>([])
     
-    private(set) var remoteContext: EvolvContext
-    private(set) var localContext: EvolvContext
+    private(set) var remoteContext: [String : Any]
+    private(set) var localContext: [String : Any]
     private(set) var effectiveGenome = [String : GenomeObject]()
     
+    private var keysEverEmitted = Set<String>()
+    
     var mergedContextUserInfo: [String : Any] {
-        remoteContext.userInfo.merging(localContext.userInfo, uniquingKeysWith: { (l, r) in l })
+        remoteContext.merging(localContext, uniquingKeysWith: { (l, r) in l })
     }
     
-    public init(remoteContextUserInfo: [String : Any], localContextUserInfo: [String : Any]) {
-        self.localContext = EvolvContextImpl(userInfo: localContextUserInfo)
-        self.remoteContext = EvolvContextImpl(userInfo: remoteContextUserInfo)
+    public init(remoteContextUserInfo: [String : Any], localContextUserInfo: [String : Any], scope: AnyHashable) {
+        self.localContext = localContextUserInfo
+        self.remoteContext = remoteContextUserInfo
+        self.scope = scope
+    }
+    
+    mutating func emitInitialValues() {
+        remoteContext.forEach { (key, value) in
+            guard let encodable = value as? Encodable else { return }
+            contextChanged(key: key, value: AnyEncodable(encodable), before: nil)
+        }
     }
     
     public func resolve() -> [String: Any] {
@@ -46,13 +58,31 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     @discardableResult
     public mutating func set(key: String, value: Any, local: Bool) -> Bool {
-        guard ((local ? localContext.userInfo[key] : remoteContext.userInfo[key]) as? String) != (value as? String) else { return false }
+        guard ((local ? localContext[key] : remoteContext[key]) as? String) != (value as? String) else { return false }
         
+        let valueBefore: Any?
         if local {
-            localContext.userInfo[key] = value
+            valueBefore = localContext[key]
+            localContext[key] = value
         } else {
-            remoteContext.userInfo[key] = value
+            valueBefore = remoteContext[key]
+            remoteContext[key] = value
         }
+        
+        let updated = self.resolve()
+        if let valueBefore = valueBefore {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : valueBefore,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        }
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
         
         return true
     }
@@ -67,11 +97,13 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
     
     mutating func reevaluateContext(with configuration: Configuration, allocations: [Allocation]) {
         let activeKeys = configuration.evaluateActiveKeys(in: mergedContextUserInfo)
+        let activeKeysBefore = self.activeKeys.value
         
         // All active keys
         let activeKeysKeypathSet = Set(activeKeys
-                                            .map { $0.keyPath.keyPathString })
+                                        .map { $0.keyPath.keyPathString })
         self.activeKeys.send(activeKeysKeypathSet)
+        self.contextChanged(key: "keys.active", value: activeKeysKeypathSet, before: activeKeysBefore)
         
         // Active entry keys
         let activeEntryKeysKeyPathSet = filterActiveKeysForEntryKeys(activeKeys: activeKeys)
@@ -82,8 +114,10 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         // Effective genome
         effectiveGenome = generateEffectiveGenome(activeKeys: activeKeysKeypathSet, configuration: configuration, allocations: allocations)
         
-        // Active variant keys
+        // Active variants
+        let activeVariantsBefore = self.activeVariants.value
         self.activeVariants.send(evaluateActiveVariantKeys(from: effectiveGenome))
+        self.contextChanged(key: "variants.active", value: self.activeVariants.value, before: activeVariantsBefore)
     }
     
     private func generateEffectiveGenome(activeKeys: Set<String>, configuration: Configuration, allocations: [Allocation]) -> [String : GenomeObject] {
@@ -138,5 +172,67 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
             .flatMap { $0.subKeys.appended(with: $0) }
             .set()
             .intersection(activeKeys)
+    }
+}
+
+extension EvolvContextContainerImpl {
+    mutating func contextChanged<T: Encodable>(key: String, value: Set<T>, before: Set<T>, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        contextChanged(key: key, value: Array(value), before: Array(before), userInfo: userInfo, local: local)
+    }
+    
+    mutating func contextChanged<T: Encodable>(key: String, value: [T], before: [T], userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if keysEverEmitted.contains(key) {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        keysEverEmitted.insert(key)
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+    }
+    
+    mutating func contextChanged<T: Encodable>(key: String, value: T, before: T?, userInfo: [AnyHashable : Any] = [:], local: Bool = false) {
+        let updated = self.resolve()
+        if keysEverEmitted.contains(key) {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
+                                                                            "value" : value,
+                                                                            "before" : before,
+                                                                            "local" : local,
+                                                                            "updated" : updated])
+        } else {
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
+        }
+        keysEverEmitted.insert(key)
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+    }
+}
+
+extension EvolvContextContainerImpl: Hashable, Equatable {
+    public static func == (lhs: EvolvContextContainerImpl, rhs: EvolvContextContainerImpl) -> Bool {
+        lhs.confirmations == rhs.confirmations &&
+        lhs.contaminations == rhs.contaminations &&
+        lhs.events == rhs.events &&
+        lhs.activeKeys.value == rhs.activeKeys.value &&
+        lhs.activeEntryKeys.value == rhs.activeEntryKeys.value &&
+        lhs.activeVariants.value == rhs.activeVariants.value &&
+        lhs.localContext as? [String : String] == rhs.localContext as? [String : String] &&
+        lhs.remoteContext as? [String : String] == rhs.remoteContext as? [String : String] &&
+        lhs.effectiveGenome == rhs.effectiveGenome
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(activeKeys.value)
+        hasher.combine(activeEntryKeys.value)
+        hasher.combine(activeVariants.value)
     }
 }

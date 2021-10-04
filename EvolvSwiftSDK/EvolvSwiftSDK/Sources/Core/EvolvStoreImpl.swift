@@ -25,9 +25,11 @@ public class EvolvStoreImpl: EvolvStore {
     var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeVariants }
     
     var evolvConfiguration: Configuration { _evolvConfiguration }
-    var evolvContext: EvolvContextContainer
+    var evolvContext: EvolvContextContainerImpl
     
     private(set) var evolvAllocations = [Allocation]()
+    
+    private var scope: AnyHashable
     
     private var _evolvConfiguration: Configuration!
     private var keyStates: KeyStates
@@ -37,19 +39,20 @@ public class EvolvStoreImpl: EvolvStore {
     
     private var genomeValueSubjects = [String : CurrentValueSubject<Any?, Never>]()
     
-    private lazy var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
-        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, keyStates: keyStates)
+    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
+        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, scope: scope, keyStates: keyStates)
             .initialize()
             .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
-    private init(evolvContext: EvolvContextContainer, evolvAPI: EvolvAPI, keyStates: EvolvStoreImpl.KeyStates = .init()) {
+    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) {
         self.evolvContext = evolvContext
         self.keyStates = keyStates
         self.evolvAPI = evolvAPI
+        self.scope = scope
     }
     
     private func initialize() -> Future<EvolvStoreImpl, Error> {
@@ -63,10 +66,16 @@ public class EvolvStoreImpl: EvolvStore {
                 }, receiveValue: { [weak self] (configuration, allocations) in
                     self?._evolvConfiguration = configuration
                     self?.evolvAllocations = allocations
+                    self?.evolvContext.contextChanged(key: "experiments.allocations", value: allocations, before: [])
+                    self?.evolvContext.emitInitialValues()
                     self?.reevaluateContext()
                 })
                 .store(in: &self.cancellables)
         }
+    }
+    
+    deinit {
+        WaitForIt.shared.emit(scope: self.scope, it: STORE_DESTROYED)
     }
     
     struct KeyStates {
@@ -85,6 +94,8 @@ public class EvolvStoreImpl: EvolvStore {
     
     func reevaluateContext() {
         evolvContext.reevaluateContext(with: evolvConfiguration, allocations: evolvAllocations)
+        
+        WaitForIt.shared.emit(scope: scope, it: EFFECTIVE_GENOME_UPDATED, evolvContext.effectiveGenome)
         
         updateGenomeValueSubjects()
     }

@@ -24,6 +24,7 @@ class EvolvAPIMock: EvolvAPI {
     let evolvAllocations: [Allocation]
     
     var submittedEvents: [EvolvEvent]
+    var submittedData = [EvolvBeaconMessage]()
     
     internal init(evolvConfiguration: Configuration, evolvAllocations: [Allocation], submittedEvents: [EvolvEvent] = []) {
         self.evolvConfiguration = evolvConfiguration
@@ -41,7 +42,11 @@ class EvolvAPIMock: EvolvAPI {
             .eraseToAnyPublisherWithError()
     }
     
-    func submit<T: EvolvEvent>(events: [T]) {
+    func submit<T>(events: [T]) where T : EvolvEvent {
         submittedEvents = events
+    }
+    
+    func submit(data: EvolvBeaconMessage) {
+        submittedData.append(data)
     }
 }

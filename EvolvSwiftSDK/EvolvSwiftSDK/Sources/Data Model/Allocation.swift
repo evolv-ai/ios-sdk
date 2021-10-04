@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Allocation
-public struct Allocation: Decodable, Equatable {
+public struct Allocation: Codable, Equatable {
     let userId, experimentId, candidateId: String
     let genome: GenomeObject
     let audienceQuery: AudienceQuery?
@@ -37,6 +37,16 @@ public struct Allocation: Decodable, Equatable {
         case ordinal
         case groupID = "group_id"
         case excluded
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(candidateId, forKey: .candidateId)
+        try container.encode(experimentId, forKey: .experimentId)
+        try container.encode(excluded, forKey: .excluded)
+        try container.encode(groupID, forKey: .groupID)
+        try container.encode(ordinal, forKey: .ordinal)
+        try container.encode(userId, forKey: .userId)
     }
 }
 

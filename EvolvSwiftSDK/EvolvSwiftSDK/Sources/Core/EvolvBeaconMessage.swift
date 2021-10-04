@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  EvolvBeaconMessage.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,14 +16,15 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
-    
-    func allocations() -> AnyPublisher<[Allocation], Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
-    
-    func submit(data: EvolvBeaconMessage)
+struct EvolvBeaconMessage: Encodable {
+    let uid: String
+    let messages: [EvolvBeaconMessagePayload]
+}
+
+struct EvolvBeaconMessagePayload: Encodable {
+    let type: String
+    let payload: AnyEncodable?
+    let timestamp = Date()
 }

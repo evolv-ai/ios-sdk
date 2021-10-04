@@ -66,6 +66,10 @@ extension Dictionary {
         dict.removeValues(forKeys: keys)
         return dict
     }
+    
+    func encoded(options opt: JSONSerialization.WritingOptions = []) -> Data? {
+        try? JSONSerialization.crashSafeData(withJSONObject: self, options: opt)
+    }
 }
 
 extension JSONDecoder {

@@ -1,5 +1,5 @@
 //
-//  EvolvBeacon.swift
+//  EvolvBeaconMock.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,9 +16,15 @@
 //  limitations under the License.
 //
 
-
 import Foundation
+@testable import EvolvSwiftSDK
 
-public protocol EvolvBeacon {
+class EvolvBeaconMock: EvolvBeacon {
+    override func emit(type: String, payload: Encodable, flush: Bool = false) {
+        super.emit(type: type, payload: payload, flush: true)
+    }
     
+    override func emit(type: String, key: String, value: Encodable?, flush: Bool = false) {
+        super.emit(type: type, key: key, value: value, flush: true)
+    }
 }
