@@ -291,4 +291,18 @@ extension EvolvStoreNewTests {
         eval(payload: "exmaple_hash-code&1112", expectedHash: -1538179976)
         eval(payload: "location:US,view:next,age:50", expectedHash: 928736387)
     }
+    
+    func testHashCodeIsEvaluatedCorrectlyForObject() {
+        func eval(payload: GenomeObject, expectedHash: Int) {
+            let actualHash = payload.jsonStringify.evolvHashCode()
+            
+            XCTAssertEqual(actualHash, expectedHash)
+        }
+        
+        let genomes: GenomeObject = [["b" : "2", "a" : "1", "arr" : [ "b": 2, "a": 3 ]],
+                                     ["view" : "memory", "location" : "1", "known" : ["see": "", "look": "abc" ]]]
+        
+        eval(payload: genomes[0]!, expectedHash: 618626147)
+        eval(payload: genomes[1]!, expectedHash: -347414157)
+    }
 }
