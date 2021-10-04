@@ -279,4 +279,16 @@ extension EvolvStoreNewTests {
         // if integer overflow is not allowed.
         _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
     }
+    
+    func testHashCodeIsEvaluatedCorrectlyForString() {
+        func eval(payload: String, expectedHash: Int) {
+            let actualHash = payload.evolvHashCode()
+            
+            XCTAssertEqual(actualHash, expectedHash)
+        }
+        
+        eval(payload: "view_home", expectedHash: -1573367239)
+        eval(payload: "exmaple_hash-code&1112", expectedHash: -1538179976)
+        eval(payload: "location:US,view:next,age:50", expectedHash: 928736387)
+    }
 }
