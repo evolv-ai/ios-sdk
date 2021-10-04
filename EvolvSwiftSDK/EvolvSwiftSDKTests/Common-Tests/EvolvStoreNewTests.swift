@@ -233,7 +233,7 @@ extension EvolvStoreNewTests {
         
         let evolvStore = initializeEvolvStore(with: context)
         
-        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "button_color:1512228", "cta_text:-3290682211151201190", "home.cta_text:921751162155200504"]
+        let expectedActiveVariantKeys: Set = ["home:-829368886", "button_color:1512228", "cta_text:-1214071718", "home.cta_text:1603301368"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
@@ -249,7 +249,7 @@ extension EvolvStoreNewTests {
         
         evolvStore.set(key: "view", value: "next", local: false)
         
-        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "cta_text:-3290682211151201190", "button_color:1512228", "next:-6123526860146466115"]
+        let expectedActiveVariantKeys: Set = ["next.layout:-1978477897", "cta_text:-1214071718", "button_color:1512228", "next:-1201134915"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
