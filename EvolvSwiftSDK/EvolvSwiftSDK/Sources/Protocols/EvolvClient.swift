@@ -75,6 +75,9 @@ public protocol EvolvClient {
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
     
+    @discardableResult
+    func remove(key: String) -> Bool
+    
     func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool)
     
     func emit(eventType: String, flush: Bool)
@@ -84,6 +87,10 @@ public protocol EvolvClient {
     
     /// Gets active keys.
     func getActiveKeys() -> Set<String>
+    
+    func on(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
+    
+    func once(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
 }
 
 // MARK: - Default implementation and optional protocol methods

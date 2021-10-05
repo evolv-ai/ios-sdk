@@ -435,3 +435,120 @@ extension EvolvClientTests {
         XCTAssertTrue(expectedSubmittedData.isSubset(of: actualSubmittedData))
     }
 }
+
+// MARK: - On listeners
+extension EvolvClientTests {
+    func testOnContextValueAdded() {
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        struct Value: Equatable, Hashable {
+            let key: String!
+            let value: String!
+        }
+        
+        var actualValuesAdded = Set<Value>()
+        client.on(topic: CONTEXT_VALUE_ADDED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        _ = client.set(key: "location", value: "US", local: false)
+        _ = client.set(key: "view", value: "home", local: true)
+        
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US"), .init(key: "view", value: "home")]
+        
+        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+    }
+    
+    func testOnContextValueChanged() {
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        struct Value: Equatable, Hashable {
+            let key: String!
+            let value: String!
+        }
+        
+        var actualValuesAdded = Set<Value>()
+        client.on(topic: CONTEXT_VALUE_ADDED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        client.on(topic: CONTEXT_VALUE_CHANGED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        _ = client.set(key: "location", value: "US", local: false)
+        _ = client.set(key: "location", value: "DE", local: true)
+        
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US"), .init(key: "location", value: "DE")]
+        
+        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+    }
+    
+    func testOnContextValueRemoved() {
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        struct Value: Equatable, Hashable {
+            let key: String!
+            let value: String?
+        }
+        
+        var actualValuesAdded = Set<Value>()
+        client.on(topic: CONTEXT_VALUE_ADDED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        client.on(topic: CONTEXT_VALUE_REMOVED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        _ = client.set(key: "location", value: "US", local: false)
+        _ = client.remove(key: "location")
+        
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US"), .init(key: "location", value: nil)]
+        
+        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+    }
+    
+    func testOnceContextValueChanged() {
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        struct Value: Equatable, Hashable {
+            let key: String!
+            let value: String?
+        }
+        
+        var actualValuesAdded = Set<Value>()
+        client.on(topic: CONTEXT_VALUE_CHANGED) { value in
+            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+        }
+        _ = client.set(key: "location", value: "US", local: false)
+        _ = client.set(key: "location", value: "DE", local: false)
+        _ = client.set(key: "location", value: "UA", local: false)
+        _ = client.set(key: "location", value: "UK", local: false)
+        
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "DE")]
+        
+        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+    }
+    
+    func testOnEmitEventWithMetadata() {
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
+        
+        struct Metadata: Encodable, Equatable {
+            let number: Int
+        }
+        
+        let expectedMetadata = Metadata(number: 1050)
+        let topic = "custom.event"
+        
+        var actualEventReceived = [String : Any]()
+        client.on(topic: EvolvClient_EVENT_EMITTED) { payload in
+            actualEventReceived = payload as [String : Any]
+        }
+        
+        client.emit(eventType: topic, metadata: expectedMetadata, flush: true)
+        
+        XCTAssertEqual(actualEventReceived["metadata"] as? Metadata, expectedMetadata)
+        XCTAssertEqual(actualEventReceived["type"] as? String, topic)
+    }
+}

@@ -53,6 +53,11 @@ extension AnyEncodable: Equatable {
             return lhs == rhs
         } else if let lhs = lhs as? [String], let rhs = rhs as? [String] {
             return lhs.set() == rhs.set()
+        } else if let lhs = lhs as? Encodable, let rhs = rhs as? Encodable {
+            let encoder = JSONEncoder()
+            let lhs = try! encoder.encode(AnyEncodable(lhs))
+            let rhs = try! encoder.encode(AnyEncodable(rhs))
+            return lhs == rhs
         }
         
         return false
@@ -63,5 +68,34 @@ extension SimpleKVStorage: Equatable {
     public static func == (lhs: SimpleKVStorage, rhs: SimpleKVStorage) -> Bool {
         lhs.key == rhs.key &&
         lhs.value == rhs.value
+    }
+}
+
+extension EvolvClientOptions: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        enum CodingKeys: String, CodingKey {
+            case apiVersion
+            case evolvDomain
+            case participantID
+            case environmentId
+            case autoConfirm
+            case analytics
+            case blockTransmit
+            case bufferEvents
+            case remoteContext
+            case localContext
+        }
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(apiVersion, forKey: .apiVersion)
+        try container.encode(evolvDomain, forKey: .evolvDomain)
+        try container.encode(participantID, forKey: .participantID)
+        try container.encode(environmentId, forKey: .environmentId)
+        try container.encode(autoConfirm, forKey: .autoConfirm)
+        try container.encode(analytics, forKey: .analytics)
+        try container.encode(blockTransmit, forKey: .blockTransmit)
+        try container.encode(bufferEvents as? [String : String], forKey: .bufferEvents)
+        try container.encode(remoteContext as? [String : String], forKey: .remoteContext)
+        try container.encode(localContext as? [String : String], forKey: .localContext)
     }
 }

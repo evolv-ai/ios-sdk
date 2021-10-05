@@ -110,6 +110,16 @@ public class EvolvStoreImpl: EvolvStore {
         return true
     }
     
+    func remove(key: String) -> Bool {
+        let isContextChanged = evolvContext.remove(key: key)
+        
+        guard isContextChanged else { return false }
+        
+        reevaluateContext()
+        
+        return true
+    }
+    
     func get(valueForKey key: String) -> Any? {
         guard activeKeys.value.contains(key) else { return nil }
         

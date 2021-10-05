@@ -77,12 +77,27 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
                                                                             "local" : local,
                                                                             "updated" : updated])
         } else {
-            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["key" : key,
-                                                                            "value" : value,
-                                                                            "local" : local,
-                                                                            "updated" : updated])
+            WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_ADDED, ["key" : key,
+                                                                          "value" : value,
+                                                                          "local" : local,
+                                                                          "updated" : updated])
         }
         WaitForIt.shared.emit(scope: scope, it: CONTEXT_CHANGED, updated)
+        
+        return true
+    }
+    
+    mutating func remove(key: String) -> Bool {
+        let local = localContext.removeValue(forKey: key)
+        let remote = remoteContext.removeValue(forKey: key)
+        
+        guard local != nil || remote != nil else { return false }
+        
+        let updated = resolve()
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_REMOVED, ["key" : key,
+                                                                        "remote" : remote != nil,
+                                                                        "updated" : updated])
+        WaitForIt.shared.emit(scope: scope, it: CONTEXT_VALUE_CHANGED, ["updated" : updated])
         
         return true
     }
