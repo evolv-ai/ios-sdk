@@ -233,7 +233,7 @@ extension EvolvStoreNewTests {
         
         let evolvStore = initializeEvolvStore(with: context)
         
-        let expectedActiveVariantKeys: Set = ["home:-3722956525781592630", "button_color:1512228", "cta_text:-3290682211151201190", "home.cta_text:921751162155200504"]
+        let expectedActiveVariantKeys: Set = ["home:-829368886", "button_color:1512228", "cta_text:-1214071718", "home.cta_text:1603301368"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
@@ -249,7 +249,7 @@ extension EvolvStoreNewTests {
         
         evolvStore.set(key: "view", value: "next", local: false)
         
-        let expectedActiveVariantKeys: Set = ["next.layout:6424736096006099639", "cta_text:-3290682211151201190", "button_color:1512228", "next:-6123526860146466115"]
+        let expectedActiveVariantKeys: Set = ["next.layout:-1978477897", "cta_text:-1214071718", "button_color:1512228", "next:-1201134915"]
         let actualActiveVariantKeys = evolvStore.activeVariantKeys.value
         
         XCTAssertEqual(expectedActiveVariantKeys, actualActiveVariantKeys)
@@ -278,5 +278,31 @@ extension EvolvStoreNewTests {
         // This line will throw an uncatchable runtime error
         // if integer overflow is not allowed.
         _ = "{\"cta_text\":\"Click Here\"}".evolvHashCode()
+    }
+    
+    func testHashCodeIsEvaluatedCorrectlyForString() {
+        func eval(payload: String, expectedHash: Int) {
+            let actualHash = payload.evolvHashCode()
+            
+            XCTAssertEqual(actualHash, expectedHash)
+        }
+        
+        eval(payload: "view_home", expectedHash: -1573367239)
+        eval(payload: "exmaple_hash-code&1112", expectedHash: -1538179976)
+        eval(payload: "location:US,view:next,age:50", expectedHash: 928736387)
+    }
+    
+    func testHashCodeIsEvaluatedCorrectlyForObject() {
+        func eval(payload: GenomeObject, expectedHash: Int) {
+            let actualHash = payload.jsonStringify.evolvHashCode()
+            
+            XCTAssertEqual(actualHash, expectedHash)
+        }
+        
+        let genomes: GenomeObject = [["b" : "2", "a" : "1", "arr" : [ "b": 2, "a": 3 ]],
+                                     ["view" : "memory", "location" : "1", "known" : ["see": "", "look": "abc" ]]]
+        
+        eval(payload: genomes[0]!, expectedHash: 618626147)
+        eval(payload: genomes[1]!, expectedHash: -347414157)
     }
 }

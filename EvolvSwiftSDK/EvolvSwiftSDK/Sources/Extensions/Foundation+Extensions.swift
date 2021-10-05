@@ -39,18 +39,18 @@ extension String {
     }
     
     func evolvHashCode() -> Int {
-        var ret = 0
+        var ret: Int32 = 0
         var i = 0
         
         while i < self.count {
-            let scalarCharacterCode = Int(self[i].unicodeScalars.first?.value ?? 0)
+            let scalarCharacterCode = Int32(self[i].unicodeScalars.first?.value ?? 0)
             
             ret = ((31 &* ret &+ scalarCharacterCode))
             
             i += 1
         }
         
-        return ret
+        return Int(ret)
     }
 }
 

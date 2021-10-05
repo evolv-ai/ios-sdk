@@ -445,6 +445,12 @@ extension GenomeObject {
         return nil
     }
     
+    private var sortedDictionary: [(AnyHashable, GenomeObject)]? {
+        guard let dictionary = dictionary as? [String : GenomeObject] else { return nil }
+        
+        return dictionary.sorted { $0.0 < $1.0 }
+    }
+    
     @objc public var dictionaryValue: [AnyHashable: GenomeObject] {
         return type == .dictionary ? dictionary ?? [:] : [:]
     }
@@ -467,7 +473,7 @@ extension GenomeObject {
                 .joined(separator: ",") ?? "null"
             return "[\(strings)]"
         case .dictionary:
-            let values = self.dictionary?.map { key, genome in
+            let values = self.sortedDictionary?.map { key, genome in
                 "\"\(key)\":\(genome.jsonStringify)"
             }.joined(separator: ",") ?? ""
             return "{\(values)}"
