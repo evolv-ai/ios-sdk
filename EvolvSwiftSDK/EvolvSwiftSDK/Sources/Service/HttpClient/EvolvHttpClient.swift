@@ -36,7 +36,7 @@ struct EvolvHttpClient {
             .eraseToAnyPublisher()
     }
     
-    func postWithPublisher<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = JSONEncoder()) throws -> AnyPublisher<HTTPURLResponse, URLError> {
+    func postWithPublisher<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = defaultEncoder()) throws -> AnyPublisher<HTTPURLResponse, URLError> {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -51,7 +51,7 @@ struct EvolvHttpClient {
             .eraseToAnyPublisher()
     }
     
-    func post<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = JSONEncoder()) throws {
+    func post<T: Encodable>(to url: URL, with body: T, _ encoder: JSONEncoder = defaultEncoder()) throws {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -64,5 +64,11 @@ struct EvolvHttpClient {
                 print("Evolv: error sending POST request: HTTP \(response.statusCode), response: \(String(describing: String(data: data ?? Data(), encoding: .utf8)))")
             }
         }.resume()
+    }
+    
+    private static func defaultEncoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .millisecondsSince1970
+        return encoder
     }
 }
