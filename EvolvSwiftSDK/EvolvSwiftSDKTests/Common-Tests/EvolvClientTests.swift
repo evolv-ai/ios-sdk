@@ -525,7 +525,9 @@ extension EvolvClientTests {
         _ = client.set(key: "location", value: "UA", local: false)
         _ = client.set(key: "location", value: "UK", local: false)
         
-        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "DE")]
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "DE"),
+                                               .init(key: "location", value: "UA"),
+                                               .init(key: "location", value: "UK")]
         
         XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
     }
