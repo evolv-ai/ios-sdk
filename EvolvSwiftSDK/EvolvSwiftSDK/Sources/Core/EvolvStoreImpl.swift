@@ -72,6 +72,7 @@ public class EvolvStoreImpl: EvolvStore {
                     self.evolvExcludedAllocations = allocations.1
                     self.excludeExperiments()
                     self.evolvContext.contextChanged(key: "experiments.allocations", value: self.evolvAllocations, before: [])
+                    self.evolvContext.contextChanged(key: "experiments.exclusions", value: self.evolvExcludedAllocations, before: [])
                     self.evolvContext.emitInitialValues()
                     self.reevaluateContext()
                 })

@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct ExcludedAllocation: Decodable, Equatable {
+struct ExcludedAllocation: Codable, Equatable {
     let userId: String
     let experimentId: String
     let excluded: Bool
@@ -27,5 +27,10 @@ struct ExcludedAllocation: Decodable, Equatable {
         case userId = "uid"
         case experimentId = "eid"
         case excluded
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(experimentId)
     }
 }
