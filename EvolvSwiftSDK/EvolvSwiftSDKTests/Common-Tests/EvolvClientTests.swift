@@ -516,20 +516,20 @@ extension EvolvClientTests {
             let value: String?
         }
         
-        var actualValuesAdded = Set<Value>()
+        var actualValuesChanged = Set<Value>()
         client.on(topic: CONTEXT_VALUE_CHANGED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesChanged.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         _ = client.set(key: "location", value: "US", local: false)
         _ = client.set(key: "location", value: "DE", local: false)
         _ = client.set(key: "location", value: "UA", local: false)
         _ = client.set(key: "location", value: "UK", local: false)
         
-        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "DE"),
+        let expectedValuesChanged: Set<Value> = [.init(key: "location", value: "DE"),
                                                .init(key: "location", value: "UA"),
                                                .init(key: "location", value: "UK")]
         
-        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+        XCTAssert(expectedValuesChanged.isSubset(of: actualValuesChanged))
     }
     
     func testOnEmitEventWithMetadata() {
