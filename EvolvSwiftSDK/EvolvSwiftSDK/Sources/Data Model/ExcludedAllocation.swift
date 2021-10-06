@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  ExcludedAllocation.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,14 +16,16 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
+struct ExcludedAllocation: Decodable, Equatable {
+    let userId: String
+    let experimentId: String
+    let excluded: Bool
     
-    func allocations() -> AnyPublisher<([Allocation], [ExcludedAllocation]), Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
-    
-    func submit(data: EvolvBeaconMessage)
+    private enum CodingKeys: String, CodingKey {
+        case userId = "uid"
+        case experimentId = "eid"
+        case excluded
+    }
 }

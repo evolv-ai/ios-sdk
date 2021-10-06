@@ -37,8 +37,11 @@ class EvolvAPIMock: EvolvAPI {
             .eraseToAnyPublisherWithError()
     }
     
-    func allocations() -> AnyPublisher<[Allocation], Error> {
+    func allocations() -> AnyPublisher<([Allocation], [ExcludedAllocation]), Error> {
         Just(evolvAllocations)
+            .map { allocations in
+                (allocations, [])
+            }
             .eraseToAnyPublisherWithError()
     }
     

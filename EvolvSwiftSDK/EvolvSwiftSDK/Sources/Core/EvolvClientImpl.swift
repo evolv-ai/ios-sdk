@@ -30,7 +30,7 @@ public final class EvolvClientImpl: EvolvClient {
     private var evolvStore: EvolvStore!
     private var contextBeacon: EvolvBeacon
     
-    private lazy var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     public static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error> {
         EvolvClientImpl(options: options, evolvAPI: EvolvHTTPAPI(options: options), scope: UUID())
