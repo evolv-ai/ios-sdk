@@ -459,7 +459,7 @@ extension EvolvClientTests {
         XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
     }
     
-    func testOnContextValueChanged() {
+    func testOnSameContextValueChangedForRemoteAndLocal() {
         let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
@@ -468,12 +468,13 @@ extension EvolvClientTests {
             let value: String!
         }
         
-        var actualValuesAdded = Set<Value>()
+        var actualValuesAdded = [Value]()
+        var actualValuesChanged = [Value]()
         client.on(topic: CONTEXT_VALUE_ADDED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesAdded.append(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         client.on(topic: CONTEXT_VALUE_CHANGED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesChanged.append(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         _ = client.set(key: "location", value: "US", local: false)
         _ = client.set(key: "location", value: "DE", local: true)
@@ -481,6 +482,7 @@ extension EvolvClientTests {
         let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US"), .init(key: "location", value: "DE")]
         
         XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+        XCTAssertEqual(expectedValuesAdded.intersection(actualValuesChanged).count, 0)
     }
     
     func testOnContextValueRemoved() {
@@ -492,19 +494,23 @@ extension EvolvClientTests {
             let value: String?
         }
         
-        var actualValuesAdded = Set<Value>()
+        var actualValuesAdded = [Value]()
+        var actualValuesRemoved = [Value]()
         client.on(topic: CONTEXT_VALUE_ADDED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesAdded.append(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         client.on(topic: CONTEXT_VALUE_REMOVED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesRemoved.append(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         _ = client.set(key: "location", value: "US", local: false)
         _ = client.remove(key: "location")
         
-        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US"), .init(key: "location", value: nil)]
+        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "US")]
+        let expectedValuesRemoved: [Value] = [.init(key: "location", value: nil)]
         
         XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+        XCTAssertEqual(expectedValuesRemoved, actualValuesRemoved)
+        XCTAssertEqual(expectedValuesRemoved.count, 1)
     }
     
     func testOnceContextValueChanged() {
@@ -516,18 +522,20 @@ extension EvolvClientTests {
             let value: String?
         }
         
-        var actualValuesAdded = Set<Value>()
+        var actualValuesChanged = Set<Value>()
         client.on(topic: CONTEXT_VALUE_CHANGED) { value in
-            actualValuesAdded.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
+            actualValuesChanged.insert(Value(key: value["key"] as? String, value: value["value"] as? String))
         }
         _ = client.set(key: "location", value: "US", local: false)
         _ = client.set(key: "location", value: "DE", local: false)
         _ = client.set(key: "location", value: "UA", local: false)
         _ = client.set(key: "location", value: "UK", local: false)
         
-        let expectedValuesAdded: Set<Value> = [.init(key: "location", value: "DE")]
+        let expectedValuesChanged: Set<Value> = [.init(key: "location", value: "DE"),
+                                               .init(key: "location", value: "UA"),
+                                               .init(key: "location", value: "UK")]
         
-        XCTAssert(expectedValuesAdded.isSubset(of: actualValuesAdded))
+        XCTAssert(expectedValuesChanged.isSubset(of: actualValuesChanged))
     }
     
     func testOnEmitEventWithMetadata() {
