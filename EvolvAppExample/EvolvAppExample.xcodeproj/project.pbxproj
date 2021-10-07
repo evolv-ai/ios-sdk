@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5902776B270F2100007F7987 /* ButtonActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5902776A270F2100007F7987 /* ButtonActive.swift */; };
 		8D9C611B26700E7E0011EC8A /* EvolvSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */; };
 		8D9C611C26700E7E0011EC8A /* EvolvSwiftSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DC547452664D7E2009E2B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC547442664D7E2009E2B19 /* AppDelegate.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5902776A270F2100007F7987 /* ButtonActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActive.swift; sourceTree = "<group>"; };
 		8D9C611A26700E7E0011EC8A /* EvolvSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EvolvSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC547412664D7E2009E2B19 /* EvolvAppExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvolvAppExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC547442664D7E2009E2B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				8DC547442664D7E2009E2B19 /* AppDelegate.swift */,
 				8DC547462664D7E2009E2B19 /* SceneDelegate.swift */,
 				8DC547482664D7E2009E2B19 /* ViewController.swift */,
+				5902776A270F2100007F7987 /* ButtonActive.swift */,
 				8DC5474A2664D7E2009E2B19 /* Main.storyboard */,
 				8DC5474D2664D7E5009E2B19 /* Assets.xcassets */,
 				8DC5474F2664D7E5009E2B19 /* LaunchScreen.storyboard */,
@@ -287,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC547492664D7E2009E2B19 /* ViewController.swift in Sources */,
+				5902776B270F2100007F7987 /* ButtonActive.swift in Sources */,
 				8DC547452664D7E2009E2B19 /* AppDelegate.swift in Sources */,
 				8DC547472664D7E2009E2B19 /* SceneDelegate.swift in Sources */,
 			);
@@ -467,6 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5W9K96U25G;
 				INFOPLIST_FILE = EvolvAppExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -486,6 +491,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5W9K96U25G;
 				INFOPLIST_FILE = EvolvAppExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
