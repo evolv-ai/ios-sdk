@@ -18,7 +18,7 @@
 
 import Foundation
 import XCTest
-import EvolvSwiftSDK
+@testable import EvolvSwiftSDK
 
 extension XCTest {
     func getConfig() throws -> Configuration {

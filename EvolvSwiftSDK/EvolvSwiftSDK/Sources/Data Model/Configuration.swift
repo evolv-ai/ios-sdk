@@ -20,10 +20,10 @@
 import Foundation
 
 // MARK: - Configuration
-public struct Configuration: Decodable, EvolvConfig, Equatable {
+struct Configuration: Decodable, EvolvConfig, Equatable {
     let published: Double
     let client: Client
-    let experiments: [Experiment]
+    var experiments: [Experiment]
     
     private struct CodingKeys: CodingKey {
         var stringValue: String
@@ -64,6 +64,7 @@ public struct Experiment: Decodable, Equatable {
     let id: String
     let paused: Bool
     let experimentKeys: [ExperimentKey]
+    var isExcluded = false
     
     private struct CodingKeys: CodingKey {
         var stringValue: String
@@ -97,7 +98,7 @@ public struct Experiment: Decodable, Equatable {
     }
     
     func isActive(in context: [String : Any]) -> Bool {
-        predicate?.isActive(in: context) ?? true
+        predicate?.isActive(in: context) ?? true && !isExcluded
     }
     
     func getKey(at path: ExperimentKey.ExperimentKeyPath) -> ExperimentKey? {

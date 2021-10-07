@@ -20,15 +20,17 @@
 import Foundation
 
 // MARK: - Allocation
-public struct Allocation: Codable, Equatable {
-    let userId, experimentId, candidateId: String
-    let genome: GenomeObject
+struct Allocation: Codable, Equatable {
+    let userId: String
+    let experimentId: String
+    let candidateId: String
+    let genome: GenomeObject?
     let audienceQuery: AudienceQuery?
     let ordinal: Int
     let groupID: String
     let excluded: Bool
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case userId = "uid"
         case experimentId = "eid"
         case candidateId = "cid"
@@ -37,6 +39,18 @@ public struct Allocation: Codable, Equatable {
         case ordinal
         case groupID = "group_id"
         case excluded
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        userId = try container.decode(String.self, forKey: .userId)
+        experimentId = try container.decode(String.self, forKey: .experimentId)
+        candidateId = try container.decode(String.self, forKey: .candidateId)
+        genome = try container.decode(GenomeObject.self, forKey: .genome)
+        audienceQuery = try container.decode(AudienceQuery.self, forKey: .audienceQuery)
+        ordinal = try container.decode(Int.self, forKey: .ordinal)
+        groupID = try container.decode(String.self, forKey: .groupID)
+        excluded = try container.decode(Bool.self, forKey: .excluded)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -53,18 +67,4 @@ public struct Allocation: Codable, Equatable {
 // MARK: - AudienceQuery
 public struct AudienceQuery: Codable, Equatable {
     
-}
-
-extension Allocation {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        userId = try container.decode(String.self, forKey: .userId)
-        experimentId = try container.decode(String.self, forKey: .experimentId)
-        candidateId = try container.decode(String.self, forKey: .candidateId)
-        genome = try container.decode(GenomeObject.self, forKey: .genome)
-        audienceQuery = try container.decode(AudienceQuery.self, forKey: .audienceQuery)
-        ordinal = try container.decode(Int.self, forKey: .ordinal)
-        groupID = try container.decode(String.self, forKey: .groupID)
-        excluded = try container.decode(Bool.self, forKey: .excluded)
-    }
 }

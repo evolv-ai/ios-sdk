@@ -31,6 +31,7 @@ public class EvolvStoreImpl: EvolvStore {
     
     private var scope: AnyHashable
     
+    private var evolvExcludedAllocations = [ExcludedAllocation]()
     private var _evolvConfiguration: Configuration!
     private var keyStates: KeyStates
     private var configKeyStates = KeyStates();
@@ -64,11 +65,16 @@ public class EvolvStoreImpl: EvolvStore {
                 .sink(receiveCompletion: { publishersCompletion in
                     promise(publishersCompletion.resultRepresentation(withSuccessCase: self))
                 }, receiveValue: { [weak self] (configuration, allocations) in
-                    self?._evolvConfiguration = configuration
-                    self?.evolvAllocations = allocations
-                    self?.evolvContext.contextChanged(key: "experiments.allocations", value: allocations, before: [])
-                    self?.evolvContext.emitInitialValues()
-                    self?.reevaluateContext()
+                    guard let self = self else { return }
+                    
+                    self._evolvConfiguration = configuration
+                    self.evolvAllocations = allocations.0
+                    self.evolvExcludedAllocations = allocations.1
+                    self.excludeExperiments()
+                    self.evolvContext.contextChanged(key: "experiments.allocations", value: self.evolvAllocations, before: [])
+                    self.evolvContext.contextChanged(key: "experiments.exclusions", value: self.evolvExcludedAllocations, before: [])
+                    self.evolvContext.emitInitialValues()
+                    self.reevaluateContext()
                 })
                 .store(in: &self.cancellables)
         }
@@ -155,7 +161,7 @@ public class EvolvStoreImpl: EvolvStore {
         genomeValueSubjects.forEach { (key, subject) in
             var genome: GenomeObject?
             for allocation in evolvAllocations {
-                genome = try? allocation.genome.parse(forKey: key)
+                genome = try? allocation.genome?.parse(forKey: key)
                 if genome != nil { break }
             }
             
@@ -163,6 +169,16 @@ public class EvolvStoreImpl: EvolvStore {
             
             subject.send(newValue)
         }
+    }
+    
+    private func excludeExperiments() {
+        guard var config = _evolvConfiguration else { return }
+        
+        config.experiments.enumerated().forEach { i, experiment in
+            config.experiments[i].isExcluded = evolvExcludedAllocations.contains(where: { $0.experimentId == experiment.id })
+        }
+        
+        _evolvConfiguration = config
     }
 }
 

@@ -61,8 +61,22 @@ extension EvolvHTTPAPI: EvolvAPI {
         return run(URLRequest(url: httpConfig.configurationURL))
     }
     
-    func allocations() -> AnyPublisher<[Allocation], Error> {
-        return run(URLRequest(url: httpConfig.allocationsURL))
+    func allocations() -> AnyPublisher<([Allocation], [ExcludedAllocation]), Error> {
+        let publisher: AnyPublisher<[AllocationContainer], Error> = run(URLRequest(url: httpConfig.allocationsURL))
+        
+        return publisher.map { arrayOfContainers -> ([Allocation], [ExcludedAllocation]) in
+            var allocations = [Allocation]()
+            var excludedAllocations = [ExcludedAllocation]()
+            arrayOfContainers.forEach {
+                switch $0 {
+                case .allocation(let allocation):
+                    allocations.append(allocation)
+                case .excludedAllocation(let exclduedAllocation):
+                    excludedAllocations.append(exclduedAllocation)
+                }
+            }
+            return (allocations, excludedAllocations)
+        }.eraseToAnyPublisher()
     }
     
     func submit<T: EvolvEvent>(events: [T]) {

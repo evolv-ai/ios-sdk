@@ -158,7 +158,7 @@ public struct EvolvContextContainerImpl: EvolvContextContainer {
         var dict = [String : GenomeObject]()
         
         activeKeys.forEach { key in
-            guard let genomeForKey = try? allocation.genome.parse(forKey: key) else { return }
+            guard let genomeForKey = try? allocation.genome?.parse(forKey: key) else { return }
             
             dict[key] = genomeForKey
         }
