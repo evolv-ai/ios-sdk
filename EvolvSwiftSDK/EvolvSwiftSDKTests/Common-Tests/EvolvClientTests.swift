@@ -247,7 +247,7 @@ class EvolvClientTests: XCTestCase {
             let second_button: SingleButton
         }
         
-        let actualButtonGenome: ButtonColorKey? = client.get(decodableValueForKey: "button_color")
+        let actualButtonGenome = try? client.get(decodableValueForKey: "button_color", type: ButtonColorKey.self)
         let expectedButtonGenome = ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red"))
         
         XCTAssertEqual(expectedButtonGenome, actualButtonGenome)
@@ -352,10 +352,11 @@ class EvolvClientTests: XCTestCase {
         
         var actualValues = [ButtonColorKey?]()
         
-        let buttonColorKey: AnyPublisher<ButtonColorKey?, Never> = client.get(subscriptionDecodableOnValueForKey: "button_color")
-        buttonColorKey.sink(receiveValue: { genome in
-            actualValues.append(genome)
-        }).store(in: &cancellables)
+        client.get(subscriptionDecodableOnValueForKey: "button_color", type: ButtonColorKey.self)
+            .sink(receiveValue: { genome in
+                actualValues.append(genome)
+            }).store(in: &cancellables)
+        
         _ = client.set(key: "device", value: "none", local: false)
         
         let expectedValues = [ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red")), nil]
