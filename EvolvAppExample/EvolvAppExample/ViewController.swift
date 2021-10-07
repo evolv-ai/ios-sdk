@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         
         // Initialise options for the EvolvClient.
         // Provide your credentials for the Evolv API.
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true,
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1609111251238", environmentId: "4a64e0b2ab", autoConfirm: false, analytics: true,
                                          localContext: ["location" : "UA",
                                                         "age" : "25",
                                                         "view" : "home"])
