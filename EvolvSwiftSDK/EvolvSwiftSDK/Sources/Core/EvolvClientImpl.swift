@@ -222,7 +222,7 @@ public final class EvolvClientImpl: EvolvClient {
         evolvStore.get(valueForKey: key)
     }
     
-    public func get<T: Decodable>(decodableValueForKey key: String) -> T? {
+    public func get<T: Decodable>(decodableValueForKey key: String, type: T.Type) throws -> T? {
         guard let anyValue = self.get(valueForKey: key) as? [AnyHashable : Any],
               let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue)
         else { return nil }
@@ -235,7 +235,7 @@ public final class EvolvClientImpl: EvolvClient {
             .eraseToAnyPublisher()
     }
     
-    public func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String) -> AnyPublisher<T?, Never> {
+    public func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String, type: T.Type) -> AnyPublisher<T?, Never> {
         evolvStore.get(subscriptionOnValueForKey: key)
             .map { value -> T? in
                 guard let anyValue = value as? [AnyHashable : Any],

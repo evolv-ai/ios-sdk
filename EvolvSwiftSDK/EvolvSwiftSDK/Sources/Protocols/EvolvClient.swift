@@ -54,7 +54,7 @@ public protocol EvolvClient {
     /// Get the value of a specified key.
     /// - Parameter valueForKey: The key of the value to retrieve.
     /// - Returns: Decoded value for the provided key. Value MUST be of `JSON` type.
-    func get<T: Decodable>(decodableValueForKey key: String) throws -> T?
+    func get<T: Decodable>(decodableValueForKey key: String, type: T.Type) throws -> T?
     
     /// Get the publisher of values of the specified key.
     /// - Parameter valueForKey: The key of the value to retrieve.
@@ -64,7 +64,7 @@ public protocol EvolvClient {
     /// Get the publisher of values of the specified key & decode it.
     /// - Parameter valueForKey: The key of the value to retrieve.
     /// - Returns: Publisher that will broadcast decoded values whenever the change for the specified key. Value MUST be of `JSON` type.
-    func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String) -> AnyPublisher<T?, Never>
+    func get<T: Decodable>(subscriptionDecodableOnValueForKey key: String, type: T.Type) -> AnyPublisher<T?, Never>
     
     /// Sets a value in the current context.
     /// - Note: This will cause the effective genome to be recomputed.
