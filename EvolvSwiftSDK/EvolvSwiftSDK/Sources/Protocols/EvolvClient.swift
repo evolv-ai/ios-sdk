@@ -73,7 +73,7 @@ public protocol EvolvClient {
     /// - Parameter local: If true, the value will only be added to the localContext.
     /// - Returns: True if the context was updated. False if the the context already had the provided value set for this key.
     @discardableResult
-    func set(key: String, value: Any, local: Bool) -> Bool
+    func set(key: String, value: String, local: Bool) -> Bool
     
     @discardableResult
     func remove(key: String) -> Bool
