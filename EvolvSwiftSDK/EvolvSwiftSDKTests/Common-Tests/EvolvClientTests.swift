@@ -596,4 +596,42 @@ extension EvolvClientTests {
         
         XCTAssert(!actualValuesForKeys.contains { $0 != nil })
     }
+    
+    func testExcludedExperimentsConfirmationEventNotFired() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_excluded"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
+        
+        client.confirm()
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvConfirmation]
+        let expectedSubmittedEvents = [EvolvConfirmation(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp)]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    func testExcludedExperimentsContaminationEventNotFired() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_excluded"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
+        
+        client.contaminate(details: nil, allExperiments: true)
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvContamination]
+        let expectedSubmittedEvents = [EvolvContamination(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp, contaminationReason: nil)]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
 }
