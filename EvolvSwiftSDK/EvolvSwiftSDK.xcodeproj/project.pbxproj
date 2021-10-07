@@ -26,6 +26,7 @@
 		59B548FF26FC8E5F00E0222B /* EvolvClientOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B548FE26FC8E5F00E0222B /* EvolvClientOptions.swift */; };
 		59C935BE270DB598006CFD8C /* ExcludedAllocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C935BD270DB598006CFD8C /* ExcludedAllocation.swift */; };
 		59C935C0270DB877006CFD8C /* AllocationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C935BF270DB877006CFD8C /* AllocationContainer.swift */; };
+		59C935C4270EF6C8006CFD8C /* allocations_excluded.json in Resources */ = {isa = PBXBuildFile; fileRef = 59C935C3270EF6C8006CFD8C /* allocations_excluded.json */; };
 		59D1F35926E0EA73005534BC /* EvolvContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D1F35826E0EA73005534BC /* EvolvContext.swift */; };
 		59D1F35B26E0EAD2005534BC /* EvolvContextImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D1F35A26E0EAD2005534BC /* EvolvContextImpl.swift */; };
 		59E5B7522701FDB300FC1DCF /* EvolvBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5B74E2701ED4700FC1DCF /* EvolvBeacon.swift */; };
@@ -118,6 +119,7 @@
 		59B548FE26FC8E5F00E0222B /* EvolvClientOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvClientOptions.swift; sourceTree = "<group>"; };
 		59C935BD270DB598006CFD8C /* ExcludedAllocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcludedAllocation.swift; sourceTree = "<group>"; };
 		59C935BF270DB877006CFD8C /* AllocationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationContainer.swift; sourceTree = "<group>"; };
+		59C935C3270EF6C8006CFD8C /* allocations_excluded.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = allocations_excluded.json; sourceTree = "<group>"; };
 		59D1F35826E0EA73005534BC /* EvolvContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvContext.swift; sourceTree = "<group>"; };
 		59D1F35A26E0EAD2005534BC /* EvolvContextImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvContextImpl.swift; sourceTree = "<group>"; };
 		59E5B74E2701ED4700FC1DCF /* EvolvBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolvBeacon.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 			children = (
 				8D9C60DA266F80E50011EC8A /* allocations.json */,
 				595E202D26F8BA5400D2D138 /* allocations_single.json */,
+				59C935C3270EF6C8006CFD8C /* allocations_excluded.json */,
 				8D9C60DB266F80E50011EC8A /* configuration.json */,
 				8D6D558C268371C700760BEB /* genome.json */,
 				8D6D558E2683726C00760BEB /* rules.json */,
@@ -546,6 +549,7 @@
 			files = (
 				8D9C60DE266F80E50011EC8A /* configuration.json in Resources */,
 				8D9C60DD266F80E50011EC8A /* allocations.json in Resources */,
+				59C935C4270EF6C8006CFD8C /* allocations_excluded.json in Resources */,
 				8D6D558F2683726C00760BEB /* rules.json in Resources */,
 				595E202E26F8BA5400D2D138 /* allocations_single.json in Resources */,
 				8D6D558D268371C700760BEB /* genome.json in Resources */,

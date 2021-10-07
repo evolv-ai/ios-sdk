@@ -130,7 +130,7 @@
                     }
                 ]
             },
-            "button_color": {
+            "button_height": {
                 "_is_entry_point": false,
                 "_predicate": {
                     "combinator": "or",

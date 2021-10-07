@@ -560,3 +560,40 @@ extension EvolvClientTests {
         XCTAssertEqual(actualEventReceived["type"] as? String, topic)
     }
 }
+
+// MARK: - Excluded experiments
+extension EvolvClientTests {
+    func testExcludedExperimentsKeysAreNotActive() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_excluded"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
+        
+        let expectedActiveKeys: Set<String> = ["home", "home.background", "home.cta_text"]
+        let actualActiveKeys = client.getActiveKeys()
+        
+        XCTAssertEqual(expectedActiveKeys, actualActiveKeys)
+    }
+    
+    func testExcludedExperimentsValuesForKeysAreNil() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location":"UA",
+                                                                        "view":"home",
+                                                                        "name":"Alex",
+                                                                        "authenticated":"false",
+                                                                        "device":"mobile",
+                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+        let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_excluded"))
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
+        
+        let actualValuesForKeys = [client.get(valueForKey: "cta_text"),
+                                   client.get(valueForKey: "button_height")]
+        
+        XCTAssert(!actualValuesForKeys.contains { $0 != nil })
+    }
+}
