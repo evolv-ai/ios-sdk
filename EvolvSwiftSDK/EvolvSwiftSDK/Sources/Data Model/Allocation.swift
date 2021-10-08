@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Allocation
-public struct Allocation: Codable, Equatable {
+struct Allocation: Codable, Equatable {
     let userId, experimentId, candidateId: String
     let genome: GenomeObject
     let audienceQuery: AudienceQuery?
@@ -51,7 +51,7 @@ public struct Allocation: Codable, Equatable {
 }
 
 // MARK: - AudienceQuery
-public struct AudienceQuery: Codable, Equatable {
+struct AudienceQuery: Codable, Equatable {
     
 }
 

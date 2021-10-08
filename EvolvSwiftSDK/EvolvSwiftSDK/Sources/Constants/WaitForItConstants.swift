@@ -18,6 +18,11 @@
 
 import Foundation
 
+public let EvolvClient_INITIALIZED = "initialized"
+public let EvolvClient_CONFIRMED = "confirmed"
+public let EvolvClient_CONTAMINATED = "contaminated"
+public let EvolvClient_EVENT_EMITTED = "event.emitted"
+
 public let GENOME_REQUEST_SENT = "genome.request.sent"
 public let CONFIG_REQUEST_SENT = "config.request.sent"
 public let GENOME_REQUEST_RECEIVED = "genome.request.received"

@@ -21,7 +21,7 @@ import Foundation
 /// A raw dynamic node with experiment settings,
 /// that can contain either a value of a certain type
 /// or arrays of nodes and nodes dictionaries
-public final class GenomeObject: NSObject {
+final class GenomeObject: NSObject {
     
     /// Raw allocation node's type definitions.
     @objc public enum ValueType: Int, CustomStringConvertible {

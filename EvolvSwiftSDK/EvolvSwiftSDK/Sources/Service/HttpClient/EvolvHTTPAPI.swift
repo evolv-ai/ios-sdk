@@ -27,28 +27,6 @@ struct EvolvHTTPAPI {
         self.httpConfig = HttpConfig(options: options)
     }
     
-    /// Fetches data from a URL
-    /// - Parameter url: URL from where to fetch data.
-    /// - Returns: publisher for the data task.
-    func fetchData(for url: URL) -> AnyPublisher<Data?, HTTPError> {
-        return session.dataTaskPublisher(for: url)
-            .mapError { HTTPError.networkingError($0) }
-            .print()
-            .tryMap {
-                guard let httpResponse = $0.response as? HTTPURLResponse else {
-                    print("Evolv: Request failed \($0.response)")
-                    throw HTTPError.nonHTTPResponse
-                }
-                guard httpResponse.statusCode == 200 else {
-                    print("Evolv: Request failed \(httpResponse.statusCode) for \(httpResponse)")
-                    throw HTTPError.requestFailed(httpResponse.statusCode)
-                }
-                return $0.data
-            }
-            .mapError { $0 as! HTTPError }
-            .eraseToAnyPublisher()
-    }
-    
     func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
         return httpClient.run(request)
             .map(\.value)

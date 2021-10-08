@@ -20,7 +20,7 @@
 import Foundation
 
 // MARK: - Configuration
-public struct Configuration: Decodable, EvolvConfig, Equatable {
+struct Configuration: Decodable, Equatable {
     let published: Double
     let client: Client
     let experiments: [Experiment]
@@ -54,12 +54,12 @@ public struct Configuration: Decodable, EvolvConfig, Equatable {
 
 // MARK: - Client
 // TODO: is it really needed for mobile version
-public struct Client: Codable, Equatable {
+struct Client: Codable, Equatable {
     let browser, device, location, platform: String
 }
 
 // MARK: - Experiment
-public struct Experiment: Decodable, Equatable {
+struct Experiment: Decodable, Equatable {
     let predicate: CompoundRule?
     let id: String
     let paused: Bool
@@ -111,7 +111,7 @@ public struct Experiment: Decodable, Equatable {
     }
 }
 
-public struct ExperimentKey: Decodable, Equatable, Hashable {
+struct ExperimentKey: Decodable, Equatable, Hashable {
     let keyPath: ExperimentKeyPath
     let isEntryPoint: Bool
     let predicate: CompoundRule?
@@ -181,7 +181,7 @@ public struct ExperimentKey: Decodable, Equatable, Hashable {
 }
 
 // MARK: - Rule
-public struct Rule: Codable, Equatable, Hashable {
+struct Rule: Codable, Equatable, Hashable {
     let field: String
     let ruleOperator: RuleOperator
     let value: String
@@ -223,7 +223,7 @@ public struct Rule: Codable, Equatable, Hashable {
 }
 
 
-public struct CompoundRule: Decodable, Equatable, Hashable {
+struct CompoundRule: Decodable, Equatable, Hashable {
     enum Combinator: String, Decodable {
         case and
         case or
@@ -247,7 +247,7 @@ public struct CompoundRule: Decodable, Equatable, Hashable {
     }
 }
 
-public enum EvolvQuery: Decodable, Equatable, Hashable {
+enum EvolvQuery: Decodable, Equatable, Hashable {
     
     case rule(Rule)
     case compoundRule(CompoundRule)
@@ -285,7 +285,7 @@ public enum EvolvQuery: Decodable, Equatable, Hashable {
 }
 
 // MARK: - ExperimentPredicate
-public struct ExperimentPredicate: Codable, Equatable {
+struct ExperimentPredicate: Codable, Equatable {
     let id: Int?
     let combinator: EvolvPredicateCombinator
     let rules: [Rule]?

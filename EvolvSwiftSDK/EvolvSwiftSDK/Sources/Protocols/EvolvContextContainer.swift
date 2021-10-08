@@ -21,7 +21,7 @@ import Combine
 
 /// The EvolvContext provides functionality to manage data relating to the client state, or context in which the variants will be applied.
 /// This data is used for determining which variables are active, and for general analytics.
-internal protocol EvolvContextContainer {
+protocol EvolvContextContainer {
     var remoteContext: [String : Any] { get }
     
     var localContext: [String : Any] { get }
@@ -77,7 +77,6 @@ internal protocol EvolvContextContainer {
 //    /// - Parameter update: The values to update the context with.
 //    /// - Parameter value: If true, the values will only be added to the localContext.
 //    func update(update: AnyObject, local: Bool)
-    
     func getActiveKeys() -> Set<String>
     
     mutating func reevaluateContext(with configuration: Configuration, allocations: [Allocation])
