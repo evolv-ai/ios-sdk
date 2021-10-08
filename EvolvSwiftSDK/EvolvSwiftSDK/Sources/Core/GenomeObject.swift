@@ -531,6 +531,4 @@ extension GenomeObject {
         
         return node
     }
-    
 }
-
