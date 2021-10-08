@@ -18,7 +18,7 @@
 
 import Combine
 
-public struct EvolvContextContainerImpl: EvolvContextContainer {
+struct EvolvContextContainerImpl: EvolvContextContainer {
     var confirmations = [EvolvConfirmation]()
     var contaminations = [EvolvContamination]()
     var events = [EvolvCustomEvent]()

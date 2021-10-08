@@ -20,7 +20,7 @@
 import Foundation
 import Combine
 
-public class EvolvStoreImpl: EvolvStore {
+class EvolvStoreImpl: EvolvStore {
     var activeKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeKeys }
     var activeVariantKeys: CurrentValueSubject<Set<String>, Never> { evolvContext.activeVariants }
     
@@ -33,25 +33,21 @@ public class EvolvStoreImpl: EvolvStore {
     
     private var evolvExcludedAllocations = [ExcludedAllocation]()
     private var _evolvConfiguration: Configuration!
-    private var keyStates: KeyStates
-    private var configKeyStates = KeyStates();
-    private var genomeKeyStates = KeyStates();
     private let evolvAPI: EvolvAPI
     
     private var genomeValueSubjects = [String : CurrentValueSubject<Any?, Never>]()
     
     private var cancellables = Set<AnyCancellable>()
     
-    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) -> AnyPublisher<EvolvStore, Error> {
-        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, scope: scope, keyStates: keyStates)
+    static func initialize(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable) -> AnyPublisher<EvolvStore, Error> {
+        EvolvStoreImpl(evolvContext: evolvContext, evolvAPI: evolvAPI, scope: scope)
             .initialize()
             .map { $0 as EvolvStore }
             .eraseToAnyPublisher()
     }
     
-    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable, keyStates: EvolvStoreImpl.KeyStates = .init()) {
+    private init(evolvContext: EvolvContextContainerImpl, evolvAPI: EvolvAPI, scope: AnyHashable) {
         self.evolvContext = evolvContext
-        self.keyStates = keyStates
         self.evolvAPI = evolvAPI
         self.scope = scope
     }
@@ -82,12 +78,6 @@ public class EvolvStoreImpl: EvolvStore {
     
     deinit {
         WaitForIt.shared.emit(scope: self.scope, it: STORE_DESTROYED)
-    }
-    
-    struct KeyStates {
-        var needed = Set<String>()
-        var requested = Set<String>()
-        var experiments = Array<String>()
     }
     
     func isActive(key: String) -> Bool {
@@ -179,76 +169,5 @@ public class EvolvStoreImpl: EvolvStore {
         }
         
         _evolvConfiguration = config
-    }
-}
-
-
-
-extension EvolvStoreImpl {
-    
-    func expKeyStatesHas(keyStates: KeyStates, stateName: String, key: String, prefix: Bool = false) {
-        
-    }
-    
-    func setConfigLoadedKeys(keyStates: Any, exp: Any) {
-        
-    }
-    
-    func moveKeys(keys: Any, from: Any, to: Any) {
-        
-    }
-    
-    func wrapListener(listener: Any) {
-        
-    }
-    
-    func getValue(for key: String, with genome: GenomeObject) {
-        
-    }
-    
-    func getConfigValue(for key: String, genome: GenomeObject, config: EvolvConfig) {
-      
-    }
-    
-    func getValueActive(activeKeys: [String], key: String) -> Bool {
-        return activeKeys.contains(key)
-    }
-    
-    func getActiveKeys(activeKeys: [String], previousKeys: [String], prefix: [String]) -> [String] {
-        
-        var result: Array<String> = []
-        
-        func hasPrefix(key: String) -> Bool {
-            return prefix.isEmpty || !prefix.contains(key)
-        }
-        
-        for key in activeKeys {
-            if hasPrefix(key: key) {
-                result.append(key)
-            }
-        }
-        return result
-    }
-    
-    func activeEntryPoints(entryKeys: [String: Any]) -> [String] {
-        return []
-    }
-    
-    func evaluatePredicates(version: Int, context: EvolvContextContainer, config: Configuration) -> [String: Any]{
-        let result = [String: Any]()
-        if (config.experiments.count == 0) {
-            return result
-        }
-        
-        // TODO: - Add functionality (lines 172-210)
-        return result
-    }
-    
-    public func getActiveAndEntryExperimentKeyStates(results: Array<String>, keyStatesLoaded: [String: Any]) {
-        // TODO: - Add functionality (lines 216-240)
-    }
-    
-    func setActiveAndEntryKeyStates(version: Int, context: EvolvContextContainer, allocations: Allocation,  config: Configuration, configKeyStates: [String: Any]) {
-        // TODO: - Add functionality 242-287
     }
 }

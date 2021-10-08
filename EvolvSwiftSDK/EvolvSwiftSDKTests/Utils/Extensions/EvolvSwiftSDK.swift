@@ -94,8 +94,7 @@ extension EvolvClientOptions: Encodable {
         try container.encode(autoConfirm, forKey: .autoConfirm)
         try container.encode(analytics, forKey: .analytics)
         try container.encode(blockTransmit, forKey: .blockTransmit)
-        try container.encode(bufferEvents as? [String : String], forKey: .bufferEvents)
-        try container.encode(remoteContext as? [String : String], forKey: .remoteContext)
-        try container.encode(localContext as? [String : String], forKey: .localContext)
+        try container.encode(remoteContext, forKey: .remoteContext)
+        try container.encode(localContext, forKey: .localContext)
     }
 }

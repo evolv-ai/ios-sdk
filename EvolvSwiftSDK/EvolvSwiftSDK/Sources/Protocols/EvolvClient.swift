@@ -18,10 +18,12 @@
 
 import Combine
 
+/// The EvolvClient provides a low level integration with the Evolv participant APIs.
 public protocol EvolvClient {
     /// Active keys evaluated in the current Evolv context.
     var activeKeys: AnyPublisher<Set<String>, Never> { get }
     
+    /// Active variant keys evaluated in the current Evolv context.
     var activeVariantKeys: AnyPublisher<Set<String>, Never> { get }
     
     /// Initialises EvolvClient with desired EvolvClientOptions
@@ -75,11 +77,22 @@ public protocol EvolvClient {
     @discardableResult
     func set(key: String, value: String, local: Bool) -> Bool
     
+    /// Remove a specified key from the context.
+    /// - Note: This will cause the effective genome to be recomputed.
+    /// - Parameter key: The key to remove from the current context.
+    /// - Returns: True if the context was updated. False if the the context didn't have specified key.
     @discardableResult
     func remove(key: String) -> Bool
     
+    /// Send an event to the events endpoint.
+    /// - Parameter eventType: The type associated with the event.
+    /// - Parameter metadata: Any metadata to attach to the event.
+    /// - Parameter flush: If true, the event will be sent immediately.
     func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool)
     
+    /// Send an event to the events endpoint.
+    /// - Parameter eventType: The type associated with the event.
+    /// - Parameter flush: If true, the event will be sent immediately.
     func emit(eventType: String, flush: Bool)
     
     /// Reevaluates the current context.
@@ -88,92 +101,13 @@ public protocol EvolvClient {
     /// Gets active keys.
     func getActiveKeys() -> Set<String>
     
+    /// Add listeners to lifecycle events that take place in to client.
+    /// - Parameter topic: The event topic on which the listener should be invoked.
+    /// - Parameter listener: The listener to be invoked for the specified topic.
     func on(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
     
+    /// Add a listener to a lifecycle event to be invoked once on the next instance of the event to take place in to client.
+    /// - Parameter topic: The event topic on which the listener should be invoked.
+    /// - Parameter listener: The listener to be invoked for the specified topic.
     func once(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
 }
-
-// MARK: - Default implementation and optional protocol methods
-//extension EvolvClient {
-//
-//    /// Check all active keys that start with the specified prefix.
-//    /// - Parameter prefix: The prefix of the keys to check.
-//    func getActiveKeys(for prefix: String) -> Bool {
-//        return true
-//    }
-//
-//    //    Deprecated
-//    /// Clears the active keys to reset the key states.
-//    /// - Parameter prefix: The prefix of the keys clear.
-//    func clearActiveKeys(for prefix: String) -> Bool {
-//        return true
-//    }
-//
-//    /// If the client was configured with bufferEvents: true then calling this will allow data to be sent back to Evolv
-//    func allowEvents() -> Bool {
-//        return true
-//    }
-//
-//    /// Destroy the client and its dependencies.
-//    func destroy() -> Bool {
-//        return true
-//    }
-//
-//    /// Emits a generic event to be recorded by Evolv.
-//    ///
-//    /// Sends an event to Evolv to be recorded and reported upon.
-//    ///
-//    /// - Parameter key: The identifier of the event.
-//    func emit(for key: String) -> Bool {
-//        return true
-//    }
-//
-//    /// Force all beacons to transmit.
-//    func flush() -> Bool {
-//        return true
-//    }
-//
-//    /// Check if a specified key is currently active.
-//    /// - Parameter key: The key to check.
-//    func isActive(for key: String) -> Bool {
-//        return true
-//    }
-//
-////    TODO: check method and implementation in Javascript SDK
-//    /// Add listeners to lifecycle events that take place in to client.
-//    /// See Constants/Events for currently supported events
-//    /// - Parameter topic: The event topic on which the listener should be invoked.
-//    /// - Parameter listener: The listener to be invoked for the specified topic.
-//    func on(with topic: String, for listener: () -> ()) -> Bool {
-//        return true
-//    }
-//
-////    TODO: check method and implementation in Javascript SDK
-//    /// Add a listener to a lifecycle event to be invoked once on the next instance of the event to take place in to client.
-//    /// See Constants/Events for currently supported events
-//    /// - Parameter topic: The event topic on which the listener should be invoked.
-//    /// - Parameter listener: The listener to be invoked for the specified topic.
-//    func once(with topic: String, for listener: () -> ()) -> Bool {
-//        return true
-//    }
-//
-////    TODO: check method and implementation in Javascript SDK
-//    /// Preload all keys under under the specified prefixes.
-//    /// - Parameter prefixes: A list of prefixes to keys to load.
-//    /// - Parameter configOnly: If true, only the config would be loaded. (default: false)
-//    /// - Parameter immediate: Forces the requests to the server. (default: false)
-//    func preload(for prefixes: [String: String], with configOnly: Bool, immediate: Bool) -> Bool {
-//        return true
-//    }
-//
-//    /// Get the configuration for a specified key.
-//    /// - Parameter key: The key to retrieve the configuration for.
-//    func getConfig(for key: String) -> Bool {
-//        return true
-//    }
-//
-//
-//
-//
-//
-//}

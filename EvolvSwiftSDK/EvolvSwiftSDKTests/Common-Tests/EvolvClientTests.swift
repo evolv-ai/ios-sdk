@@ -218,7 +218,7 @@ class EvolvClientTests: XCTestCase {
     func testGetsPrimitiveValuesForActiveKeys() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
         
@@ -233,7 +233,7 @@ class EvolvClientTests: XCTestCase {
                                                                         "name":"Alex",
                                                                         "authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
@@ -256,12 +256,12 @@ class EvolvClientTests: XCTestCase {
     func testGetsNullifiesOnContextChange() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
         
         let firstActualValue = client.get(valueForKey: "button_color") as? Int
-        _ = client.set(key: "device", value: "unknown", local: false)
+        _ = client.set(key: "signedin", value: "no", local: false)
         let secondActualValue = client.get(valueForKey: "button_color") as? Int
         
         XCTAssertEqual([firstActualValue, secondActualValue], [1500, nil])
@@ -275,7 +275,7 @@ class EvolvClientTests: XCTestCase {
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
         
         let firstActualValue = client.get(valueForKey: "button_color") as? Int
-        _ = client.set(key: "device", value: "mobile", local: false)
+        _ = client.set(key: "signedin", value: "yes", local: false)
         let secondActualValue = client.get(valueForKey: "button_color") as? Int
         
         XCTAssertEqual([firstActualValue, secondActualValue], [nil, 1500])
@@ -285,7 +285,7 @@ class EvolvClientTests: XCTestCase {
     func testSubscribeGetSingleValue() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
         
@@ -299,7 +299,7 @@ class EvolvClientTests: XCTestCase {
     func testSubscribeNullifiesOnContextChange() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
         
@@ -308,7 +308,7 @@ class EvolvClientTests: XCTestCase {
             .sink(receiveValue: { actualValues.append($0 as? Int) })
             .store(in: &cancellables)
         
-        _ = client.set(key: "device", value: "unknown", local: false)
+        _ = client.set(key: "signedin", value: "no", local: false)
         
         XCTAssertEqual(actualValues, [1500, nil])
     }
@@ -325,7 +325,7 @@ class EvolvClientTests: XCTestCase {
             .sink(receiveValue: { actualValues.append($0 as? Int) })
             .store(in: &cancellables)
         
-        _ = client.set(key: "device", value: "mobile", local: false)
+        _ = client.set(key: "signedin", value: "yes", local: false)
         
         XCTAssertEqual(actualValues, [nil, 1500])
     }
@@ -336,7 +336,8 @@ class EvolvClientTests: XCTestCase {
                                                                         "name":"Alex",
                                                                         "authenticated":"false",
                                                                         "device":"mobile",
-                                                                        "text":"cancel"], localContextUserInfo: [:], scope: scope)
+                                                                        "text":"cancel",
+                                                                        "signedin":"yes"], localContextUserInfo: [:], scope: scope)
         let evolvAPI = EvolvAPIMock(evolvConfiguration: try! getConfig(), evolvAllocations: try! getAllocations(fileName: "allocations_single"))
         let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
         let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
@@ -357,7 +358,7 @@ class EvolvClientTests: XCTestCase {
                 actualValues.append(genome)
             }).store(in: &cancellables)
         
-        _ = client.set(key: "device", value: "none", local: false)
+        _ = client.set(key: "signedin", value: "no", local: false)
         
         let expectedValues = [ButtonColorKey(first_button: .init(color: "blue"), second_button: .init(color: "red")), nil]
         

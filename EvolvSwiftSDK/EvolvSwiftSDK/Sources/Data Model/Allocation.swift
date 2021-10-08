@@ -41,18 +41,6 @@ struct Allocation: Codable, Equatable {
         case excluded
     }
     
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        userId = try container.decode(String.self, forKey: .userId)
-        experimentId = try container.decode(String.self, forKey: .experimentId)
-        candidateId = try container.decode(String.self, forKey: .candidateId)
-        genome = try container.decode(GenomeObject.self, forKey: .genome)
-        audienceQuery = try container.decode(AudienceQuery.self, forKey: .audienceQuery)
-        ordinal = try container.decode(Int.self, forKey: .ordinal)
-        groupID = try container.decode(String.self, forKey: .groupID)
-        excluded = try container.decode(Bool.self, forKey: .excluded)
-    }
-    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(candidateId, forKey: .candidateId)
@@ -65,6 +53,6 @@ struct Allocation: Codable, Equatable {
 }
 
 // MARK: - AudienceQuery
-public struct AudienceQuery: Codable, Equatable {
+struct AudienceQuery: Codable, Equatable {
     
 }

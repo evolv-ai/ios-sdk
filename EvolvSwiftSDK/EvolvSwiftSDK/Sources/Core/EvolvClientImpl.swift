@@ -273,8 +273,3 @@ public final class EvolvClientImpl: EvolvClient {
         WaitForIt.shared.waitOnceFor(scope: scope, it: topic, handler: listener)
     }
 }
-
-let EvolvClient_INITIALIZED = "initialized"
-let EvolvClient_CONFIRMED = "confirmed"
-let EvolvClient_CONTAMINATED = "contaminated"
-let EvolvClient_EVENT_EMITTED = "event.emitted"

@@ -82,7 +82,7 @@ extension JSONDecoder {
 
 extension JSONSerialization {
     static func crashSafeData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
-        var dataResult: Result<Data, Error> = .failure(EvolvError.generic)
+        var dataResult: Result<Data, Error> = .failure(NSError(domain: "Evolv", code: 0, userInfo: nil))
         
         let exception = tryBlock {
             do {

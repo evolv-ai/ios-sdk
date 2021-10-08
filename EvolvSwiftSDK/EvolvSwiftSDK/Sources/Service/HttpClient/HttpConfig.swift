@@ -19,7 +19,7 @@
 
 import Foundation
 
-public struct HttpConfig {
+struct HttpConfig {
     public let options: EvolvClientOptions
     
     static let httpScheme: String = "https"
