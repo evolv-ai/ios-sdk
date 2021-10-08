@@ -1,5 +1,5 @@
 //
-//  EvolvStore.swift
+//  ButtonActive.swift
 //
 //  Copyright (c) 2021 Evolv Technology Solutions
 //
@@ -16,14 +16,9 @@
 //  limitations under the License.
 //
 
-import Combine
+import Foundation
 
-protocol EvolvAPI {
-    func configuration() -> AnyPublisher<Configuration, Error>
-    
-    func allocations() -> AnyPublisher<([Allocation], [ExcludedAllocation]), Error>
-    
-    func submit<T: EvolvEvent>(events: [T])
-    
-    func submit(data: EvolvBeaconMessage)
+enum ButtonActive: String, Decodable {
+    case left
+    case right
 }
