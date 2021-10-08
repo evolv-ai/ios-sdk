@@ -18,10 +18,12 @@
 
 import Combine
 
+/// The EvolvClient provides a low level integration with the Evolv participant APIs.
 public protocol EvolvClient {
     /// Active keys evaluated in the current Evolv context.
     var activeKeys: AnyPublisher<Set<String>, Never> { get }
     
+    /// Active variant keys evaluated in the current Evolv context.
     var activeVariantKeys: AnyPublisher<Set<String>, Never> { get }
     
     /// Initialises EvolvClient with desired EvolvClientOptions
@@ -75,11 +77,22 @@ public protocol EvolvClient {
     @discardableResult
     func set(key: String, value: Any, local: Bool) -> Bool
     
+    /// Remove a specified key from the context.
+    /// - Note: This will cause the effective genome to be recomputed.
+    /// - Parameter key: The key to remove from the current context.
+    /// - Returns: True if the context was updated. False if the the context didn't have specified key.
     @discardableResult
     func remove(key: String) -> Bool
     
+    /// Send an event to the events endpoint.
+    /// - Parameter eventType: The type associated with the event.
+    /// - Parameter metadata: Any metadata to attach to the event.
+    /// - Parameter flush: If true, the event will be sent immediately.
     func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool)
     
+    /// Send an event to the events endpoint.
+    /// - Parameter eventType: The type associated with the event.
+    /// - Parameter flush: If true, the event will be sent immediately.
     func emit(eventType: String, flush: Bool)
     
     /// Reevaluates the current context.
@@ -88,7 +101,13 @@ public protocol EvolvClient {
     /// Gets active keys.
     func getActiveKeys() -> Set<String>
     
+    /// Add listeners to lifecycle events that take place in to client.
+    /// - Parameter topic: The event topic on which the listener should be invoked.
+    /// - Parameter listener: The listener to be invoked for the specified topic.
     func on(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
     
+    /// Add a listener to a lifecycle event to be invoked once on the next instance of the event to take place in to client.
+    /// - Parameter topic: The event topic on which the listener should be invoked.
+    /// - Parameter listener: The listener to be invoked for the specified topic.
     func once(topic: String, listener: (@escaping (_ userInfo: [String : Any?]) -> Void))
 }
