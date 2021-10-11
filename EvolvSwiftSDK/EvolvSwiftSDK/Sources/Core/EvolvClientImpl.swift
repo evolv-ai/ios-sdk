@@ -18,7 +18,7 @@
 
 import Combine
 
-public final class EvolvClientImpl: EvolvClient {
+final class EvolvClientImpl: EvolvClient {
     private let scope: AnyHashable
     
     public var activeKeys: AnyPublisher<Set<String>, Never> { evolvStore.activeKeys.eraseToAnyPublisher() }
