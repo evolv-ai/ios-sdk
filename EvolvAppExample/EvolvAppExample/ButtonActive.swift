@@ -19,6 +19,6 @@
 import Foundation
 
 enum ButtonActive: String, Decodable {
-    case left
-    case right
+    case button1
+    case button2
 }
