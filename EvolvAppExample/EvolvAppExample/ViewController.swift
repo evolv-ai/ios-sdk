@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
         // Store the received object to work with it later.
-        EvolvClientImpl.initialize(options: options)
+        EvolvClientFactory(with: options).initializeClient()
             .sink(receiveCompletion: { publisherResult in
                 switch publisherResult {
                 case .finished:

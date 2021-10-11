@@ -26,11 +26,6 @@ public protocol EvolvClient {
     /// Active variant keys evaluated in the current Evolv context.
     var activeVariantKeys: AnyPublisher<Set<String>, Never> { get }
     
-    /// Initialises EvolvClient with desired EvolvClientOptions
-    /// - Parameter options: Provide desired options for the EvolvClient.
-    /// - Returns: Publisher for the EvolvClient object.
-    static func initialize(options: EvolvClientOptions) -> AnyPublisher<EvolvClient, Error>
-    
     /// Sends a confirmed event to Evolv.
     ///
     /// Method produces a confirmed event which confirms the participant's
