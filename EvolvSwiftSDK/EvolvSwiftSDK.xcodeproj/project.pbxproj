@@ -310,8 +310,8 @@
 		8D9C6110266F8C450011EC8A /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				59C935BF270DB877006CFD8C /* AllocationContainer.swift */,
 				8D9C60F7266F88630011EC8A /* Allocation.swift */,
+				59C935BF270DB877006CFD8C /* AllocationContainer.swift */,
 				59C935BD270DB598006CFD8C /* ExcludedAllocation.swift */,
 				8D9C60F8266F88630011EC8A /* Configuration.swift */,
 			);
