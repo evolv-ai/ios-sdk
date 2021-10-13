@@ -224,7 +224,7 @@ final class EvolvClientImpl: EvolvClient {
     
     public func get<T: Decodable>(decodableValueForKey key: String, type: T.Type) throws -> T? {
         guard let anyValue = self.get(valueForKey: key),
-              let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue, options: .fragmentsAllowed)
+              let data = try? JSONSerialization.data(withJSONObject: anyValue, options: .fragmentsAllowed)
         else { return nil }
         
         return try? JSONDecoder().decode(T.self, from: data)
@@ -239,7 +239,7 @@ final class EvolvClientImpl: EvolvClient {
         evolvStore.get(subscriptionOnValueForKey: key)
             .map { value -> T? in
                 guard let anyValue = value,
-                      let data = try? JSONSerialization.crashSafeData(withJSONObject: anyValue, options: .fragmentsAllowed)
+                      let data = try? JSONSerialization.data(withJSONObject: anyValue, options: .fragmentsAllowed)
                 else { return nil }
                 
                 return try? JSONDecoder().decode(T.self, from: data)
