@@ -22,12 +22,8 @@ let package = Package(
         .target(
             name: "EvolvSwiftSDK",
             dependencies: [],
-            path: "EvolvSwiftSDK/Sources"),
-        .testTarget(
-            name: "EvolvSwiftSDKTests",
-            dependencies: ["EvolvSwiftSDK"],
-            path: "EvolvSwiftSDKTests",
-            resources: [.process("TestingData/*")]),
+            path: "EvolvSwiftSDK/EvolvSwiftSDK/Sources",
+            exclude: ["Utils/Logger", "Supporting Files/Info.plist"])
     ],
     swiftLanguageVersions: [.v5]
 )
