@@ -68,7 +68,7 @@ extension Dictionary {
     }
     
     func encoded(options opt: JSONSerialization.WritingOptions = []) -> Data? {
-        try? JSONSerialization.crashSafeData(withJSONObject: self, options: opt)
+        try? JSONSerialization.data(withJSONObject: self, options: opt)
     }
 }
 
@@ -77,27 +77,6 @@ extension JSONDecoder {
         let data = try JSONSerialization.data(withJSONObject: obj, options: options)
         
         return try self.decode(type, from: data)
-    }
-}
-
-extension JSONSerialization {
-    static func crashSafeData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
-        var dataResult: Result<Data, Error> = .failure(NSError(domain: "Evolv", code: 0, userInfo: nil))
-        
-        let exception = tryBlock {
-            do {
-                let result = try JSONSerialization.data(withJSONObject: obj, options: opt)
-                dataResult = .success(result)
-            } catch {
-                dataResult = .failure(error)
-            }
-        }
-        
-        if let exception = exception {
-            dataResult = .failure(NSError(domain: "Evolv", code: -1, userInfo: ["exception": exception]))
-        }
-        
-        return try dataResult.get()
     }
 }
 
