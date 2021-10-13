@@ -105,7 +105,7 @@ final class EvolvClientImpl: EvolvClient {
             
             WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { [weak self] payload in
                 guard let self = self,
-                      payload["local"] as? Bool == false,
+                      payload["remote"] as? Bool == true,
                       let type = payload["it"] as? String,
                       let key = payload["key"] as? String
                 else { return }
