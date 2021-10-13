@@ -16,6 +16,7 @@
 //  limitations under the License.
 //
 
+import Foundation
 import Combine
 
 /// A type that can store and retrieve participant's allocations.

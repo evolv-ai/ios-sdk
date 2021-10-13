@@ -16,6 +16,7 @@
 //  limitations under the License.
 //
 
+import Foundation
 @testable import EvolvSwiftSDK
 
 extension EvolvBeaconMessage: Equatable, Hashable {
