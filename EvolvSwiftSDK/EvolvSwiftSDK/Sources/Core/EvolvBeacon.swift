@@ -38,11 +38,20 @@ class EvolvBeacon {
     }
     
     private func sendAwaitingMessagesOnTimeout() {
+        let batchSize = 25
+        
         awaitingMessagesCancellable = awaitingMessages
             .debounce(for: .seconds(2), scheduler: RunLoop.main)
             .filter { !$0.isEmpty }
+            .map { values in
+                stride(from: 0, to: values.count, by: batchSize).map {
+                    Array(values[$0..<min($0 + batchSize, values.count)])
+                }
+            }
             .sink { [weak self] messages in
-                self?.transmit(messages: messages)
+                messages.forEach {
+                    self?.transmit(messages: $0)
+                }
             }
     }
     
