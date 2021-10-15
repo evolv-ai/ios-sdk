@@ -12,7 +12,7 @@ pod 'EvolvSwiftSDK'
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 ```swift
 dependencies: [
-    .package(url: "https://github.com/evolv-ai/ios-sdk.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/evolv-ai/ios-sdk.git", .upToNextMajor(from: "1.0.1"))
 ]
 ```
 
