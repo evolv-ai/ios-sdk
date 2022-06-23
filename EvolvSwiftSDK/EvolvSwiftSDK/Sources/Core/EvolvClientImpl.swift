@@ -79,7 +79,8 @@ final class EvolvClientImpl: EvolvClient {
                       let type = payload["it"] as? String
                 else { return }
                 
-                self.contextBeacon.emit(type: type, payload: [AnyHashable : Any]().encoded())
+                struct Empty: Encodable {}
+                self.contextBeacon.emit(type: type, payload: Empty())
             }
             
             WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { [weak self] payload in
