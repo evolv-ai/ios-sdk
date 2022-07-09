@@ -195,6 +195,7 @@ struct Rule: Codable, Equatable, Hashable {
     
     enum RuleOperator: String, Codable, Equatable {
         case equal = "equal"
+        case looseEqual = "loose_equal"
         case notEqual = "not_equal"
         case contains = "contains"
         case notContains = "not_contains"
@@ -206,6 +207,8 @@ struct Rule: Codable, Equatable, Hashable {
     func evaluateRule(value userValue: String?) -> Bool {
         switch self.ruleOperator {
         case .equal:
+            return self.value == userValue
+        case .looseEqual:
             return self.value == userValue
         case .notEqual:
             return self.value != userValue
@@ -230,7 +233,6 @@ struct CompoundRule: Decodable, Equatable, Hashable {
         case or
     }
     
-    let id: Int?
     let combinator: Combinator
     let rules: [EvolvQuery]
     

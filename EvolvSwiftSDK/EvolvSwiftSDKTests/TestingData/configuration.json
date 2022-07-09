@@ -10,12 +10,12 @@
         {
             "web": {},
             "_predicate": {
-                "id": 1165,
+                "id": "1165",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "location",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "UA"
                     },
                     {
@@ -23,7 +23,7 @@
                         "rules": [
                             {
                                 "field": "location",
-                                "operator": "equal",
+                                "operator": "loose_equal",
                                 "value": "UA"
                             },
                             {
@@ -42,7 +42,7 @@
                     "rules": [
                         {
                             "field": "view",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "home"
                         }
                     ]
@@ -68,7 +68,7 @@
                     "rules": [
                         {
                             "field": "view",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "next"
                         }
                     ]
@@ -87,12 +87,12 @@
         {
             "web": {},
             "_predicate": {
-                "id": 156,
+                "id": "156",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "signedin",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "yes"
                     }
                 ]
@@ -115,12 +115,12 @@
         {
             "web": {},
             "_predicate": {
-                "id": 165,
+                "id": "165",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "authenticated",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "false"
                     },
                     {
@@ -137,17 +137,17 @@
                     "rules": [
                         {
                             "field": "device",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "mobile"
                         },
                         {
                             "field": "device",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "desktop"
                         },
                         {
                             "field": "platform",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "windows"
                         }
                     ]

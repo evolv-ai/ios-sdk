@@ -370,9 +370,9 @@ class EvolvClientTests: XCTestCase {
 extension EvolvClientTests {
     func testDataCallContextIsInitialized() {
         let _ = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
-        
+        struct Empty: Encodable {}
         let actualSubmittedData = evolvAPI.submittedData.first
-        let expectedSubmittedDatta = EvolvBeaconMessage(uid: options.participantID, messages: [.init(type: CONTEXT_INITIALIZED, payload: AnyEncodable([AnyHashable : Any]().encoded()))])
+        let expectedSubmittedDatta = EvolvBeaconMessage(uid: options.participantID, messages: [.init(type: CONTEXT_INITIALIZED, payload: AnyEncodable(Empty()))])
         
         XCTAssertEqual(actualSubmittedData, expectedSubmittedDatta)
     }
