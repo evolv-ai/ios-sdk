@@ -40,7 +40,7 @@ class EvolvClientTests: XCTestCase {
         evolvAPI = EvolvAPIMock(evolvConfiguration: configuration, evolvAllocations: allocations)
         evolvBeacon = EvolvBeaconMock(endPoint: evolvAPI.submit(data:), uid: "80658403_1629111253538", blockTransmit: false)
         
-        options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, beacon: evolvBeacon)
+        options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", beacon: evolvBeacon)
     }
 
     override func tearDownWithError() throws {
@@ -54,7 +54,7 @@ class EvolvClientTests: XCTestCase {
     }
     
     // MARK: - Confirm
-    func testEvolvClientConfirm() {
+    func testEvolvClientConfirmEntryWithChildNodes() {
         let context = EvolvContextContainerImpl(remoteContextUserInfo: ["location" : "UA",
                                                                         "view" : "home",
                                                                         "signedin" : "yes"],
@@ -67,6 +67,21 @@ class EvolvClientTests: XCTestCase {
         
         let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvConfirmation]
         let expectedSubmittedEvents = [EvolvConfirmation(cid: "5fa0fd38aae6:47d857cd5e", uid: "C51EEAFC-724D-47F7-B99A-F3494357F164", eid: "ff01d1516c", timeStamp: actualSubmittedEvents[0].timeStamp)]
+        
+        XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
+    }
+    
+    func testEvolvClientConfirmEntryWithoutChildNodes() {
+        let context = EvolvContextContainerImpl(remoteContextUserInfo: ["noChildren" : "true"],
+                                                localContextUserInfo: [:], scope: scope)
+        
+        let store = EvolvStoreImpl.initialize(evolvContext: context, evolvAPI: evolvAPI, scope: scope).wait()
+        let client = EvolvClientImpl(options: options, evolvStore: store, evolvAPI: evolvAPI, scope: scope)
+        
+        client.confirm()
+        
+        let actualSubmittedEvents = evolvAPI.submittedEvents as! [EvolvConfirmation]
+        let expectedSubmittedEvents = [EvolvConfirmation(cid: "5fa0fd38aae6:1234567890", uid: "A", eid: "1234567890", timeStamp: actualSubmittedEvents[0].timeStamp)]
         
         XCTAssertEqual(expectedSubmittedEvents, actualSubmittedEvents)
     }
@@ -391,7 +406,7 @@ extension EvolvClientTests {
     func testDataCallUserInfoIsAdded() {
         let remoteContext = ["device" : "mobile",
                              "location" : "UA"]
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: remoteContext, beacon: evolvBeacon)
         let _ = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         let actualSubmittedData = evolvAPI.submittedData.set()
@@ -405,7 +420,7 @@ extension EvolvClientTests {
     
     func testDataCallUserInfoIsChanged() {
         let remoteContext = ["location" : "UA"]
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: remoteContext, beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         _ = client.set(key: "location", value: "US", local: false)
@@ -423,7 +438,7 @@ extension EvolvClientTests {
         let remoteContext = ["location":"UA",
                              "view":"home",
                              "name":"Alex"]
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: remoteContext, beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: remoteContext, beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         _ = client.set(key: "view", value: "next", local: false)
@@ -441,7 +456,7 @@ extension EvolvClientTests {
 // MARK: - On listeners
 extension EvolvClientTests {
     func testOnContextValueAdded() {
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         struct Value: Equatable, Hashable {
@@ -462,7 +477,7 @@ extension EvolvClientTests {
     }
     
     func testOnSameContextValueChangedForRemoteAndLocal() {
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         struct Value: Equatable, Hashable {
@@ -488,7 +503,7 @@ extension EvolvClientTests {
     }
     
     func testOnContextValueRemoved() {
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         struct Value: Equatable, Hashable {
@@ -516,7 +531,7 @@ extension EvolvClientTests {
     }
     
     func testOnceContextValueChanged() {
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         struct Value: Equatable, Hashable {
@@ -541,7 +556,7 @@ extension EvolvClientTests {
     }
     
     func testOnEmitEventWithMetadata() {
-        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", analytics: true, remoteContext: [:], beacon: evolvBeacon)
+        let options = EvolvClientOptions(evolvDomain: "participants-stg.evolv.ai", participantID: "80658403_1629111253538", environmentId: "4a64e0b2ab", remoteContext: [:], beacon: evolvBeacon)
         let client = EvolvClientImpl(options: options, evolvAPI: evolvAPI, scope: scope).initialize().wait()
         
         struct Metadata: Encodable, Equatable {

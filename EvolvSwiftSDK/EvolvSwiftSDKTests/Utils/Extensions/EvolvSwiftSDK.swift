@@ -79,8 +79,6 @@ extension EvolvClientOptions: Encodable {
             case evolvDomain
             case participantID
             case environmentId
-            case autoConfirm
-            case analytics
             case blockTransmit
             case bufferEvents
             case remoteContext
@@ -92,8 +90,6 @@ extension EvolvClientOptions: Encodable {
         try container.encode(evolvDomain, forKey: .evolvDomain)
         try container.encode(participantID, forKey: .participantID)
         try container.encode(environmentId, forKey: .environmentId)
-        try container.encode(autoConfirm, forKey: .autoConfirm)
-        try container.encode(analytics, forKey: .analytics)
         try container.encode(blockTransmit, forKey: .blockTransmit)
         try container.encode(remoteContext, forKey: .remoteContext)
         try container.encode(localContext, forKey: .localContext)
