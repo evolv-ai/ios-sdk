@@ -73,56 +73,52 @@ final class EvolvClientImpl: EvolvClient {
     }
     
     private func waitForOnInitialization() {
-        if options.analytics {
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { [weak self] payload in
-                guard let self = self,
-                      let type = payload["it"] as? String
-                else { return }
-                
-                struct Empty: Encodable {}
-                self.contextBeacon.emit(type: type, payload: Empty())
-            }
+        WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_INITIALIZED) { [weak self] payload in
+            guard let self = self,
+                  let type = payload["it"] as? String
+            else { return }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { [weak self] payload in
-                guard let self = self,
-                      payload["local"] as? Bool == false,
-                      let type = payload["it"] as? String,
-                      let key = payload["key"] as? String,
-                      let value = payload["value"] as? Encodable
-                else { return }
-                
-                self.contextBeacon.emit(type: type, key: key, value: value)
-            }
+            struct Empty: Encodable {}
+            self.contextBeacon.emit(type: type, payload: Empty())
+        }
+        
+        WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_ADDED) { [weak self] payload in
+            guard let self = self,
+                  payload["local"] as? Bool == false,
+                  let type = payload["it"] as? String,
+                  let key = payload["key"] as? String,
+                  let value = payload["value"] as? Encodable
+            else { return }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_CHANGED) { [weak self] payload in
-                guard let self = self,
-                      payload["local"] as? Bool == false,
-                      let type = payload["it"] as? String,
-                      let key = payload["key"] as? String,
-                      let value = payload["value"] as? Encodable
-                else { return }
-                
-                self.contextBeacon.emit(type: type, key: key, value: value)
-            }
+            self.contextBeacon.emit(type: type, key: key, value: value)
+        }
+        
+        WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_CHANGED) { [weak self] payload in
+            guard let self = self,
+                  payload["local"] as? Bool == false,
+                  let type = payload["it"] as? String,
+                  let key = payload["key"] as? String,
+                  let value = payload["value"] as? Encodable
+            else { return }
             
-            WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { [weak self] payload in
-                guard let self = self,
-                      payload["remote"] as? Bool == true,
-                      let type = payload["it"] as? String,
-                      let key = payload["key"] as? String
-                else { return }
-                
-                self.contextBeacon.emit(type: type, key: key, value: nil)
-            }
+            self.contextBeacon.emit(type: type, key: key, value: value)
+        }
+        
+        WaitForIt.shared.waitFor(scope: scope, it: CONTEXT_VALUE_REMOVED) { [weak self] payload in
+            guard let self = self,
+                  payload["remote"] as? Bool == true,
+                  let type = payload["it"] as? String,
+                  let key = payload["key"] as? String
+            else { return }
+            
+            self.contextBeacon.emit(type: type, key: key, value: nil)
         }
     }
     
     private func waitForAfterInitialization() {
-        if options.autoConfirm {
-            self.confirm()
-            WaitForIt.shared.waitFor(scope: scope, it: REQUEST_FAILED) { payload in
-                // self?.contaminate(details: , allExperiments: )
-            }
+        self.confirm()
+        WaitForIt.shared.waitFor(scope: scope, it: REQUEST_FAILED) { payload in
+            // self?.contaminate(details: , allExperiments: )
         }
         
         WaitForIt.shared.emit(scope: scope, it: EvolvClient_INITIALIZED, ["options":options])

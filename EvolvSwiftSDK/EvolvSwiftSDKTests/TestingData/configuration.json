@@ -8,14 +8,38 @@
     },
     "_experiments": [
         {
+            "_predicate": {
+                "id": "1165",
+                "combinator": "and",
+                "rules": [
+                ]
+            },
+            "nochildrennode": {
+                "_is_entry_point": true,
+                "_predicate": {
+                    "combinator": "and",
+                    "rules": [
+                        {
+                            "field": "noChildren",
+                            "operator": "loose_equal",
+                            "value": "true"
+                        }
+                    ]
+                },
+                "_initializers": true
+            },
+            "id": "1234567890",
+            "_paused": false
+        },
+        {
             "web": {},
             "_predicate": {
-                "id": 1165,
+                "id": "1165",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "location",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "UA"
                     },
                     {
@@ -23,7 +47,7 @@
                         "rules": [
                             {
                                 "field": "location",
-                                "operator": "equal",
+                                "operator": "loose_equal",
                                 "value": "UA"
                             },
                             {
@@ -42,7 +66,7 @@
                     "rules": [
                         {
                             "field": "view",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "home"
                         }
                     ]
@@ -68,7 +92,7 @@
                     "rules": [
                         {
                             "field": "view",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "next"
                         }
                     ]
@@ -87,12 +111,12 @@
         {
             "web": {},
             "_predicate": {
-                "id": 156,
+                "id": "156",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "signedin",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "yes"
                     }
                 ]
@@ -115,12 +139,12 @@
         {
             "web": {},
             "_predicate": {
-                "id": 165,
+                "id": "165",
                 "combinator": "and",
                 "rules": [
                     {
                         "field": "authenticated",
-                        "operator": "equal",
+                        "operator": "loose_equal",
                         "value": "false"
                     },
                     {
@@ -137,17 +161,17 @@
                     "rules": [
                         {
                             "field": "device",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "mobile"
                         },
                         {
                             "field": "device",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "desktop"
                         },
                         {
                             "field": "platform",
-                            "operator": "equal",
+                            "operator": "loose_equal",
                             "value": "windows"
                         }
                     ]

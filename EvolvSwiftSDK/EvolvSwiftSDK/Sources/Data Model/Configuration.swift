@@ -103,7 +103,11 @@ struct Experiment: Decodable, Equatable {
     
     func getKey(at path: ExperimentKey.ExperimentKeyPath) -> ExperimentKey? {
         func getKey(at path: ExperimentKey.ExperimentKeyPath, from key: ExperimentKey) -> ExperimentKey? {
-            key.subKeys.first { $0.keyPath == path } ??
+            if (key.keyPath == path) {
+                return key;
+            }
+            
+            return key.subKeys.first { $0.keyPath == path } ??
             key.subKeys.first { getKey(at: path, from: $0) != nil }
         }
         
@@ -195,17 +199,29 @@ struct Rule: Codable, Equatable, Hashable {
     
     enum RuleOperator: String, Codable, Equatable {
         case equal = "equal"
+        case looseEqual = "loose_equal"
         case notEqual = "not_equal"
         case contains = "contains"
         case notContains = "not_contains"
         case exists
         case regexMatch = "regex_match"
         case notRegexMatch = "not_regex_match"
+        /* TODO add in support for
+         greater_than
+        greater_than_or_equal_to
+        is_true
+        is_false
+        not_exists
+        less_than
+        less_than_or_equal_to
+        loose_not_equal*/
     }
     
     func evaluateRule(value userValue: String?) -> Bool {
         switch self.ruleOperator {
         case .equal:
+            return self.value == userValue
+        case .looseEqual:
             return self.value == userValue
         case .notEqual:
             return self.value != userValue
@@ -230,7 +246,6 @@ struct CompoundRule: Decodable, Equatable, Hashable {
         case or
     }
     
-    let id: Int?
     let combinator: Combinator
     let rules: [EvolvQuery]
     

@@ -40,7 +40,6 @@ class ConfigurationDataTest: XCTestCase {
     func testCanParseConfigurationJSONFile() throws {
         XCTAssertEqual("desktop", configurationData.client.device)
         XCTAssertEqual("BY", configurationData.client.location)
-        XCTAssertEqual(156, configurationData.experiments[1].predicate?.id)
         XCTAssertEqual("ff01d1516c", configurationData.experiments[0].id)
         XCTAssertEqual(false, configurationData.experiments[0].paused)
     }
@@ -74,9 +73,9 @@ class ConfigurationDataTest: XCTestCase {
           ]
         }
         """.data(using: .utf8)!
-        let expectedDecodedPredicate = CompoundRule(id: 156, combinator: .and, rules: [
+        let expectedDecodedPredicate = CompoundRule(combinator: .and, rules: [
                                                         .rule(.init(field: "location", ruleOperator: .equal, value: "UA")),
-                                                        .compoundRule(.init(id: nil, combinator: .or, rules: [
+                                                        .compoundRule(.init(combinator: .or, rules: [
                                                                                 .rule(.init(field: "location", ruleOperator: .equal, value: "UA")),
                                                                                 .rule(.init(field: "Student", ruleOperator: .contains, value: "High_school"))]))])
         
@@ -125,12 +124,10 @@ class ConfigurationDataTest: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let expectedPredicate = MockRulesContainer(_predicate: .init(id: nil,
-                                                                     combinator: .or,
+        let expectedPredicate = MockRulesContainer(_predicate: .init(combinator: .or,
                                                                      rules: [
                                                                         .rule(.init(field: "device", ruleOperator: .equal, value: "mobile")),
-                                                                        .compoundRule(.init(id: nil,
-                                                                                            combinator: .or,
+                                                                        .compoundRule(.init(combinator: .or,
                                                                                             rules: [
                                                                                                 .rule(.init(field: "location",
                                                                                                             ruleOperator: .equal,
@@ -229,14 +226,14 @@ class ConfigurationDataTest: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let experiment = Experiment(predicate: .init(id: nil, combinator: .and, rules: [
+        let experiment = Experiment(predicate: .init(combinator: .and, rules: [
                                                         .rule(.init(field: "color", ruleOperator: .equal, value: "blue"))]),
                                     id: "ff01d1516c",
                                     paused: false,
                                     experimentKeys: [
                                         .init(keyPath: .init(keyPath: ["home"]),
                                               isEntryPoint: true,
-                                              predicate: .init(id: nil, combinator: .and, rules: [.rule(.init(field: "view", ruleOperator: .equal, value: "home"))]),
+                                              predicate: .init(combinator: .and, rules: [.rule(.init(field: "view", ruleOperator: .equal, value: "home"))]),
                                               values: nil,
                                               initializers: false,
                                               subKeys: [
@@ -249,16 +246,14 @@ class ConfigurationDataTest: XCTestCase {
                                                 .init(keyPath: .init(keyPath: ["home", "cta_text"]),
                                                       isEntryPoint: false,
                                                       predicate:
-                                                        .init(id: nil,
-                                                              combinator: .and,
+                                                        .init(combinator: .and,
                                                               rules: [.rule(.init(field: "home", ruleOperator: .contains, value: "none"))]),
                                                       values: true,
                                                       initializers: true,
                                                       subKeys: [
                                                         .init(keyPath: .init(keyPath: ["home", "cta_text", "font"]),
                                                               isEntryPoint: false,
-                                                              predicate: .init(id: nil, combinator: .or,
-                                                                               rules: [.rule(.init(field: "age", ruleOperator: .notEqual, value: "25")),
+                                                              predicate: .init(combinator: .or, rules: [.rule(.init(field: "age", ruleOperator: .notEqual, value: "25")),
                                                                                        .rule(.init(field: "location", ruleOperator: .notEqual, value: "UK"))]),
                                                               values: true,
                                                               initializers: true,

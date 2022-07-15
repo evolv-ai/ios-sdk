@@ -1,5 +1,23 @@
 [
     {
+        "uid": "A",
+        "eid": "1234567890",
+        "cid": "5fa0fd38aae6:1234567890",
+        "genome": {
+            "nochildrennode": {}
+        },
+        "audience_query": {
+            "id": 174,
+            "name": "Empty_Audiences",
+            "combinator": "and",
+            "rules": [
+            ]
+        },
+        "ordinal": 0,
+        "group_id": "a11ce252-92b5-4611-a00c-0e4120369c96",
+        "excluded": false
+    },
+    {
         "uid": "C51EEAFC-724D-47F7-B99A-F3494357F164",
         "eid": "ff01d1516c",
         "cid": "5fa0fd38aae6:47d857cd5e",
