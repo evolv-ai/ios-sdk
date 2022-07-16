@@ -248,8 +248,9 @@ final class EvolvClientImpl: EvolvClient {
     public func emit<T: Encodable>(eventType: String, metadata: T?, flush: Bool) {
         let event = EvolvCustomEventForSubmission(type: eventType, uid: options.participantID, metadata: metadata)
         
+        let oldEvents = evolvStore.evolvContext.events;
         evolvStore.evolvContext.events.append(.init(type: eventType, timestamp: Date()))
-        
+        self.evolvStore.evolvContext.contextChanged(key: "events", value: evolvStore.evolvContext.events, before: oldEvents)
         evolvAPI.submit(events: [event])
         
         var userInfo: [String : Any] = ["type" : eventType]
