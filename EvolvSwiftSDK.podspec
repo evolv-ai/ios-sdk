@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "EvolvSwiftSDK"
-  spec.version      = "1.0.1"
+  spec.version      = "1.1.0"
   spec.summary      = "Swift SDK for integration of Evolv Optimization"
   spec.description  = <<-DESC
 'This SDK is designed to be integrated into projects to allow for optimizing with Evolv'
