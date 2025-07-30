@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         // MARK: - Initialise options for the EvolvClient.
         // Provide your credentials for the Evolv API
         // and any other desired options, such as initial context, autoconfirm etc.
-        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc", autoConfirm: false, analytics: true)
+        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc")
         
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         // replace it with default value ("Some text" in this case).
         self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "app_entry.example_text", type: String.self)
-            .compactMap { $0 ?? "Alternative text" }
+            .compactMap { $0 ?? "Some text" }
             .sink { [weak self] label in
                 self?.dynamicLabel.text = label
             }.store(in: &cancellables)

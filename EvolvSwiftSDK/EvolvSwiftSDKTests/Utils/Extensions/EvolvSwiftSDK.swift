@@ -19,7 +19,7 @@
 import Foundation
 @testable import EvolvSwiftSDK
 
-extension EvolvBeaconMessage: Equatable, Hashable {
+extension EvolvBeaconMessage: @retroactive Equatable, @retroactive Hashable {
     public static func == (lhs: EvolvBeaconMessage, rhs: EvolvBeaconMessage) -> Bool {
         lhs.uid == rhs.uid &&
         lhs.messages == rhs.messages
@@ -30,14 +30,14 @@ extension EvolvBeaconMessage: Equatable, Hashable {
     }
 }
 
-extension EvolvBeaconMessagePayload: Equatable {
+extension EvolvBeaconMessagePayload: @retroactive Equatable {
     public static func == (lhs: EvolvBeaconMessagePayload, rhs: EvolvBeaconMessagePayload) -> Bool {
         lhs.type == rhs.type &&
         lhs.payload == rhs.payload
     }
 }
 
-extension AnyEncodable: Equatable {
+extension AnyEncodable: @retroactive Equatable {
     public static func == (lhs: AnyEncodable, rhs: AnyEncodable) -> Bool {
         let lhs = lhs._object
         let rhs = rhs._object
@@ -65,14 +65,14 @@ extension AnyEncodable: Equatable {
     }
 }
 
-extension SimpleKVStorage: Equatable {
+extension SimpleKVStorage: @retroactive Equatable {
     public static func == (lhs: SimpleKVStorage, rhs: SimpleKVStorage) -> Bool {
         lhs.key == rhs.key &&
         lhs.value == rhs.value
     }
 }
 
-extension EvolvClientOptions: Encodable {
+extension EvolvClientOptions: @retroactive Encodable {
     public func encode(to encoder: Encoder) throws {
         enum CodingKeys: String, CodingKey {
             case apiVersion

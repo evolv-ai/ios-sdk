@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8DC547562664D7E6009E2B19"
+               BuildableName = "EvolvAppExampleTests.xctest"
+               BlueprintName = "EvolvAppExampleTests"
+               ReferencedContainer = "container:EvolvAppExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8DC547612664D7E6009E2B19"
+               BuildableName = "EvolvAppExampleUITests.xctest"
+               BlueprintName = "EvolvAppExampleUITests"
+               ReferencedContainer = "container:EvolvAppExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
