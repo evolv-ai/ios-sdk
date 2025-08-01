@@ -80,38 +80,43 @@ final class GenomeObject: NSObject {
     private var rawDictionary: [AnyHashable: Any] = [:]
     
     /// Value in GenomeObject
-    @objc public var value: Any {
+    @objc public var value: Any? {
         get {
             switch type {
-            case .number: return rawNumber
-            case .string: return rawString
-            case .bool: return rawBool
-            case .array: return rawArray
-            case .dictionary: return rawDictionary
-            default: return rawNull
+            case .number: return rawNumber as Any?
+            case .string: return rawString as Any?
+            case .bool: return rawBool as Any?
+            case .array: return rawArray as Any?
+            case .dictionary: return rawDictionary as Any?
+            case .null: return rawNull
+            default: return nil
             }
         }
         set {
-            switch unwrap(newValue) {
-            case let number as NSNumber where CFNumberGetType(number) == .charType:
+            switch newValue {
+            case nil, _ as NSNull:
+                type = .null
+
+            case let num as NSNumber where CFNumberGetType(num) == .charType:
                 type = .bool
-                rawBool = number.boolValue
-            case let number as NSNumber:
+                rawBool = num.boolValue
+
+            case let num as NSNumber:
                 type = .number
-                rawNumber = number
-            case let string as String:
+                rawNumber = num
+
+            case let str as String:
                 type = .string
-                rawString = string
-            case let array as [Any]:
+                rawString = str
+
+            case let array as [Any?]:
                 type = .array
-                rawArray = array
-            case let dictionary as [AnyHashable: Any]:
+                rawArray = array.map { unwrap($0) }
+
+            case let dictionary as [AnyHashable: Any?]:
                 type = .dictionary
-                rawDictionary = dictionary
-            case _ as NSNull:
-                type = .null
-            case nil:
-                type = .null
+                rawDictionary = dictionary.mapValues { unwrap($0) }
+
             default:
                 type = .unknown
             }
@@ -121,29 +126,35 @@ final class GenomeObject: NSObject {
     /// Creates a GenomeObject object
     ///
     /// - Parameter value: the value
-    @objc public required init(_ value: Any) {
+    @objc public required init(_ value: Any?) {
         super.init()
         self.value = value
     }
     
     /// Private method to unwrap a node (recursively)
     ///
-    /// - Parameter key: a node
+    /// - Parameter node: a node
     /// - Returns: a value in node
-    private func unwrap(_ node: Any) -> Any {
+    private func unwrap(_ node: Any?) -> Any {
         switch node {
-        case let singleNode as GenomeObject:
-            return unwrap(singleNode.value)
+        case nil:
+            return NSNull()                      // ensures non-optional
+
+        case let single as GenomeObject:
+            return unwrap(single.value)
+
         case let array as [Any]:
-            return array.map(unwrap)
+            return array.map { unwrap($0) }
+
         case let dictionary as [AnyHashable: Any]:
-            var childDictionary = dictionary
-            dictionary.forEach { keyValuePair in
-                childDictionary[keyValuePair.key] = unwrap(keyValuePair.value)
+            var copy = dictionary
+            dictionary.forEach { key, value in
+                copy[key] = unwrap(value)
             }
-            return childDictionary
+            return copy
+
         default:
-            return node
+            return node!                         // safe unwrap; we ruled out nil above
         }
     }
     
@@ -366,7 +377,7 @@ extension GenomeObject: RawRepresentable {
     }
 
     public var rawValue: Any {
-        return value
+        value ?? NSNull()
     }
 
 }

@@ -46,7 +46,7 @@ class EvolvAPIMock: EvolvAPI {
         return Just((allocations, excludedAllocation))
             .eraseToAnyPublisherWithError()
     }
-    
+
     func submit<T>(events: [T]) where T : EvolvEvent {
         submittedEvents = events
     }

@@ -57,13 +57,13 @@ extension EvolvHTTPAPI: EvolvAPI {
             return (allocations, excludedAllocations)
         }.eraseToAnyPublisher()
     }
-    
+
     func submit<T: EvolvEvent>(events: [T]) {
-        events.forEach {
-            try? httpClient.post(to: httpConfig.eventsURL, with: $0)
-        }
+//y        events.forEach {
+//y            try? httpClient.post(to: httpConfig.eventsURL, with: $0)
+//y        }
     }
-    
+
     func submit(data: EvolvBeaconMessage) {
         try? httpClient.post(to: httpConfig.dataURL, with: data)
     }

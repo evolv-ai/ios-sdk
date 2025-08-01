@@ -22,9 +22,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // MARK: - Initialise options for the EvolvClient.
-        // Provide your credentials for the Evolv API
-        // and any other desired options, such as initial context, autoconfirm etc.
-        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc", autoConfirm: false, analytics: true)
+        // Provide your Evolv environment ID
+        let options = EvolvClientOptions(participantID: "EXAMPLE_USER_ID4", environmentId: "fa881bd6cc")
         
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
@@ -57,7 +56,10 @@ class ViewController: UIViewController {
         // replace it with default value ("Some text" in this case).
         self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "app_entry.example_text", type: String.self)
-            .compactMap { $0 ?? "Alternative text" }
+            .handleEvents(receiveOutput: { value in
+                print("example_text from Evolv:", value ?? "nil")
+            })
+            .compactMap { $0 ?? "Some text" }
             .sink { [weak self] label in
                 self?.dynamicLabel.text = label
             }.store(in: &cancellables)
@@ -65,6 +67,9 @@ class ViewController: UIViewController {
         // Subscribe to "button_active" key value.
         self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "app_entry.button_choice", type: ButtonActive.self)
+            .handleEvents(receiveOutput: { value in
+                print("button_choice from Evolv:", value?.rawValue ?? "nil")
+            })
             .compactMap { $0 ?? .button2 }
             .sink { [weak self] buttonActive in
                 guard let self = self else { return }
@@ -86,12 +91,6 @@ class ViewController: UIViewController {
         let isLoggedIn = sender.isOn ? "yes" : "no"
         
         evolvClient.set(key: "logged_in", value: isLoggedIn, local: false)
-        
-        // MARK: - Confirm into experiment.
-        if sender.isOn {
-            // Call confirm.
-            evolvClient.confirm()
-        }
     }
     
     @IBAction func ageIs25Toggled(_ sender: UISwitch) {

@@ -56,9 +56,7 @@ final class EvolvClientImpl: EvolvClient {
     }
     
     func initialize() -> Future<EvolvClientImpl, Error> {
-        Future { [weak self] promise in
-            guard let self = self else { return }
-            
+        Future { promise in
             self.waitForOnInitialization()
             
             EvolvStoreImpl.initialize(evolvContext: self.initialEvolvContext, evolvAPI: self.evolvAPI, scope: self.scope)
