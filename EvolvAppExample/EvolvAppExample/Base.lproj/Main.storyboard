@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="9K4-61-hUd">
-                                <rect key="frame" x="30" y="188" width="333" height="121"/>
+                                <rect key="frame" x="30" y="188" width="333" height="31"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xU1-fY-qfp">
                                         <rect key="frame" x="0.0" y="0.0" width="333" height="31"/>
@@ -38,49 +38,15 @@
                                             </switch>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiL-bE-god">
-                                        <rect key="frame" x="0.0" y="45" width="333" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age is 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqE-z7-khp" userLabel="Age is 25">
-                                                <rect key="frame" x="0.0" y="0.0" width="284" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Vor-jh-bkg" userLabel="ageIs25">
-                                                <rect key="frame" x="284" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="ageIs25Toggled:" destination="BYZ-38-t0r" eventType="valueChanged" id="ORq-W6-ddp"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88d-Bz-rBx">
-                                        <rect key="frame" x="0.0" y="90" width="333" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name is Alex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jt3-gi-etf" userLabel="Name is Alex">
-                                                <rect key="frame" x="0.0" y="0.0" width="284" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SaZ-yS-z2N" userLabel="nameIsAlex">
-                                                <rect key="frame" x="284" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="nameIsAlexToggled:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ip5-In-IjX"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                    </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bug-4i-wpR">
-                                <rect key="frame" x="30" y="339" width="333" height="25.333333333333314"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Control Headline Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bug-4i-wpR" userLabel="Headline Copy">
+                                <rect key="frame" x="30" y="249.00000000000003" width="333" height="25.333333333333343"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7K-BD-bJL">
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7K-BD-bJL" userLabel="Left Button">
                                 <rect key="frame" x="30" y="664" width="136.66666666666666" height="50"/>
                                 <color key="backgroundColor" name="AccentColor"/>
                                 <constraints>
@@ -88,7 +54,7 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Left button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -99,16 +65,21 @@
                                     <action selector="bottomButtonTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2gc-E6-5Dg"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNw-4S-XWh">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNw-4S-XWh" userLabel="Right Button">
                                 <rect key="frame" x="226.66666666666663" y="664" width="136.33333333333337" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray3Color"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Right button"/>
+                                <state key="normal" title="Right button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="bottomButtonTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pUv-M5-oji"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -132,11 +103,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="button1" destination="b7K-BD-bJL" id="cXs-RJ-D3A"/>
-                        <outlet property="button2" destination="KNw-4S-XWh" id="Pfu-h2-aDP"/>
-                        <outlet property="dynamicLabel" destination="Bug-4i-wpR" id="OMA-kd-nCU"/>
-                        <outletCollection property="switches" destination="SaZ-yS-z2N" collectionClass="NSMutableArray" id="5Um-ad-IOx"/>
-                        <outletCollection property="switches" destination="Vor-jh-bkg" collectionClass="NSMutableArray" id="bhO-Bu-OAJ"/>
+                        <outlet property="dynamicLabel" destination="Bug-4i-wpR" id="m6y-1O-Vd3"/>
+                        <outlet property="leftButton" destination="b7K-BD-bJL" id="fEJ-zX-fwl"/>
+                        <outlet property="rightButton" destination="KNw-4S-XWh" id="L8y-Es-A5D"/>
                         <outletCollection property="switches" destination="v3d-1D-rUU" collectionClass="NSMutableArray" id="tQk-Mj-Ub2"/>
                     </connections>
                 </viewController>
@@ -150,10 +119,10 @@
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
