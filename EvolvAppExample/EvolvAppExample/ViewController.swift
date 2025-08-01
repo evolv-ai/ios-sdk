@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         // MARK: - Initialise options for the EvolvClient.
         // Provide your credentials for the Evolv API
         // and any other desired options, such as initial context, autoconfirm etc.
-        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID5", environmentId: "fa881bd6cc")
+        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc")
         
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
