@@ -35,7 +35,7 @@ Open `EvolvSwiftSDK.xcworkspace`, choose `EvolvAppExample` target and hit Run.
 
 This sample app demonstrates how the Evolv AI SDK manages context, allocation, variant switching, and goal tracking in a live test environment. The app connects to an actual experiment and displays live variant behavior and telemetry.
 
-### 🔁 Variant Behavior Demonstration
+### Variant Behavior Demonstration
 
 - **Example Text Variant**
   - Once the user is confirmed into the test (see "Logged in" below), a text element in the UI will show either:
@@ -65,12 +65,12 @@ This sample app demonstrates how the Evolv AI SDK manages context, allocation, v
   - When on: Adds `"name": "Alex"` to the context.
   - When off: Removes the `"name"` key from the context.
 
-### 🎯 Goal Tracking
+### Goal Tracking
 
 - Pressing either button fires a `goal_achieved` event to the Evolv backend.
 - These events are used to compare variant performance in the **Evolv Manager** dashboard.
 
-### 📊 Observing Behavior in Evolv Manager
+### Observing Behavior in Evolv Manager
 
 To see real-time allocation and performance:
 
@@ -80,7 +80,7 @@ To see real-time allocation and performance:
   - **Button Choice**: `"button1"` vs `"button2"`
 - You’ll also be able to monitor conversion events (goals) and how each variant performs.
 
-### 🔁 Usage Notes for Developers
+### Usage Notes for Developers
 
 - The same user ID receives the same treatment (variant combination).
 - To test different variants:
