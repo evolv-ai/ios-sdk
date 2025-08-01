@@ -28,7 +28,7 @@ public struct EvolvClientOptions {
     public let localContext: [String : String]
     let beacon: EvolvBeacon?
     
-    public init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String, environmentId: String, remoteContext: [String : String] = [:], localContext: [String : String] = [:], blockTransmit: Bool = false) {
+    public init(apiVersion: Int = 1, evolvDomain: String = "participants.evolv.ai", participantID: String, environmentId: String, remoteContext: [String : String] = [:], localContext: [String : String] = [:], blockTransmit: Bool = false) {
         self.apiVersion = apiVersion
         self.evolvDomain = evolvDomain
         self.participantID = participantID
@@ -39,7 +39,7 @@ public struct EvolvClientOptions {
         self.beacon = nil
     }
     
-    init(apiVersion: Int = 1, evolvDomain: String = "participants-stg.evolv.ai", participantID: String = "80658403_1629111253538", environmentId: String = "4a64e0b2ab", remoteContext: [String : String] = [:], localContext: [String : String] = [:], blockTransmit: Bool = false, beacon: EvolvBeacon) {
+    init(apiVersion: Int = 1, evolvDomain: String = "participants.evolv.ai", participantID: String, environmentId: String, remoteContext: [String : String] = [:], localContext: [String : String] = [:], blockTransmit: Bool = false, beacon: EvolvBeacon) {
         self.apiVersion = apiVersion
         self.evolvDomain = evolvDomain
         self.participantID = participantID
