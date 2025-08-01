@@ -59,9 +59,6 @@ extension EvolvHTTPAPI: EvolvAPI {
     }
 
     func submit<T: EvolvEvent>(events: [T]) {
-//y        events.forEach {
-//y            try? httpClient.post(to: httpConfig.eventsURL, with: $0)
-//y        }
     }
 
     func submit(data: EvolvBeaconMessage) {
