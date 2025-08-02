@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         
         // MARK: - Initialise options for the EvolvClient.
         // Provide your Evolv environment ID
-        let options = EvolvClientOptions(participantID: "EXAMPLE_USER_ID3", environmentId: "fa881bd6cc")
+        let options = EvolvClientOptions(participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc")
         
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
