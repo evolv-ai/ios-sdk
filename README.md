@@ -15,7 +15,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for ma
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/evolv-ai/ios-sdk.git", .upToNextMajor(from: "1.1.0"))
+    .package(url: "https://github.com/evolv-ai/ios-sdk.git", .upToNextMajor(from: "1.2.0"))
 ]
 ```
 
@@ -49,7 +49,7 @@ This sample app demonstrates how the Evolv AI SDK manages context, allocation, v
     - `"button2"` (e.g., right-aligned or differently styled).
   - Controlled by the **Button Choice** variable, served when the user is confirmed.
 
-### 🧠 Context Handling
+### Context Handling
 
 - **"Logged in" Toggle**
   - When switched on:
@@ -78,7 +78,8 @@ To see real-time allocation and performance:
 - Under **Variants**, you can observe:
   - **Example Text**: `"Some text"` vs `"Alternative Text"`
   - **Button Choice**: `"button1"` vs `"button2"`
-- You’ll also be able to monitor conversion events (goals) and how each variant performs.
+- You'll be able to create audiences like "User is 25" to see how that audience is doing (see below) ![screenshot](manager-with-audience-dropdown-open.png)
+- And you’ll also be able to monitor conversion events (goals) and how each variant performs.
 
 ### Usage Notes for Developers
 
