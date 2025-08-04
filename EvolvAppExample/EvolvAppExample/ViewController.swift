@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         // MARK: - Initialise options for the EvolvClient.
         // Provide your credentials for the Evolv API
         // and any other desired options, such as initial context, autoconfirm etc.
-        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID", environmentId: "fa881bd6cc")
+        let options = EvolvClientOptions(evolvDomain: "participants.evolv.ai", participantID: "EXAMPLE_USER_ID3", environmentId: "fa881bd6cc")
         
         // MARK: - Initialise EvolvClient.
         // Populate it with desired options.
@@ -56,7 +56,6 @@ class ViewController: UIViewController {
         // Subscribe to "evolv_test.headline" key value.
         self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "evolv_test.headline", type: String.self)
-//                .compactMap { $0 ?? "control" } // remove an nil values
                 .sink { [weak self] variantCode in
                     guard let self = self else { return }
                     
@@ -80,7 +79,6 @@ class ViewController: UIViewController {
         // Subscribe to "evolv_test.button_location" key value.
         self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "evolv_test.button_location", type: String.self)
-//                .compactMap { $0 ?? "control" }
                 .sink { [weak self] variantCode in
                     guard let self = self else { return }
 
@@ -103,7 +101,6 @@ class ViewController: UIViewController {
           // Subscribe to "evolv_test.button_color" key value.
           self.evolvClient
             .get(subscriptionDecodableOnValueForKey: "evolv_test.button_color", type: String.self)
-//                .compactMap { $0 ?? "control"}
                 .sink { [weak self] variantCode in
                     guard let self = self else { return }
                     
